@@ -38,7 +38,7 @@
                 gap: 8px;
             }
 
-        /* ESTILOS PARA NOVEDADES DEL DÍA */
+        /* ESTILOS PARA NOVEDADES DEL DIA */
         .novedades-card {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid #333;
@@ -94,7 +94,7 @@
             margin-top: 10px;
         }
 
-        /* EFECTO HOLOGRÁFICO PARA EL ROL DE CREADOR */
+        /* EFECTO HOLOGRAFICO PARA EL ROL DE CREADOR */
         .rol-holografico {
             background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
             background-size: 400% 400%;
@@ -614,19 +614,19 @@
                 <a href="#" data-i18n="nav_members">Miembros</a>
                 <div class="dropdown-content">
                     <a href="Registro.html" id="menu-registro" data-i18n="btn_register">Registrarse</a>
-                    <a href="Login.html" id="menu-login" data-i18n="btn_login">Iniciar Sesión</a>
+                    <a href="Login.html" id="menu-login" data-i18n="btn_login">Iniciar Sesion</a>
                     <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
                     <a href="cp.html" id="menu-cp" style="display: none; color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
-                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
                 </div>
             </li>
         </ul>
 
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
-                <option value="es">ES - Español</option>
+                <option value="es">ES - Espanol</option>
                 <option value="en">EN - English</option>
-                <option value="pt">PT - Português</option>
+                <option value="pt">PT - Portugues</option>
                 <option value="ru">RU - Русский</option>
                 <option value="ja">JA - 日本語</option>
                 <option value="zh">ZH - 繁體中文</option>
@@ -638,18 +638,18 @@
         <div class="layout-lobby" id="layout-lobby-principal">
 
             <aside class="sidebar-miembros">
-                <!-- TARJETA NOVEDADES DEL DÍA -->
+                <!-- TARJETA NOVEDADES DEL DIA -->
                 <div class="novedades-card">
-                    <h3 data-i18n="daily_news_title">📰 Novedades del día</h3>
+                    <h3 data-i18n="daily_news_title">📰 Novedades del dia</h3>
                     <div class="novedades-item" id="novedad-ultimo-post">
-                        <strong data-i18n="latest_post">Último Post:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
+                        <strong data-i18n="latest_post">Ultimo Post:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
                     </div>
                     <div class="novedades-item" id="novedad-ultimo-miembro">
-                        <strong data-i18n="latest_member">Último Miembro:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
+                        <strong data-i18n="latest_member">Ultimo Miembro:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
                     </div>
                 </div>
 
-                <h3><span class="punto-verde-titulo"></span> <span data-i18n="sidebar_online">En Línea</span></h3>
+                <h3><span class="punto-verde-titulo"></span> <span data-i18n="sidebar_online">En Linea</span></h3>
                 <div class="lista-miembros-index" id="lista-miembros-index">
                     <p style="color: #777; font-size: 0.85rem; text-align: center;" data-i18n="loading">Cargando...</p>
                 </div>
@@ -701,534 +701,534 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-                const ZEO_TRADUCCIONES = {
-                    es: {
-                        nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
-                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
-                        btn_register: "Registrarse", btn_login: "Iniciar Sesión",
-                        loading: "Cargando...", sub_banner: "iJuanFly Community Post", sidebar_online: "En Línea",
-                        chat_btn: "Chat Global", chat_header: "💬 Chat Comunitario (30 min)", loading_chat: "Cargando chat...",
-                        chat_placeholder: "Escribe un mensaje...", chat_send: "Enviar", status_online: "● En línea",
-                        no_online: "No hay usuarios conectados", no_chat: "No hay mensajes recientes. ¡Habla con alguien!",
-                        banned_title: "Acceso Denegado", banned_desc: "Tu perfil ha sido cerrado.",
-                        no_posts: "No hay publicaciones recientes en el foro.", btn_view_discussion: "Ver discusión 💬",
-                        announcements_title: "📌 Anuncios Oficiales", tag_pinned: "📌 Hilo fijado",
-                        by_author: "Por", daily_news_title: "📰 Novedades del día",
-                        latest_post: "Último Post:", latest_member: "Último Miembro:", guest_label: "Visitante (Guest)", no_recent_posts: "Ninguno"
-                    },
-                    en: {
-                        nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
-                        nav_members_list: "Members List", nav_my_panel: "My Panel", nav_logout: "Log Out",
-                        btn_register: "Register", btn_login: "Log In",
-                        loading: "Loading...", sub_banner: "iJuanFly Community Post", sidebar_online: "Online",
-                        chat_btn: "Global Chat", chat_header: "💬 Community Chat (30 min)", loading_chat: "Loading chat...",
-                        chat_placeholder: "Type a message...", chat_send: "Send", status_online: "● Online",
-                        no_online: "No users online", no_chat: "No recent messages. Say something!",
-                        banned_title: "Access Denied", banned_desc: "Your profile has been closed.",
-                        no_posts: "No recent posts in the forum.", btn_view_discussion: "View discussion 💬",
-                        announcements_title: "📌 Official Announcements", tag_pinned: "📌 Pinned Thread",
-                        by_author: "By", daily_news_title: "📰 Daily News",
-                        latest_post: "Latest Post:", latest_member: "Latest Member:", guest_label: "Guest", no_recent_posts: "None"
-                    },
-                    pt: {
-                        nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
-                        nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
-                        btn_register: "Registrar", btn_login: "Entrar",
-                        loading: "Carregando...", sub_banner: "iJuanFly Community Post", sidebar_online: "Online",
-                        chat_btn: "Chat Global", chat_header: "💬 Chat da Comunidade (30 min)", loading_chat: "Carregando chat...",
-                        chat_placeholder: "Digite uma mensagem...", chat_send: "Enviar", status_online: "● Online",
-                        no_online: "Não há usuários conectados", no_chat: "Sem mensagens recentes. Diga algo!",
-                        banned_title: "Acesso Negado", banned_desc: "Seu perfil foi encerrado.",
-                        no_posts: "Nenhuma postagem recente.", btn_view_discussion: "Ver discussão 💬",
-                        announcements_title: "📌 Anúncios Oficiais", tag_pinned: "📌 Tópico Fixado",
-                        by_author: "Por", daily_news_title: "📰 Novidades do dia",
-                        latest_post: "Último Post:", latest_member: "Último Membro:", guest_label: "Visitante (Guest)", no_recent_posts: "Nenhum"
-                    },
-                    ru: {
-                        nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
-                        nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
-                        btn_register: "Регистрация", btn_login: "Вход",
-                        loading: "Загрузка...", sub_banner: "iJuanFly Community Post", sidebar_online: "В сети",
-                        chat_btn: "Общий чат", chat_header: "💬 Чат сообщества (30 мин)", loading_chat: "Загрузка чата...",
-                        chat_placeholder: "Введите сообщение...", chat_send: "Отправить", status_online: "● В сети",
-                        no_online: "Нет подключенных пользователей", no_chat: "Нет свежих сообщений. Скажите что-нибудь!",
-                        banned_title: "Доступ запрещен", banned_desc: "Ваш профиль был закрыт.",
-                        no_posts: "Нет недавних публикаций.", btn_view_discussion: "Обсуждение 💬",
-                        announcements_title: "📌 Официальные объявления", tag_pinned: "📌 Закреплено",
-                        by_author: "Автор:", daily_news_title: "📰 Новости дня",
-                        latest_post: "Последний пост:", latest_member: "Последний участник:", guest_label: "Гость", no_recent_posts: "Нет"
-                    },
-                    ja: {
-                        nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
-                        nav_members_list: "メンバーリスト", nav_my_panel: "マイパネル", nav_logout: "ログアウト",
-                        btn_register: "登録", btn_login: "ログイン",
-                        loading: "読み込み中...", sub_banner: "iJuanFly Community Post", sidebar_online: "オンライン",
-                        chat_btn: "グローバルチャット", chat_header: "💬 コミュニティチャット (30分)", loading_chat: "チャットを読み込み中...",
-                        chat_placeholder: "メッセージを入力...", chat_send: "送信", status_online: "● オンライン",
-                        no_online: "接続中のユーザーはいません", no_chat: "最近のメッセージはありません。何か話そう！",
-                        banned_title: "アクセス拒否", banned_desc: "あなたのプロフィールは閉鎖されました。",
-                        no_posts: "最近の投稿はありません。", btn_view_discussion: "ディスカッションを見る 💬",
-                        announcements_title: "📌 公式アナウンス", tag_pinned: "📌 ピン留め",
-                        by_author: "投稿者:", daily_news_title: "📰 本日のニュース",
-                        latest_post: "最新の投稿:", latest_member: "最新のメンバー:", guest_label: "ゲスト", no_recent_posts: "なし"
-                    },
-                    zh: {
-                        nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
-                        nav_members_list: "成员列表", nav_my_panel: "我的面板", nav_logout: "登出",
-                        btn_register: "注册", btn_login: "登录",
-                        loading: "加载中...", sub_banner: "iJuanFly Community Post", sidebar_online: "在线",
-                        chat_btn: "全球聊天", chat_header: "💬 社区聊天 (30分钟)", loading_chat: "正在加载聊天...",
-                        chat_placeholder: "输入消息...", chat_send: "发送", status_online: "● 在线",
-                        no_online: "没有连接的用户", no_chat: "没有最近的消息，说点什么吧！",
-                        banned_title: "访问拒绝", banned_desc: "您的个人资料已被关闭。",
-                        no_posts: "暂无最新动态。", btn_view_discussion: "查看讨论 💬",
-                        announcements_title: "📌 官方公告", tag_pinned: "📌 置顶主题",
-                        by_author: "作者:", daily_news_title: "📰 今日动态",
-                        latest_post: "最新帖子:", latest_member: "最新成员:", guest_label: "访客 (Guest)", no_recent_posts: "无"
-                    }
-                };
-
-                function obtenerIdiomaActual() { return localStorage.getItem('zeoWorksIdioma') || 'es'; }
-
-                function aplicarTraduccionesGlobales() {
-                    const lang = obtenerIdiomaActual();
-                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
-
-                    document.querySelectorAll('[data-i18n]').forEach(el => {
-                        const key = el.getAttribute('data-i18n');
-                        if (t[key]) el.textContent = t[key];
-                    });
-                    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                        const key = el.getAttribute('data-i18n-placeholder');
-                        if (t[key]) el.placeholder = t[key];
-                    });
-
-                    const selectElem = document.getElementById('select-idioma');
-                    if (selectElem) selectElem.value = lang;
-                }
-
-                function cambiarIdiomaGlobal(lang) {
-                    localStorage.setItem('zeoWorksIdioma', lang);
-                    location.reload();
-                }
-
-                document.addEventListener("DOMContentLoaded", () => {
-                    aplicarTraduccionesGlobales();
-                    cargarNovedadesDelDia();
-                    cargarMiembrosEnLinea();
-                    cargarFeedForoIndex();
-                    cargarMensajesChat();
-                });
-
-                const SUPABASE_URL = 'https://bnwtmjqzfyjwvtzhoyhe.supabase.co';
-                const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
-                const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-                let usuarioActualSesion = null;
-                let rolUsuarioActual = 'Miembro';
-                let nombreUsuarioActual = '';
-
-                try {
-                    const raw = localStorage.getItem('usuarioZeoWorks');
-                    if (raw) {
-                        const parsed = JSON.parse(raw);
-                        usuarioActualSesion = (typeof parsed === 'object') ? parsed : { Nombre: raw };
-                    }
-                } catch(e) { usuarioActualSesion = null; }
-
-                const avatarPorDefecto = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
-
-                if (usuarioActualSesion) {
-                    const reg = document.getElementById('menu-registro');
-                    const log = document.getElementById('menu-login');
-                    const cp = document.getElementById('menu-cp');
-                    const salir = document.getElementById('menu-salir');
-                    if (reg) reg.style.display = 'none';
-                    if (log) log.style.display = 'none';
-                    if (cp) cp.style.display = 'block';
-                    if (salir) salir.style.display = 'block';
-
-                    nombreUsuarioActual = usuarioActualSesion.Nombre || usuarioActualSesion.nombre;
-                    if (nombreUsuarioActual) {
-                        _supabase.from('Usuarios').select('Rol').eq('Nombre', nombreUsuarioActual).single().then(({ data }) => {
-                            if (data && data.Rol) {
-                                rolUsuarioActual = data.Rol;
-                                if (rolUsuarioActual.trim().toLowerCase() === 'banned') bloquearVistaBanned();
+                        const ZEO_TRADUCCIONES = {
+                            es: {
+                                nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
+                                nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesion",
+                                btn_register: "Registrarse", btn_login: "Iniciar Sesion",
+                                loading: "Cargando...", sub_banner: "iJuanFly Community Post", sidebar_online: "En Linea",
+                                chat_btn: "Chat Global", chat_header: "💬 Chat Comunitario (30 min)", loading_chat: "Cargando chat...",
+                                chat_placeholder: "Escribe un mensaje...", chat_send: "Enviar", status_online: "● En linea",
+                                no_online: "No hay usuarios conectados", no_chat: "No hay mensajes recientes. ¡Habla con alguien!",
+                                banned_title: "Acceso Denegado", banned_desc: "Tu perfil ha sido cerrado.",
+                                no_posts: "No hay publicaciones recientes en el foro.", btn_view_discussion: "Ver discusion 💬",
+                                announcements_title: "📌 Anuncios Oficiales", tag_pinned: "📌 Hilo fijado",
+                                by_author: "Por", daily_news_title: "📰 Novedades del dia",
+                                latest_post: "Ultimo Post:", latest_member: "Ultimo Miembro:", guest_label: "Visitante (Guest)", no_recent_posts: "Ninguno"
+                            },
+                            en: {
+                                nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
+                                nav_members_list: "Members List", nav_my_panel: "My Panel", nav_logout: "Log Out",
+                                btn_register: "Register", btn_login: "Log In",
+                                loading: "Loading...", sub_banner: "iJuanFly Community Post", sidebar_online: "Online",
+                                chat_btn: "Global Chat", chat_header: "💬 Community Chat (30 min)", loading_chat: "Loading chat...",
+                                chat_placeholder: "Type a message...", chat_send: "Send", status_online: "● Online",
+                                no_online: "No users online", no_chat: "No recent messages. Say something!",
+                                banned_title: "Access Denied", banned_desc: "Your profile has been closed.",
+                                no_posts: "No recent posts in the forum.", btn_view_discussion: "View discussion 💬",
+                                announcements_title: "📌 Official Announcements", tag_pinned: "📌 Pinned Thread",
+                                by_author: "By", daily_news_title: "📰 Daily News",
+                                latest_post: "Latest Post:", latest_member: "Latest Member:", guest_label: "Guest", no_recent_posts: "None"
+                            },
+                            pt: {
+                                nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
+                                nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
+                                btn_register: "Registrar", btn_login: "Entrar",
+                                loading: "Carregando...", sub_banner: "iJuanFly Community Post", sidebar_online: "Online",
+                                chat_btn: "Chat Global", chat_header: "💬 Chat da Comunidade (30 min)", loading_chat: "Carregando chat...",
+                                chat_placeholder: "Digite uma mensagem...", chat_send: "Enviar", status_online: "● Online",
+                                no_online: "Não há usuários conectados", no_chat: "Sem mensagens recentes. Diga algo!",
+                                banned_title: "Acesso Negado", banned_desc: "Seu perfil foi encerrado.",
+                                no_posts: "Nenhuma postagem recente.", btn_view_discussion: "Ver discussão 💬",
+                                announcements_title: "📌 Anúncios Oficiais", tag_pinned: "📌 Tópico Fixado",
+                                by_author: "Por", daily_news_title: "📰 Novidades do dia",
+                                latest_post: "Último Post:", latest_member: "Último Membro:", guest_label: "Visitante (Guest)", no_recent_posts: "Nenhum"
+                            },
+                            ru: {
+                                nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
+                                nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
+                                btn_register: "Регистрация", btn_login: "Вход",
+                                loading: "Загрузка...", sub_banner: "iJuanFly Community Post", sidebar_online: "В сети",
+                                chat_btn: "Общий чат", chat_header: "💬 Чат сообщества (30 мин)", loading_chat: "Загрузка чата...",
+                                chat_placeholder: "Введите сообщение...", chat_send: "Отправить", status_online: "● В сети",
+                                no_online: "Нет подключенных пользователей", no_chat: "Нет свежих сообщений. Скажите что-нибудь!",
+                                banned_title: "Доступ запрещен", banned_desc: "Ваш профиль был закрыт.",
+                                no_posts: "Нет недавних публикаций.", btn_view_discussion: "Обсуждение 💬",
+                                announcements_title: "📌 Официальные объявления", tag_pinned: "📌 Закреплено",
+                                by_author: "Автор:", daily_news_title: "📰 Новости дня",
+                                latest_post: "Последний пост:", latest_member: "Последний участник:", guest_label: "Гость", no_recent_posts: "Нет"
+                            },
+                            ja: {
+                                nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
+                                nav_members_list: "メンバーリスト", nav_my_panel: "マイパネル", nav_logout: "ログアウト",
+                                btn_register: "登録", btn_login: "ログイン",
+                                loading: "読み込み中...", sub_banner: "iJuanFly Community Post", sidebar_online: "オンライン",
+                                chat_btn: "グローバルチャット", chat_header: "💬 コミュニティチャット (30分)", loading_chat: "チャットを読み込み中...",
+                                chat_placeholder: "メッセージを入力...", chat_send: "送信", status_online: "● オンライン",
+                                no_online: "接続中のユーザーはいません", no_chat: "最近のメッセージはありません。何か話そう！",
+                                banned_title: "アクセス拒否", banned_desc: "あなたのプロフィールは閉鎖されました。",
+                                no_posts: "最近の投稿はありません。", btn_view_discussion: "ディスカッションを見る 💬",
+                                announcements_title: "📌 公式アナウンス", tag_pinned: "📌 ピン留め",
+                                by_author: "投稿者:", daily_news_title: "📰 本日のニュース",
+                                latest_post: "最新の投稿:", latest_member: "最新のメンバー:", guest_label: "ゲスト", no_recent_posts: "なし"
+                            },
+                            zh: {
+                                nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
+                                nav_members_list: "成员列表", nav_my_panel: "我的面板", nav_logout: "登出",
+                                btn_register: "注册", btn_login: "登录",
+                                loading: "加载中...", sub_banner: "iJuanFly Community Post", sidebar_online: "在线",
+                                chat_btn: "全球聊天", chat_header: "💬 社区聊天 (30分钟)", loading_chat: "正在加载聊天...",
+                                chat_placeholder: "输入消息...", chat_send: "发送", status_online: "● 在线",
+                                no_online: "没有连接的用户", no_chat: "没有最近的消息，说点什么吧！",
+                                banned_title: "访问拒绝", banned_desc: "您的个人资料已被关闭。",
+                                no_posts: "暂无最新动态。", btn_view_discussion: "查看讨论 💬",
+                                announcements_title: "📌 官方公告", tag_pinned: "📌 置顶主题",
+                                by_author: "作者:", daily_news_title: "📰 今日动态",
+                                latest_post: "最新帖子:", latest_member: "最新成员:", guest_label: "访客 (Guest)", no_recent_posts: "无"
                             }
-                        }).catch(() => {});
+                        };
 
-                        _supabase.from('Usuarios').update({ ultima_conexion: new Date().toISOString() }).eq('Nombre', nombreUsuarioActual).then().catch(() => {});
-                    }
-                }
+                        function obtenerIdiomaActual() { return localStorage.getItem('zeoWorksIdioma') || 'es'; }
 
-                function bloquearVistaBanned() {
-                    const lang = obtenerIdiomaActual();
-                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
-                    const contenedorPrincipal = document.getElementById('contenedor-principal');
-                    const widgetChat = document.getElementById('contenedor-widget-chat');
-                    if (widgetChat) widgetChat.style.display = 'none';
-                    if (contenedorPrincipal) {
-                        contenedorPrincipal.innerHTML = `<div class="banned-banner-box"><h2>${t.banned_title}</h2><p>${t.banned_desc}</p></div>`;
-                    }
-                }
+                        function aplicarTraduccionesGlobales() {
+                            const lang = obtenerIdiomaActual();
+                            const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
 
-                function cerrarSesionGlobal() {
-                    localStorage.removeItem('usuarioZeoWorks');
-                    window.location.href = 'Login.html';
-                }
+                            document.querySelectorAll('[data-i18n]').forEach(el => {
+                                const key = el.getAttribute('data-i18n');
+                                if (t[key]) el.textContent = t[key];
+                            });
+                            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                                const key = el.getAttribute('data-i18n-placeholder');
+                                if (t[key]) el.placeholder = t[key];
+                            });
 
-                function obtenerEstiloRol(rol) {
-                    if (!rol) return { tipo: 'style', valor: 'color: #00B028;' };
-                    const r = rol.trim().toLowerCase();
-                    if (r === 'banned') return { tipo: 'style', valor: 'color: #888888;' };
-                    switch(r) {
-                        case 'miembro': return { tipo: 'style', valor: 'color: #00B028;' };
-                        case 'premium': return { tipo: 'style', valor: 'color: #EDFF00;' };
-                        case 'vip': return { tipo: 'style', valor: 'color: #7700FF;' };
-                        case 'moderador': return { tipo: 'style', valor: 'color: #00DDFF;' };
-                        case 'creador': return { tipo: 'class', valor: 'rol-holografico' };
-                        default: return { tipo: 'style', valor: 'color: #00B028;' };
-                    }
-                }
-
-                // CARGAR NOVEDADES DEL DÍA CON COLOR DE ROL
-                async function cargarNovedadesDelDia() {
-                    const lang = obtenerIdiomaActual();
-                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
-
-                    const { data: ultimoTema } = await _supabase
-                        .from('temas_foro')
-                        .select('id, titulo')
-                        .order('created_at', { ascending: false })
-                        .limit(1)
-                        .single();
-
-                    const contenedorPost = document.getElementById('novedad-ultimo-post');
-                    if (ultimoTema) {
-                        contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <a href="tema.html?id=${ultimoTema.id}" title="${escaparHtml(ultimoTema.titulo)}">${escaparHtml(ultimoTema.titulo)}</a>`;
-                    } else {
-                        contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <span style="color: #777;">${t.no_recent_posts}</span>`;
-                    }
-
-                    const { data: ultimoUser } = await _supabase
-                        .from('Usuarios')
-                        .select('Nombre, Rol')
-                        .order('id', { ascending: false })
-                        .limit(1)
-                        .single();
-
-                    const contenedorMiembro = document.getElementById('novedad-ultimo-miembro');
-                    if (ultimoUser) {
-                        const infoRol = obtenerEstiloRol(ultimoUser.Rol);
-                        const attrRolEstilo = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="${infoRol.valor}; font-weight: bold;"`;
-
-                        contenedorMiembro.innerHTML = `<strong>${t.latest_member}</strong> <a href="perfil.html?nombre=${encodeURIComponent(ultimoUser.Nombre)}" ${attrRolEstilo}>${ultimoUser.Nombre}</a>`;
-                    } else {
-                        contenedorMiembro.innerHTML = `<strong>${t.latest_member}</strong> <span style="color: #777;">${t.no_recent_posts}</span>`;
-                    }
-                }
-
-                async function cargarFeedForoIndex() {
-                    const contenedorFeed = document.getElementById('feed-foro-container');
-                    const contenedorAnunciosIndex = document.getElementById('contenedor-anuncios-index');
-                    const seccionAnunciosIndex = document.getElementById('seccion-anuncios-index');
-                    if (!contenedorFeed) return;
-
-                    const lang = obtenerIdiomaActual();
-                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
-
-                    try {
-                        const { data: temas, error } = await _supabase
-                            .from('temas_foro')
-                            .select('*')
-                            .order('fijado', { ascending: false })
-                            .order('created_at', { ascending: false });
-
-                        if (error || !temas || temas.length === 0) {
-                            contenedorFeed.innerHTML = `<p style="color: #777; text-align: center; padding: 25px;">${t.no_posts}</p>`;
-                            if (seccionAnunciosIndex) seccionAnunciosIndex.style.display = 'none';
-                            return;
+                            const selectElem = document.getElementById('select-idioma');
+                            if (selectElem) selectElem.value = lang;
                         }
 
-                        const idsUsuarios = [...new Set(temas.map(item => item.usuario_id))];
-                        const { data: usuarios } = await _supabase.from('Usuarios').select('id, Nombre, Avatar, Rol').in('id', idsUsuarios);
+                        function cambiarIdiomaGlobal(lang) {
+                            localStorage.setItem('zeoWorksIdioma', lang);
+                            location.reload();
+                        }
 
-                        let htmlAnuncios = '';
-                        let htmlTemas = '';
-                        let hayAnuncios = false;
+                        document.addEventListener("DOMContentLoaded", () => {
+                            aplicarTraduccionesGlobales();
+                            cargarNovedadesDelDia();
+                            cargarMiembrosEnLinea();
+                            cargarFeedForoIndex();
+                            cargarMensajesChat();
+                        });
 
-                        temas.forEach(tema => {
-                            const autor = usuarios ? usuarios.find(u => u.id === tema.usuario_id) : null;
-                            const nombreAutor = autor ? autor.Nombre : 'Usuario';
-                            const avatarAutor = autor && autor.Avatar ? autor.Avatar : avatarPorDefecto;
+                        const SUPABASE_URL = 'https://bnwtmjqzfyjwvtzhoyhe.supabase.co';
+                        const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
+                        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-                            const infoRol = obtenerEstiloRol(autor ? autor.Rol : 'Miembro');
-                            const attrRolAutor = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="${infoRol.valor}"`;
-                            const fecha = new Date(tema.created_at).toLocaleString();
+                        let usuarioActualSesion = null;
+                        let rolUsuarioActual = 'Miembro';
+                        let nombreUsuarioActual = '';
 
-                            let multimediaHtml = '';
-                            if (tema.multimedia && Array.isArray(tema.multimedia) && tema.multimedia.length > 0) {
-                                multimediaHtml += '<div class="multimedia-galeria">';
-                                tema.multimedia.forEach(m => {
-                                    if (m.tipo === 'video') multimediaHtml += `<video src="${m.url}" controls></video>`;
-                                    else multimediaHtml += `<img src="${m.url}" onclick="window.open(this.src)" alt="Media">`;
-                                });
-                                multimediaHtml += '</div>';
-                            } else if (tema.imagen) {
-                                multimediaHtml += `<div class="multimedia-galeria"><img src="${tema.imagen}" onclick="window.open(this.src)" alt="Media"></div>`;
+                        try {
+                            const raw = localStorage.getItem('usuarioZeoWorks');
+                            if (raw) {
+                                const parsed = JSON.parse(raw);
+                                usuarioActualSesion = (typeof parsed === 'object') ? parsed : { Nombre: raw };
                             }
+                        } catch(e) { usuarioActualSesion = null; }
 
-                            if (tema.fijado) {
-                                hayAnuncios = true;
-                                htmlAnuncios += `
-                                    <div class="post-feed-card fijado-card">
-                                        <span class="tag-fijado-portal">${t.tag_pinned}</span>
-                                        <div class="post-header-info">
-                                            <img src="${avatarAutor}" class="post-autor-avatar" alt="Avatar">
-                                            <div>
-                                                <h3 style="margin: 0; font-size: 1.1rem; color: #fff;">${escaparHtml(tema.titulo)}</h3>
-                                                <span style="font-size: 0.8rem; color: #aaa;">${t.by_author} <strong ${attrRolAutor}>${nombreAutor}</strong> • ${fecha}</span>
-                                            </div>
-                                        </div>
-                                        <div class="post-body-content"><div>${tema.contenido}</div>${multimediaHtml}</div>
-                                        <div class="post-footer-actions"><a href="tema.html?id=${tema.id}" class="btn-ver-discusion">${t.btn_view_discussion}</a></div>
-                                    </div>
-                                `;
+                        const avatarPorDefecto = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
+
+                        if (usuarioActualSesion) {
+                            const reg = document.getElementById('menu-registro');
+                            const log = document.getElementById('menu-login');
+                            const cp = document.getElementById('menu-cp');
+                            const salir = document.getElementById('menu-salir');
+                            if (reg) reg.style.display = 'none';
+                            if (log) log.style.display = 'none';
+                            if (cp) cp.style.display = 'block';
+                            if (salir) salir.style.display = 'block';
+
+                            nombreUsuarioActual = usuarioActualSesion.Nombre || usuarioActualSesion.nombre;
+                            if (nombreUsuarioActual) {
+                                _supabase.from('Usuarios').select('Rol').eq('Nombre', nombreUsuarioActual).single().then(({ data }) => {
+                                    if (data && data.Rol) {
+                                        rolUsuarioActual = data.Rol;
+                                        if (rolUsuarioActual.trim().toLowerCase() === 'banned') bloquearVistaBanned();
+                                    }
+                                }).catch(() => {});
+
+                                _supabase.from('Usuarios').update({ ultima_conexion: new Date().toISOString() }).eq('Nombre', nombreUsuarioActual).then().catch(() => {});
+                            }
+                        }
+
+                        function bloquearVistaBanned() {
+                            const lang = obtenerIdiomaActual();
+                            const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                            const contenedorPrincipal = document.getElementById('contenedor-principal');
+                            const widgetChat = document.getElementById('contenedor-widget-chat');
+                            if (widgetChat) widgetChat.style.display = 'none';
+                            if (contenedorPrincipal) {
+                                contenedorPrincipal.innerHTML = `<div class="banned-banner-box"><h2>${t.banned_title}</h2><p>${t.banned_desc}</p></div>`;
+                            }
+                        }
+
+                        function cerrarSesionGlobal() {
+                            localStorage.removeItem('usuarioZeoWorks');
+                            window.location.href = 'Login.html';
+                        }
+
+                        function obtenerEstiloRol(rol) {
+                            if (!rol) return { tipo: 'style', valor: 'color: #00B028;' };
+                            const r = rol.trim().toLowerCase();
+                            if (r === 'banned') return { tipo: 'style', valor: 'color: #888888;' };
+                            switch(r) {
+                                case 'miembro': return { tipo: 'style', valor: 'color: #00B028;' };
+                                case 'premium': return { tipo: 'style', valor: 'color: #EDFF00;' };
+                                case 'vip': return { tipo: 'style', valor: 'color: #7700FF;' };
+                                case 'moderador': return { tipo: 'style', valor: 'color: #00DDFF;' };
+                                case 'creador': return { tipo: 'class', valor: 'rol-holografico' };
+                                default: return { tipo: 'style', valor: 'color: #00B028;' };
+                            }
+                        }
+
+                        // CARGAR NOVEDADES DEL DIA CON COLOR DE ROL
+                        async function cargarNovedadesDelDia() {
+                            const lang = obtenerIdiomaActual();
+                            const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                            const { data: ultimoTema } = await _supabase
+                                .from('temas_foro')
+                                .select('id, titulo')
+                                .order('created_at', { ascending: false })
+                                .limit(1)
+                                .single();
+
+                            const contenedorPost = document.getElementById('novedad-ultimo-post');
+                            if (ultimoTema) {
+                                contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <a href="tema.html?id=${ultimoTema.id}" title="${escaparHtml(ultimoTema.titulo)}">${escaparHtml(ultimoTema.titulo)}</a>`;
                             } else {
-                                htmlTemas += `
-                                    <div class="post-feed-card">
-                                        <div class="post-header-info">
-                                            <img src="${avatarAutor}" class="post-autor-avatar" alt="Avatar">
-                                            <div>
-                                                <h3 style="margin: 0; font-size: 1.1rem; color: #fff;">${escaparHtml(tema.titulo)}</h3>
-                                                <span style="font-size: 0.8rem; color: #aaa;">${t.by_author} <strong ${attrRolAutor}>${nombreAutor}</strong> • ${fecha}</span>
+                                contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <span style="color: #777;">${t.no_recent_posts}</span>`;
+                            }
+
+                            const { data: ultimoUser } = await _supabase
+                                .from('Usuarios')
+                                .select('Nombre, Rol')
+                                .order('id', { ascending: false })
+                                .limit(1)
+                                .single();
+
+                            const contenedorMiembro = document.getElementById('novedad-ultimo-miembro');
+                            if (ultimoUser) {
+                                const infoRol = obtenerEstiloRol(ultimoUser.Rol);
+                                const attrRolEstilo = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="${infoRol.valor}; font-weight: bold;"`;
+
+                                contenedorMiembro.innerHTML = `<strong>${t.latest_member}</strong> <a href="perfil.html?nombre=${encodeURIComponent(ultimoUser.Nombre)}" ${attrRolEstilo}>${ultimoUser.Nombre}</a>`;
+                            } else {
+                                contenedorMiembro.innerHTML = `<strong>${t.latest_member}</strong> <span style="color: #777;">${t.no_recent_posts}</span>`;
+                            }
+                        }
+
+                        async function cargarFeedForoIndex() {
+                            const contenedorFeed = document.getElementById('feed-foro-container');
+                            const contenedorAnunciosIndex = document.getElementById('contenedor-anuncios-index');
+                            const seccionAnunciosIndex = document.getElementById('seccion-anuncios-index');
+                            if (!contenedorFeed) return;
+
+                            const lang = obtenerIdiomaActual();
+                            const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                            try {
+                                const { data: temas, error } = await _supabase
+                                    .from('temas_foro')
+                                    .select('*')
+                                    .order('fijado', { ascending: false })
+                                    .order('created_at', { ascending: false });
+
+                                if (error || !temas || temas.length === 0) {
+                                    contenedorFeed.innerHTML = `<p style="color: #777; text-align: center; padding: 25px;">${t.no_posts}</p>`;
+                                    if (seccionAnunciosIndex) seccionAnunciosIndex.style.display = 'none';
+                                    return;
+                                }
+
+                                const idsUsuarios = [...new Set(temas.map(item => item.usuario_id))];
+                                const { data: usuarios } = await _supabase.from('Usuarios').select('id, Nombre, Avatar, Rol').in('id', idsUsuarios);
+
+                                let htmlAnuncios = '';
+                                let htmlTemas = '';
+                                let hayAnuncios = false;
+
+                                temas.forEach(tema => {
+                                    const autor = usuarios ? usuarios.find(u => u.id === tema.usuario_id) : null;
+                                    const nombreAutor = autor ? autor.Nombre : 'Usuario';
+                                    const avatarAutor = autor && autor.Avatar ? autor.Avatar : avatarPorDefecto;
+
+                                    const infoRol = obtenerEstiloRol(autor ? autor.Rol : 'Miembro');
+                                    const attrRolAutor = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="${infoRol.valor}"`;
+                                    const fecha = new Date(tema.created_at).toLocaleString();
+
+                                    let multimediaHtml = '';
+                                    if (tema.multimedia && Array.isArray(tema.multimedia) && tema.multimedia.length > 0) {
+                                        multimediaHtml += '<div class="multimedia-galeria">';
+                                        tema.multimedia.forEach(m => {
+                                            if (m.tipo === 'video') multimediaHtml += `<video src="${m.url}" controls></video>`;
+                                            else multimediaHtml += `<img src="${m.url}" onclick="window.open(this.src)" alt="Media">`;
+                                        });
+                                        multimediaHtml += '</div>';
+                                    } else if (tema.imagen) {
+                                        multimediaHtml += `<div class="multimedia-galeria"><img src="${tema.imagen}" onclick="window.open(this.src)" alt="Media"></div>`;
+                                    }
+
+                                    if (tema.fijado) {
+                                        hayAnuncios = true;
+                                        htmlAnuncios += `
+                                            <div class="post-feed-card fijado-card">
+                                                <span class="tag-fijado-portal">${t.tag_pinned}</span>
+                                                <div class="post-header-info">
+                                                    <img src="${avatarAutor}" class="post-autor-avatar" alt="Avatar">
+                                                    <div>
+                                                        <h3 style="margin: 0; font-size: 1.1rem; color: #fff;">${escaparHtml(tema.titulo)}</h3>
+                                                        <span style="font-size: 0.8rem; color: #aaa;">${t.by_author} <strong ${attrRolAutor}>${nombreAutor}</strong> • ${fecha}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="post-body-content"><div>${tema.contenido}</div>${multimediaHtml}</div>
+                                                <div class="post-footer-actions"><a href="tema.html?id=${tema.id}" class="btn-ver-discusion">${t.btn_view_discussion}</a></div>
                                             </div>
-                                        </div>
-                                        <div class="post-body-content"><div>${tema.contenido}</div>${multimediaHtml}</div>
-                                        <div class="post-footer-actions"><a href="tema.html?id=${tema.id}" class="btn-ver-discusion">${t.btn_view_discussion}</a></div>
-                                    </div>
-                                `;
-                            }
-                        });
+                                        `;
+                                    } else {
+                                        htmlTemas += `
+                                            <div class="post-feed-card">
+                                                <div class="post-header-info">
+                                                    <img src="${avatarAutor}" class="post-autor-avatar" alt="Avatar">
+                                                    <div>
+                                                        <h3 style="margin: 0; font-size: 1.1rem; color: #fff;">${escaparHtml(tema.titulo)}</h3>
+                                                        <span style="font-size: 0.8rem; color: #aaa;">${t.by_author} <strong ${attrRolAutor}>${nombreAutor}</strong> • ${fecha}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="post-body-content"><div>${tema.contenido}</div>${multimediaHtml}</div>
+                                                <div class="post-footer-actions"><a href="tema.html?id=${tema.id}" class="btn-ver-discusion">${t.btn_view_discussion}</a></div>
+                                            </div>
+                                        `;
+                                    }
+                                });
 
-                        if (hayAnuncios && seccionAnunciosIndex && contenedorAnunciosIndex) {
-                            seccionAnunciosIndex.style.display = 'block';
-                            contenedorAnunciosIndex.innerHTML = htmlAnuncios;
-                        } else if (seccionAnunciosIndex) {
-                            seccionAnunciosIndex.style.display = 'none';
+                                if (hayAnuncios && seccionAnunciosIndex && contenedorAnunciosIndex) {
+                                    seccionAnunciosIndex.style.display = 'block';
+                                    contenedorAnunciosIndex.innerHTML = htmlAnuncios;
+                                } else if (seccionAnunciosIndex) {
+                                    seccionAnunciosIndex.style.display = 'none';
+                                }
+
+                                contenedorFeed.innerHTML = htmlTemas || `<p style="color: #777; text-align: center; padding: 20px;">${t.no_posts}</p>`;
+                            } catch (err) {
+                                contenedorFeed.innerHTML = `<p style="color: #777; text-align: center; padding: 25px;">Error al cargar el feed.</p>`;
+                            }
                         }
 
-                        contenedorFeed.innerHTML = htmlTemas || `<p style="color: #777; text-align: center; padding: 20px;">${t.no_posts}</p>`;
-                    } catch (err) {
-                        contenedorFeed.innerHTML = `<p style="color: #777; text-align: center; padding: 25px;">Error al cargar el feed.</p>`;
-                    }
-                }
+                        function escaparHtml(str) {
+                            if (!str) return '';
+                            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                        }
 
-                function escaparHtml(str) {
-                    if (!str) return '';
-                    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                }
+                        function toggleChatPopup() {
+                            const popup = document.getElementById('chat-popup-box');
+                            const indicador = document.getElementById('indicador-chat-abierto');
+                            if (!popup) return;
+                            popup.classList.toggle('activo');
+                            if (popup.classList.contains('activo')) {
+                                indicador.textContent = '▼';
+                                const contenedorChat = document.getElementById('contenedor-mensajes-chat');
+                                if (contenedorChat) contenedorChat.scrollTop = contenedorChat.scrollHeight;
+                            } else {
+                                indicador.textContent = '▲';
+                            }
+                        }
 
-                function toggleChatPopup() {
-                    const popup = document.getElementById('chat-popup-box');
-                    const indicador = document.getElementById('indicador-chat-abierto');
-                    if (!popup) return;
-                    popup.classList.toggle('activo');
-                    if (popup.classList.contains('activo')) {
-                        indicador.textContent = '▼';
-                        const contenedorChat = document.getElementById('contenedor-mensajes-chat');
-                        if (contenedorChat) contenedorChat.scrollTop = contenedorChat.scrollHeight;
-                    } else {
-                        indicador.textContent = '▲';
-                    }
-                }
+                        async function cargarMiembrosEnLinea() {
+                            const contenedorMiembros = document.getElementById('lista-miembros-index');
+                            if (!contenedorMiembros) return;
 
-                async function cargarMiembrosEnLinea() {
-                    const contenedorMiembros = document.getElementById('lista-miembros-index');
-                    if (!contenedorMiembros) return;
+                            const lang = obtenerIdiomaActual();
+                            const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                            const cincoMinutosAtras = new Date(new Date().getTime() - 5 * 60 * 1000).toISOString();
+                            const dosMinutosAtrasGuest = new Date(new Date().getTime() - 2 * 60 * 1000).toISOString();
 
-                    const lang = obtenerIdiomaActual();
-                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
-                    const cincoMinutosAtras = new Date(new Date().getTime() - 5 * 60 * 1000).toISOString();
-                    const dosMinutosAtrasGuest = new Date(new Date().getTime() - 2 * 60 * 1000).toISOString();
+                            let guestSessionId = sessionStorage.getItem('zeoTabSessionId');
+                            if (!guestSessionId) {
+                                guestSessionId = 'guest_' + Math.random().toString(36).substring(2) + Date.now();
+                                sessionStorage.setItem('zeoTabSessionId', guestSessionId);
+                            }
 
-                    let guestSessionId = sessionStorage.getItem('zeoTabSessionId');
-                    if (!guestSessionId) {
-                        guestSessionId = 'guest_' + Math.random().toString(36).substring(2) + Date.now();
-                        sessionStorage.setItem('zeoTabSessionId', guestSessionId);
-                    }
+                            try {
+                                await _supabase.from('visitantes_activos').upsert([
+                                    { session_id: guestSessionId, ultima_conexion: new Date().toISOString() }
+                                ], { onConflict: 'session_id' });
 
-                    try {
-                        await _supabase.from('visitantes_activos').upsert([
-                            { session_id: guestSessionId, ultima_conexion: new Date().toISOString() }
-                        ], { onConflict: 'session_id' });
+                                const { data: miembrosOnline } = await _supabase
+                                    .from('Usuarios')
+                                    .select('*')
+                                    .gte('ultima_conexion', cincoMinutosAtras)
+                                    .order('ultima_conexion', { ascending: false });
 
-                        const { data: miembrosOnline } = await _supabase
-                            .from('Usuarios')
-                            .select('*')
-                            .gte('ultima_conexion', cincoMinutosAtras)
-                            .order('ultima_conexion', { ascending: false });
+                                const { data: guestsOnline } = await _supabase
+                                    .from('visitantes_activos')
+                                    .select('session_id')
+                                    .gte('ultima_conexion', dosMinutosAtrasGuest);
 
-                        const { data: guestsOnline } = await _supabase
-                            .from('visitantes_activos')
-                            .select('session_id')
-                            .gte('ultima_conexion', dosMinutosAtrasGuest);
+                                let totalGuests = (guestsOnline && guestsOnline.length > 0) ? guestsOnline.length : 1;
 
-                        let totalGuests = (guestsOnline && guestsOnline.length > 0) ? guestsOnline.length : 1;
+                                let html = '';
+                                if (miembrosOnline && miembrosOnline.length > 0) {
+                                    const miembrosFiltrados = miembrosOnline.filter(usuario => {
+                                        if (!usuario.ocultar_enlinea) return true;
+                                        if (nombreUsuarioActual && usuario.Nombre === nombreUsuarioActual) return true;
+                                        return false;
+                                    });
 
-                        let html = '';
-                        if (miembrosOnline && miembrosOnline.length > 0) {
-                            const miembrosFiltrados = miembrosOnline.filter(usuario => {
-                                if (!usuario.ocultar_enlinea) return true;
-                                if (nombreUsuarioActual && usuario.Nombre === nombreUsuarioActual) return true;
-                                return false;
-                            });
+                                    miembrosFiltrados.forEach(usuario => {
+                                        const foto = usuario.Avatar ? usuario.Avatar : avatarPorDefecto;
+                                        const infoRol = obtenerEstiloRol(usuario.Rol);
+                                        const attrRolNombre = infoRol.tipo === 'class' ? `class="miembro-nombre-index rol-holografico"` : `class="miembro-nombre-index" style="${infoRol.valor}"`;
 
-                            miembrosFiltrados.forEach(usuario => {
-                                const foto = usuario.Avatar ? usuario.Avatar : avatarPorDefecto;
-                                const infoRol = obtenerEstiloRol(usuario.Rol);
-                                const attrRolNombre = infoRol.tipo === 'class' ? `class="miembro-nombre-index rol-holografico"` : `class="miembro-nombre-index" style="${infoRol.valor}"`;
+                                        html += `
+                                            <a href="perfil.html?nombre=${encodeURIComponent(usuario.Nombre)}" class="miembro-card-index">
+                                                <img src="${foto}" class="miembro-avatar-index" alt="Avatar">
+                                                <div class="miembro-info-index">
+                                                    <div ${attrRolNombre}>${usuario.Nombre}</div>
+                                                    <div class="miembro-estado-index">${t.status_online}</div>
+                                                </div>
+                                            </a>
+                                        `;
+                                    });
+                                }
 
+                                let etiquetaGuest = totalGuests === 1 ? `1 ${t.guest_label}` : `${totalGuests} Visitantes (Guests)`;
                                 html += `
-                                    <a href="perfil.html?nombre=${encodeURIComponent(usuario.Nombre)}" class="miembro-card-index">
-                                        <img src="${foto}" class="miembro-avatar-index" alt="Avatar">
-                                        <div class="miembro-info-index">
-                                            <div ${attrRolNombre}>${usuario.Nombre}</div>
-                                            <div class="miembro-estado-index">${t.status_online}</div>
-                                        </div>
-                                    </a>
+                                    <div class="guest-item-index">
+                                        👁️ <span>${etiquetaGuest}</span>
+                                    </div>
                                 `;
+
+                                contenedorMiembros.innerHTML = html;
+                            } catch (err) {
+                                contenedorMiembros.innerHTML = `
+                                    <div class="guest-item-index">
+                                        👁️ <span>1 ${t.guest_label}</span>
+                                    </div>
+                                `;
+                            }
+                        }
+
+                        const listaEmojis = ["😀","😃","😄","😁","😆","😅","😂","🤣","🥲","☺️","😊","😇","🙂","🙃","😉","🪽","😈","👿","😍","🥰","😘","😗","😙","😚","😋","😛","😜","🤪","😝","🤑","🤗","🤭","🤫","🤔","🤐","🤨","😐","😑","😶","😏","😒","🙄","😬","🤥","😌","😔","😪","🤤","😴","😷","🤒","🤕","🤢","🤮","🥶","🥵","😵","🤯","🤠","🥳","🥸","😎","🤓","🧐","😕","😟","🙁","😮","😯","😲","😳","🥺","😦","😧","📁","👑","⭐","🔥","💀","👻","🤖","🎮","👾","⚡","💎","🎯","🚀","❤️","🖤","💜"];
+
+                        const gridChatEmojis = document.getElementById('grid-chat-emojis');
+                        const pickerChatEmojis = document.getElementById('picker-chat-emojis');
+                        const btnToggleChatEmojis = document.getElementById('btn-toggle-chat-emojis');
+                        const inputMensajeChat = document.getElementById('input-mensaje-chat');
+
+                        if (gridChatEmojis) {
+                            listaEmojis.forEach(emoji => {
+                                const span = document.createElement('span');
+                                span.className = 'emoji-item';
+                                span.textContent = emoji;
+                                span.onclick = () => { inputMensajeChat.value += emoji; pickerChatEmojis.style.display = 'none'; };
+                                gridChatEmojis.appendChild(span);
                             });
                         }
 
-                        let etiquetaGuest = totalGuests === 1 ? `1 ${t.guest_label}` : `${totalGuests} Visitantes (Guests)`;
-                        html += `
-                            <div class="guest-item-index">
-                                👁️ <span>${etiquetaGuest}</span>
-                            </div>
-                        `;
-
-                        contenedorMiembros.innerHTML = html;
-                    } catch (err) {
-                        contenedorMiembros.innerHTML = `
-                            <div class="guest-item-index">
-                                👁️ <span>1 ${t.guest_label}</span>
-                            </div>
-                        `;
-                    }
-                }
-
-                const listaEmojis = ["😀","😃","😄","😁","😆","😅","😂","🤣","🥲","☺️","😊","😇","🙂","🙃","😉","🪽","😈","👿","😍","🥰","😘","😗","😙","😚","😋","😛","😜","🤪","😝","🤑","🤗","🤭","🤫","🤔","🤐","🤨","😐","😑","😶","😏","😒","🙄","😬","🤥","😌","😔","😪","🤤","😴","😷","🤒","🤕","🤢","🤮","🥶","🥵","😵","🤯","🤠","🥳","🥸","😎","🤓","🧐","😕","😟","🙁","😮","😯","😲","😳","🥺","😦","😧","📁","👑","⭐","🔥","💀","👻","🤖","🎮","👾","⚡","💎","🎯","🚀","❤️","🖤","💜"];
-
-                const gridChatEmojis = document.getElementById('grid-chat-emojis');
-                const pickerChatEmojis = document.getElementById('picker-chat-emojis');
-                const btnToggleChatEmojis = document.getElementById('btn-toggle-chat-emojis');
-                const inputMensajeChat = document.getElementById('input-mensaje-chat');
-
-                if (gridChatEmojis) {
-                    listaEmojis.forEach(emoji => {
-                        const span = document.createElement('span');
-                        span.className = 'emoji-item';
-                        span.textContent = emoji;
-                        span.onclick = () => { inputMensajeChat.value += emoji; pickerChatEmojis.style.display = 'none'; };
-                        gridChatEmojis.appendChild(span);
-                    });
-                }
-
-                if (btnToggleChatEmojis && pickerChatEmojis) {
-                    btnToggleChatEmojis.onclick = (e) => {
-                        e.stopPropagation();
-                        pickerChatEmojis.style.display = pickerChatEmojis.style.display === 'block' ? 'none' : 'block';
-                    };
-                }
-
-                document.onclick = (e) => {
-                    if (pickerChatEmojis && btnToggleChatEmojis && !pickerChatEmojis.contains(e.target) && e.target !== btnToggleChatEmojis) {
-                        pickerChatEmojis.style.display = 'none';
-                    }
-                };
-
-                async function cargarMensajesChat() {
-                    const contenedorChat = document.getElementById('contenedor-mensajes-chat');
-                    if (!contenedorChat) return;
-
-                    const lang = obtenerIdiomaActual();
-                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
-                    const treintaMinutosAtras = new Date(new Date().getTime() - 30 * 60 * 1000).toISOString();
-
-                    try {
-                        const { data: mensajes, error } = await _supabase
-                            .from('Chat_Global')
-                            .select('*')
-                            .gte('fecha', treintaMinutosAtras)
-                            .order('fecha', { ascending: true });
-
-                        if (error || !mensajes || mensajes.length === 0) {
-                            contenedorChat.innerHTML = `<p style="color: #777; font-size: 0.8rem; text-align: center; margin-top: 40px;">${t.no_chat}</p>`;
-                            return;
+                        if (btnToggleChatEmojis && pickerChatEmojis) {
+                            btnToggleChatEmojis.onclick = (e) => {
+                                e.stopPropagation();
+                                pickerChatEmojis.style.display = pickerChatEmojis.style.display === 'block' ? 'none' : 'block';
+                            };
                         }
 
-                        let htmlChat = '';
-                        mensajes.forEach(msg => {
-                            const hora = new Date(msg.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                            const infoRol = obtenerEstiloRol(msg.rol_usuario);
-                            const attrRolChat = infoRol.tipo === 'class' ? `class="chat-msg-user rol-holografico"` : `class="chat-msg-user" style="${infoRol.valor}"`;
-
-                            let botonBorrar = '';
-                            if (rolUsuarioActual === 'Creador' || rolUsuarioActual === 'Moderador') {
-                                botonBorrar = `<button class="btn-borrar-msg" onclick="borrarMensajeChat(${msg.id})" title="Eliminar mensaje">🗑</button>`;
+                        document.onclick = (e) => {
+                            if (pickerChatEmojis && btnToggleChatEmojis && !pickerChatEmojis.contains(e.target) && e.target !== btnToggleChatEmojis) {
+                                pickerChatEmojis.style.display = 'none';
                             }
+                        };
 
-                            htmlChat += `
-                                <div class="chat-msg-item">
-                                    ${botonBorrar}
-                                    <div class="chat-msg-header-info">
-                                        <a href="perfil.html?nombre=${encodeURIComponent(msg.nombre_usuario)}" ${attrRolChat}>${msg.nombre_usuario}</a>
-                                        <span class="chat-msg-time">${hora}</span>
-                                    </div>
-                                    <div class="chat-msg-text">${msg.mensaje}</div>
-                                </div>
-                            `;
-                        });
+                        async function cargarMensajesChat() {
+                            const contenedorChat = document.getElementById('contenedor-mensajes-chat');
+                            if (!contenedorChat) return;
 
-                        const estabaAbajo = contenedorChat.scrollHeight - contenedorChat.scrollTop <= contenedorChat.clientHeight + 50;
-                        contenedorChat.innerHTML = htmlChat;
-                        if (estabaAbajo) contenedorChat.scrollTop = contenedorChat.scrollHeight;
-                    } catch (err) {}
-                }
+                            const lang = obtenerIdiomaActual();
+                            const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                            const treintaMinutosAtras = new Date(new Date().getTime() - 30 * 60 * 1000).toISOString();
 
-                async function enviarMensajeChat() {
-                    if (!usuarioActualSesion) { alert('Debes iniciar sesión para hablar en el chat.'); window.location.href = 'Login.html'; return; }
-                    if (rolUsuarioActual.trim().toLowerCase() === 'banned') { alert('No puedes enviar mensajes porque tu perfil ha sido cerrado.'); return; }
+                            try {
+                                const { data: mensajes, error } = await _supabase
+                                    .from('Chat_Global')
+                                    .select('*')
+                                    .gte('fecha', treintaMinutosAtras)
+                                    .order('fecha', { ascending: true });
 
-                    const texto = inputMensajeChat.value.trim();
-                    if (!texto) return;
-                    const nombreUser = usuarioActualSesion.Nombre || usuarioActualSesion.nombre;
+                                if (error || !mensajes || mensajes.length === 0) {
+                                    contenedorChat.innerHTML = `<p style="color: #777; font-size: 0.8rem; text-align: center; margin-top: 40px;">${t.no_chat}</p>`;
+                                    return;
+                                }
 
-                    try {
-                        const { data: uData } = await _supabase.from('Usuarios').select('id, Rol').eq('Nombre', nombreUser).single();
-                        const { error } = await _supabase.from('Chat_Global').insert([{
-                            usuario_id: uData ? uData.id : null,
-                            nombre_usuario: nombreUser,
-                            rol_usuario: uData ? uData.Rol : 'Miembro',
-                            mensaje: texto
-                        }]);
+                                let htmlChat = '';
+                                mensajes.forEach(msg => {
+                                    const hora = new Date(msg.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                                    const infoRol = obtenerEstiloRol(msg.rol_usuario);
+                                    const attrRolChat = infoRol.tipo === 'class' ? `class="chat-msg-user rol-holografico"` : `class="chat-msg-user" style="${infoRol.valor}"`;
 
-                        if (!error) { inputMensajeChat.value = ''; cargarMensajesChat(); }
-                        else { alert('Error: ' + error.message); }
-                    } catch (err) { alert('Error de conexión.'); }
-                }
+                                    let botonBorrar = '';
+                                    if (rolUsuarioActual === 'Creador' || rolUsuarioActual === 'Moderador') {
+                                        botonBorrar = `<button class="btn-borrar-msg" onclick="borrarMensajeChat(${msg.id})" title="Eliminar mensaje">🗑</button>`;
+                                    }
 
-                async function borrarMensajeChat(idMsg) {
-                    try {
-                        const { error } = await _supabase.from('Chat_Global').delete().eq('id', idMsg);
-                        if (!error) cargarMensajesChat();
-                    } catch (err) {}
-                }
+                                    htmlChat += `
+                                        <div class="chat-msg-item">
+                                            ${botonBorrar}
+                                            <div class="chat-msg-header-info">
+                                                <a href="perfil.html?nombre=${encodeURIComponent(msg.nombre_usuario)}" ${attrRolChat}>${msg.nombre_usuario}</a>
+                                                <span class="chat-msg-time">${hora}</span>
+                                            </div>
+                                            <div class="chat-msg-text">${msg.mensaje}</div>
+                                        </div>
+                                    `;
+                                });
 
-                setInterval(cargarMensajesChat, 4000);
-                setInterval(cargarMiembrosEnLinea, 15000);
-                setInterval(cargarFeedForoIndex, 15000);
+                                const estabaAbajo = contenedorChat.scrollHeight - contenedorChat.scrollTop <= contenedorChat.clientHeight + 50;
+                                contenedorChat.innerHTML = htmlChat;
+                                if (estabaAbajo) contenedorChat.scrollTop = contenedorChat.scrollHeight;
+                            } catch (err) {}
+                        }
+
+                        async function enviarMensajeChat() {
+                            if (!usuarioActualSesion) { alert('Debes iniciar sesion para hablar en el chat.'); window.location.href = 'Login.html'; return; }
+                            if (rolUsuarioActual.trim().toLowerCase() === 'banned') { alert('No puedes enviar mensajes porque tu perfil ha sido cerrado.'); return; }
+
+                            const texto = inputMensajeChat.value.trim();
+                            if (!texto) return;
+                            const nombreUser = usuarioActualSesion.Nombre || usuarioActualSesion.nombre;
+
+                            try {
+                                const { data: uData } = await _supabase.from('Usuarios').select('id, Rol').eq('Nombre', nombreUser).single();
+                                const { error } = await _supabase.from('Chat_Global').insert([{
+                                    usuario_id: uData ? uData.id : null,
+                                    nombre_usuario: nombreUser,
+                                    rol_usuario: uData ? uData.Rol : 'Miembro',
+                                    mensaje: texto
+                                }]);
+
+                                if (!error) { inputMensajeChat.value = ''; cargarMensajesChat(); }
+                                else { alert('Error: ' + error.message); }
+                            } catch (err) { alert('Error de conexion.'); }
+                        }
+
+                        async function borrarMensajeChat(idMsg) {
+                            try {
+                                const { error } = await _supabase.from('Chat_Global').delete().eq('id', idMsg);
+                                if (!error) cargarMensajesChat();
+                            } catch (err) {}
+                        }
+
+                        setInterval(cargarMensajesChat, 4000);
+                        setInterval(cargarMiembrosEnLinea, 15000);
+                        setInterval(cargarFeedForoIndex, 15000);
     </script>
 </body>
 </html>

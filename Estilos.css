@@ -14,7 +14,8 @@
 }
 
 body {
-    font-family: 'LD Slender', sans-serif;
+    /* Agregamos Arial y sans-serif como respaldo para tildes y Ñ */
+    font-family: 'LD Slender', Arial, sans-serif;
     background-color: #121212; /* Fondo oscuro al estilo ZeoWorks */
     color: #ffffff;
 }
@@ -156,7 +157,8 @@ body {
         color: #fff;
         font-size: 1rem;
         outline: none;
-        font-family: inherit; /* Hereda la fuente LD Slender */
+        /* Hereda asegurando el respaldo */
+        font-family: 'LD Slender', Arial, sans-serif;
         transition: border-color 0.2s;
     }
 
@@ -174,7 +176,7 @@ body {
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    font-family: inherit;
+    font-family: 'LD Slender', Arial, sans-serif;
     transition: background-color 0.2s;
     margin-top: 10px;
 }

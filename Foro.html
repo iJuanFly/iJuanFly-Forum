@@ -38,7 +38,7 @@
                 gap: 8px;
             }
 
-        /* ESTILOS PARA NOVEDADES DEL DÍA */
+        /* ESTILOS PARA NOVEDADES DEL DIA */
         .novedades-card {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid #333;
@@ -94,7 +94,7 @@
             margin-top: 10px;
         }
 
-        /* EFECTO HOLOGRÁFICO PARA EL ROL DE CREADOR */
+        /* EFECTO HOLOGRAFICO PARA EL ROL DE CREADOR */
         .rol-holografico {
             background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
             background-size: 400% 400%;
@@ -555,16 +555,16 @@
                 <div class="dropdown-content">
                     <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
                     <a href="cp.html" id="menu-cp" style="color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
-                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
                 </div>
             </li>
         </ul>
 
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
-                <option value="es">ES - Español</option>
+                <option value="es">ES - Espanol</option>
                 <option value="en">EN - English</option>
-                <option value="pt">PT - Português</option>
+                <option value="pt">PT - Portugues</option>
                 <option value="ru">RU - Русский</option>
                 <option value="ja">JA - 日本語</option>
                 <option value="zh">ZH - 繁體中文</option>
@@ -576,18 +576,18 @@
         <div class="foro-layout-grid">
 
             <aside class="sidebar-miembros">
-                <!-- TARJETA NOVEDADES DEL DÍA -->
+                <!-- TARJETA NOVEDADES DEL DIA -->
                 <div class="novedades-card">
-                    <h3 data-i18n="daily_news_title">📰 Novedades del día</h3>
+                    <h3 data-i18n="daily_news_title">📰 Novedades del dia</h3>
                     <div class="novedades-item" id="novedad-ultimo-post">
-                        <strong data-i18n="latest_post">Último Post:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
+                        <strong data-i18n="latest_post">Ultimo Post:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
                     </div>
                     <div class="novedades-item" id="novedad-ultimo-miembro">
-                        <strong data-i18n="latest_member">Último Miembro:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
+                        <strong data-i18n="latest_member">Ultimo Miembro:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
                     </div>
                 </div>
 
-                <h3><span class="punto-verde-titulo"></span> <span data-i18n="sidebar_online">En Línea</span></h3>
+                <h3><span class="punto-verde-titulo"></span> <span data-i18n="sidebar_online">En Linea</span></h3>
                 <div class="lista-miembros-index" id="lista-miembros-index">
                     <p style="color: #777; font-size: 0.85rem; text-align: center;" data-i18n="loading">Cargando...</p>
                 </div>
@@ -600,7 +600,7 @@
                 </div>
 
                 <div class="foro-header-flex">
-                    <h2 data-i18n="forum_threads_title">💬 Temas de Discusión</h2>
+                    <h2 data-i18n="forum_threads_title">💬 Temas de Discusion</h2>
                     <button class="btn-nuevo-tema" onclick="abrirModalTema()" data-i18n="btn_new_thread">+ Nuevo Tema</button>
                 </div>
 
@@ -617,19 +617,19 @@
         <div class="box-modal-foro">
             <h3 style="color: #fff; margin: 0;" data-i18n="modal_thread_title">Crear Nuevo Tema</h3>
 
-            <input type="text" id="input-titulo-tema" placeholder="Título del tema" data-i18n-placeholder="placeholder_title" maxlength="100">
+            <input type="text" id="input-titulo-tema" placeholder="Titulo del tema" data-i18n-placeholder="placeholder_title" maxlength="100">
             <select id="select-categoria">
-                <option value="" data-i18n="loading_cats">Cargando categorías...</option>
+                <option value="" data-i18n="loading_cats">Cargando categorias...</option>
             </select>
 
             <div>
                 <div class="toolbar-editor">
-                    <select id="editor-font-size" onchange="aplicarEstiloEditor('fontSize', this.value)" title="Tamaño de letra">
+                    <select id="editor-font-size" onchange="aplicarEstiloEditor('fontSize', this.value)" title="Tamano de letra">
                         <option value="3" data-i18n="font_normal">Normal</option>
-                        <option value="1" data-i18n="font_small">Pequeña</option>
+                        <option value="1" data-i18n="font_small">Pequena</option>
                         <option value="4" data-i18n="font_medium">Mediana</option>
                         <option value="5" data-i18n="font_large">Grande</option>
-                        <option value="6" data-i18n="font_title">Título</option>
+                        <option value="6" data-i18n="font_title">Titulo</option>
                     </select>
 
                     <input type="color" id="editor-font-color" onchange="aplicarEstiloEditor('foreColor', this.value)" title="Color de la fuente" value="#ffffff">
@@ -639,10 +639,10 @@
                     <button type="button" class="toolbar-btn-item" style="margin-left: auto; background: #333;" onclick="toggleVistaPrevia()" data-i18n="btn_preview">👁 Vista Previa</button>
                 </div>
 
-                <div class="editor-content-area" contenteditable="true" id="editor-contenido" placeholder="¿Qué quieres compartir?" data-i18n-placeholder="placeholder_content" oninput="actualizarContadorCaracteres()"></div>
+                <div class="editor-content-area" contenteditable="true" id="editor-contenido" placeholder="¿Que quieres compartir?" data-i18n-placeholder="placeholder_content" oninput="actualizarContadorCaracteres()"></div>
 
                 <div class="editor-footer-info">
-                    <span data-i18n="file_limit_info">Máx 50 MB por archivo</span>
+                    <span data-i18n="file_limit_info">Max 50 MB por archivo</span>
                     <span id="contador-caracteres">0 / 1000 <span data-i18n="chars_label">caracteres</span></span>
                 </div>
             </div>
@@ -674,20 +674,20 @@
                 const ZEO_TRADUCCIONES = {
                     es: {
                         nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
-                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesion",
                         forum_subtitle_banner: "Comunidad y Debates", forum_page_title: "Foro - iJuanFly Community Post",
-                        forum_threads_title: "💬 Temas de Discusión", btn_new_thread: "+ Nuevo Tema",
+                        forum_threads_title: "💬 Temas de Discusion", btn_new_thread: "+ Nuevo Tema",
                         loading_threads: "Cargando temas...", modal_thread_title: "Crear Nuevo Tema",
-                        placeholder_title: "Título del tema", placeholder_content: "¿Qué quieres compartir?",
+                        placeholder_title: "Titulo del tema", placeholder_content: "¿Que quieres compartir?",
                         label_attach_img: "Adjuntar archivos (opcional):", btn_cancel: "Cancelar", btn_publish: "Publicar",
-                        no_threads: "No hay temas publicados aún. ¡Sé el primero en crear uno!", loading_cats: "Cargando categorías...",
-                        by_user: "Por:", tag_closed: "[CERRADO]", tag_pinned: "📌 Hilo fijado", sidebar_online: "En Línea",
-                        loading: "Cargando...", status_online: "● En línea", no_online: "No hay miembros en línea.",
+                        no_threads: "No hay temas publicados aun. ¡Se el primero en crear uno!", loading_cats: "Cargando categorias...",
+                        by_user: "Por:", tag_closed: "[CERRADO]", tag_pinned: "📌 Hilo fijado", sidebar_online: "En Linea",
+                        loading: "Cargando...", status_online: "● En linea", no_online: "No hay miembros en linea.",
                         announcements_title: "📌 Anuncios Oficiales", btn_pin: "📌 Fijar", btn_unpin: "📍 Desfijar", btn_delete: "🗑 Eliminar",
-                        font_normal: "Normal", font_small: "Pequeña", font_medium: "Mediana", font_large: "Grande", font_title: "Título",
-                        btn_preview: "👁 Vista Previa", preview_title: "Vista Previa:", file_limit_info: "Máx 50 MB por archivo",
+                        font_normal: "Normal", font_small: "Pequena", font_medium: "Mediana", font_large: "Grande", font_title: "Titulo",
+                        btn_preview: "👁 Vista Previa", preview_title: "Vista Previa:", file_limit_info: "Max 50 MB por archivo",
                         chars_label: "caracteres", uploading_files: "Subiendo archivos...",
-                        daily_news_title: "📰 Novedades del día", latest_post: "Último Post:", latest_member: "Último Miembro:", guest_label: "Visitante (Guest)", no_recent_posts: "Ninguno"
+                        daily_news_title: "📰 Novedades del dia", latest_post: "Ultimo Post:", latest_member: "Ultimo Miembro:", guest_label: "Visitante (Guest)", no_recent_posts: "Ninguno"
                     },
                     en: {
                         nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
@@ -904,7 +904,7 @@
                     if (picker && !picker.contains(e.target)) picker.style.display = 'none';
                 };
 
-                // CARGAR NOVEDADES DEL DÍA CON COLOR DE ROL
+                // CARGAR NOVEDADES DEL DIA CON COLOR DE ROL
                 async function cargarNovedadesDelDia() {
                     const lang = obtenerIdiomaActual();
                     const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
@@ -1108,7 +1108,7 @@
                 }
 
                 async function calificarTema(idTema, puntuacion) {
-                    if (!usuarioActual) { alert("Debes iniciar sesión para calificar."); window.location.href = 'Login.html'; return; }
+                    if (!usuarioActual) { alert("Debes iniciar sesion para calificar."); window.location.href = 'Login.html'; return; }
                     await _supabase.from('calificaciones_foro').upsert({ tema_id: idTema, usuario_id: usuarioActual.id, puntuacion: puntuacion });
                     const { data: todasCals } = await _supabase.from('calificaciones_foro').select('puntuacion').eq('tema_id', idTema);
                     if (todasCals && todasCals.length > 0) {
@@ -1152,8 +1152,8 @@
                     const btnPub = document.getElementById('btn-publicar-modal');
                     const txtProgreso = document.getElementById('progreso-subida');
 
-                    if (!titulo || !contenidoHTML) { alert("Por favor completa el título y el contenido."); return; }
-                    if (textoLimpio.length > 1000) { alert("El contenido excede el límite máximo de 1000 caracteres."); return; }
+                    if (!titulo || !contenidoHTML) { alert("Por favor completa el titulo y el contenido."); return; }
+                    if (textoLimpio.length > 1000) { alert("El contenido excede el limite maximo de 1000 caracteres."); return; }
 
                     btnPub.disabled = true;
                     let arregloMultimedia = [];
@@ -1212,3 +1212,4 @@
     </script>
 </body>
 </html>
+```[cite: 9]

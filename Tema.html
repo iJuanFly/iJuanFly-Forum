@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="topic_page_title">Discusión - iJuanFly Community Post</title>
+    <title data-i18n="topic_page_title">Discusion - iJuanFly Community Post</title>
     <link rel="stylesheet" href="Estilos.css">
     <style>
         .tema-detalle-layout {
@@ -60,7 +60,7 @@
                 cursor: pointer;
             }
 
-        /* CALIFICACIÓN DE ESTRELLAS DE IZQUIERDA A DERECHA */
+        /* CALIFICACION DE ESTRELLAS DE IZQUIERDA A DERECHA */
         .rating-interactive {
             display: inline-flex;
             flex-direction: row-reverse;
@@ -314,7 +314,7 @@
         <h1>
             <span style="color: red;">iJuanFly</span> <span style="color: #ffffff;">Community Post</span>
         </h1>
-        <p data-i18n="topic_subtitle_banner">Discusión en el Foro</p>
+        <p data-i18n="topic_subtitle_banner">Discusion en el Foro</p>
     </header>
 
     <nav class="navbar">
@@ -327,16 +327,16 @@
                 <div class="dropdown-content">
                     <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
                     <a href="cp.html" id="menu-cp" style="color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
-                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
                 </div>
             </li>
         </ul>
 
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
-                <option value="es">ES - Español</option>
+                <option value="es">ES - Espanol</option>
                 <option value="en">EN - English</option>
-                <option value="pt">PT - Português</option>
+                <option value="pt">PT - Portugues</option>
                 <option value="ru">RU - Русский</option>
                 <option value="ja">JA - 日本語</option>
                 <option value="zh">ZH - 繁體中文</option>
@@ -350,10 +350,10 @@
 
             <!-- Post Principal -->
             <div class="post-principal" id="post-principal">
-                <p style="color: #777;" data-i18n="loading_discussion">Cargando discusión...</p>
+                <p style="color: #777;" data-i18n="loading_discussion">Cargando discusion...</p>
             </div>
 
-            <!-- Sección Comentarios -->
+            <!-- Seccion Comentarios -->
             <div class="seccion-comentarios">
                 <h3 data-i18n="comments_title">💬 Comentarios y Respuestas</h3>
                 <div id="contenedor-comentarios">
@@ -364,12 +364,12 @@
                 <div class="caja-responder" id="caja-responder-area" style="display: none;">
                     <div>
                         <div class="toolbar-editor-resp">
-                            <select id="editor-resp-font-size" onchange="aplicarEstiloRespuesta('fontSize', this.value)" title="Tamaño de letra">
+                            <select id="editor-resp-font-size" onchange="aplicarEstiloRespuesta('fontSize', this.value)" title="Tamano de letra">
                                 <option value="3" data-i18n="font_normal">Normal</option>
-                                <option value="1" data-i18n="font_small">Pequeña</option>
+                                <option value="1" data-i18n="font_small">Pequena</option>
                                 <option value="4" data-i18n="font_medium">Mediana</option>
                                 <option value="5" data-i18n="font_large">Grande</option>
-                                <option value="6" data-i18n="font_title">Título</option>
+                                <option value="6" data-i18n="font_title">Titulo</option>
                             </select>
 
                             <input type="color" id="editor-resp-font-color" onchange="aplicarEstiloRespuesta('foreColor', this.value)" title="Color de la fuente" value="#ffffff">
@@ -383,7 +383,7 @@
                         <div class="editor-content-area-resp" contenteditable="true" id="editor-respuesta" placeholder="Escribe tu respuesta..." data-i18n-placeholder="reply_placeholder" oninput="actualizarContadorRespuesta()"></div>
 
                         <div class="editor-footer-info">
-                            <span data-i18n="file_limit_info">Archivos multimedia e imágenes</span>
+                            <span data-i18n="file_limit_info">Archivos multimedia e imagenes</span>
                             <span id="contador-caracteres-resp">0 / 1000 <span data-i18n="chars_label">caracteres</span></span>
                         </div>
                     </div>
@@ -395,7 +395,7 @@
 
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
                         <div>
-                            <label style="color: #ccc; font-size: 0.85rem; display: block; margin-bottom: 3px;" data-i18n="label_attach_files">Adjuntar archivos (imágenes, GIFs, videos):</label>
+                            <label style="color: #ccc; font-size: 0.85rem; display: block; margin-bottom: 3px;" data-i18n="label_attach_files">Adjuntar archivos (imagenes, GIFs, videos):</label>
                             <input type="file" id="input-multimedia-respuesta" accept="image/*,video/*,.gif" multiple style="background: none; border: none; color: #aaa;">
                         </div>
                         <button class="btn-enviar-respuesta" id="btn-enviar-resp" onclick="enviarComentario()" data-i18n="btn_reply">Responder</button>
@@ -403,9 +403,9 @@
                     <span id="progreso-subida-comentario" style="display:none; color:#ff4d4d; font-size:0.8rem;" data-i18n="uploading_files">Procesando archivos...</span>
                 </div>
 
-                <!-- Mensaje si está cerrado -->
+                <!-- Mensaje si esta cerrado -->
                 <div id="aviso-hilo-cerrado" style="display: none; background: rgba(255,77,77,0.1); border: 1px solid rgba(255,77,77,0.3); padding: 15px; border-radius: 8px; text-align: center; color: #ff4d4d; margin-top: 20px; font-weight: bold;" data-i18n="thread_closed_msg">
-                    🔒 Este hilo ha sido cerrado por un moderador. No se permiten más respuestas.
+                    🔒 Este hilo ha sido cerrado por un moderador. No se permiten mas respuestas.
                 </div>
             </div>
         </div>
@@ -416,16 +416,16 @@
                 const ZEO_TRADUCCIONES = {
                     es: {
                         nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
-                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
-                        topic_subtitle_banner: "Discusión en el Foro", topic_page_title: "Discusión - iJuanFly Community Post",
-                        back_to_forum: "← Volver al Foro", loading_discussion: "Cargando discusión...",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesion",
+                        topic_subtitle_banner: "Discusion en el Foro", topic_page_title: "Discusion - iJuanFly Community Post",
+                        back_to_forum: "← Volver al Foro", loading_discussion: "Cargando discusion...",
                         comments_title: "💬 Comentarios y Respuestas", loading_replies: "Cargando respuestas...",
-                        reply_placeholder: "Escribe tu respuesta...", btn_reply: "Responder", no_comments: "No hay comentarios todavía. ¡Sé el primeiro en responder!",
+                        reply_placeholder: "Escribe tu respuesta...", btn_reply: "Responder", no_comments: "No hay comentarios todavia. ¡Se el primero en responder!",
                         by_text: "Por", btn_close_thread: "🔒 Cerrar Hilo", btn_open_thread: "🔓 Abrir Hilo", btn_delete_reply: "🗑 Eliminar",
                         reply_deleted_msg: "Un Moderador ha eliminado esta respuesta",
-                        thread_closed_msg: "🔒 Este hilo ha sido cerrado por un moderador. No se permiten más respuestas.",
-                        font_normal: "Normal", font_small: "Pequeña", font_medium: "Mediana", font_large: "Grande", font_title: "Título",
-                        file_limit_info: "Archivos multimedia e imágenes", chars_label: "caracteres", label_attach_files: "Adjuntar archivos (múltiples):", uploading_files: "Procesando archivos..."
+                        thread_closed_msg: "🔒 Este hilo ha sido cerrado por un moderador. No se permiten mas respuestas.",
+                        font_normal: "Normal", font_small: "Pequena", font_medium: "Mediana", font_large: "Grande", font_title: "Titulo",
+                        file_limit_info: "Archivos multimedia e imagenes", chars_label: "caracteres", label_attach_files: "Adjuntar archivos (multiples):", uploading_files: "Procesando archivos..."
                     },
                     en: {
                         nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
@@ -724,7 +724,7 @@
 
                 async function calificarTemaDetalle(puntuacion) {
                     if (!usuarioActual) {
-                        alert("Debes iniciar sesión para calificar hilos.");
+                        alert("Debes iniciar sesion para calificar hilos.");
                         window.location.href = 'Login.html';
                         return;
                     }
@@ -734,7 +734,7 @@
                         .upsert({ tema_id: temaId, usuario_id: usuarioActual.id, puntuacion: puntuacion });
 
                     if (errVote) {
-                        alert("Error al guardar calificación: " + errVote.message);
+                        alert("Error al guardar calificacion: " + errVote.message);
                         return;
                     }
 
@@ -856,7 +856,7 @@
                 }
 
                 async function eliminarRespuesta(idComentario) {
-                    if (!confirm("¿Estás seguro de que deseas eliminar esta respuesta?")) return;
+                    if (!confirm("¿Estas seguro de que deseas eliminar esta respuesta?")) return;
 
                     const { error } = await _supabase
                         .from('comentarios_foro')
@@ -890,7 +890,7 @@
 
                 async function enviarComentario() {
                     if (temaActualData && temaActualData.cerrado) {
-                        alert("Este hilo está cerrado.");
+                        alert("Este hilo esta cerrado.");
                         return;
                     }
 
@@ -904,7 +904,7 @@
                     if (!contenidoHTML && (!inputMedia.files || inputMedia.files.length === 0)) return;
 
                     if (textoLimpio.length > 1000) {
-                        alert("La respuesta excede el límite máximo de 1000 caracteres.");
+                        alert("La respuesta excede el limite maximo de 1000 caracteres.");
                         return;
                     }
 

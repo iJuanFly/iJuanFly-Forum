@@ -31,7 +31,7 @@
             flex-shrink: 0;
         }
 
-        /* SECCIÓN LATERAL DE LOS ÚLTIMOS POSTS */
+        /* SECCION LATERAL DE LOS ULTIMOS POSTS */
         .perfil-sidebar-posts {
             width: 320px;
             background: rgba(0, 0, 0, 0.4);
@@ -172,7 +172,7 @@
             font-family: inherit !important;
         }
 
-        /* EFECTO HOLOGRÁFICO PARA EL NOMBRE (CREADOR) */
+        /* EFECTO HOLOGRAFICO PARA EL NOMBRE (CREADOR) */
         .rol-holografico {
             background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
             background-size: 400% 400%;
@@ -345,7 +345,7 @@
                 <div class="dropdown-content">
                     <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
                     <a href="cp.html" id="menu-cp" style="display: none; color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
-                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
                 </div>
             </li>
         </ul>
@@ -353,9 +353,9 @@
         <!-- SELECTOR DE IDIOMA FLOTANTE A LA DERECHA -->
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
-                <option value="es">ES - Español</option>
+                <option value="es">ES - Espanol</option>
                 <option value="en">EN - English</option>
-                <option value="pt">PT - Português</option>
+                <option value="pt">PT - Portugues</option>
                 <option value="ru">RU - Русский</option>
                 <option value="ja">JA - 日本語</option>
                 <option value="zh">ZH - 繁體中文</option>
@@ -370,9 +370,9 @@
                 <p style="text-align: center; color: #aaa; margin-top: 50px;" data-i18n="loading_profile">Cargando perfil...</p>
             </div>
 
-            <!-- SIDEBAR LATERAL CON LOS ÚLTIMOS 3 POSTS Y ESTRELLAS -->
+            <!-- SIDEBAR LATERAL CON LOS ULTIMOS 3 POSTS Y ESTRELLAS -->
             <div class="perfil-sidebar-posts">
-                <h3 data-i18n="sidebar_recent_posts">📝 Últimos Posts</h3>
+                <h3 data-i18n="sidebar_recent_posts">📝 Ultimos Posts</h3>
                 <div id="contenedor-ultimos-posts">
                     <p style="color: #777; font-size: 0.85rem;" data-i18n="loading_posts">Cargando posts...</p>
                 </div>
@@ -380,23 +380,23 @@
         </div>
     </main>
 
-    <!-- SUPABASE Y LÓGICA MULTIDIOMA -->
+    <!-- SUPABASE Y LOGICA MULTIDIOMA -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
                 const ZEO_TRADUCCIONES = {
                     es: {
                         nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
-                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesion",
                         sub_banner: "iJuanFly Community Post", profile_page_title: "Perfil de Usuario - iJuanFly Community Post",
                         loading_profile: "Cargando perfil...", user_not_specified: "Usuario no especificado",
                         user_not_exist: "El usuario no existe", back_to_members: "← Volver a la Lista de Miembros",
-                        member_since: "Miembro desde", status_label: "Estado", no_bio: "Este usuario aún no ha escrito una biografía.",
-                        status_online: "● En línea", offline: "Desconectado", unknown_date: "Desconocida",
+                        member_since: "Miembro desde", status_label: "Estado", no_bio: "Este usuario aun no ha escrito una biografia.",
+                        status_online: "● En linea", offline: "Desconectado", unknown_date: "Desconocida",
                         hidden_text: "Oculto",
                         tooltip_add_friend: "Agregar a amigos", tooltip_friends: "Amigos",
                         tooltip_sent: "Solicitud enviada", tooltip_accept: "Aceptar solicitud",
                         profile_closed: "⛔ Este perfil ha sido cerrado.",
-                        sidebar_recent_posts: "📝 Últimos Posts", loading_posts: "Cargando posts...", no_posts_yet: "Este usuario aún no ha publicado ningún tema en el foro.",
+                        sidebar_recent_posts: "📝 Ultimos Posts", loading_posts: "Cargando posts...", no_posts_yet: "Este usuario aun no ha publicado ningun tema en el foro.",
                         min_ago: (m) => `Hace ${m} min`, h_ago: (h) => `Hace ${h} h`, d_ago: (d) => `Hace ${d} d`
                     },
                     en: {
