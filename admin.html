@@ -1,0 +1,704 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="admin_page_title">Panel de Administración - iJuanFly Community Post</title>
+    <link rel="stylesheet" href="Estilos.css">
+    <style>
+        .admin-container {
+            max-width: 1050px;
+            margin: 30px auto;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        /* EFECTO HOLOGRÁFICO PARA EL ROL DE CREADOR */
+        .rol-holografico {
+            background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hologramaAnim 6s ease infinite;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes hologramaAnim {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* BARRA DE BÚSQUEDA Y PESTAÑAS */
+        .admin-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            color: #ccc;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+            .tab-btn.active, .tab-btn:hover {
+                background: #ff4d4d;
+                border-color: #ff4d4d;
+                color: #fff;
+            }
+
+        .search-bar-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+            .search-bar-container input {
+                width: 100%;
+                background: #1a1a1a;
+                border: 1px solid #444;
+                padding: 10px 15px 10px 40px;
+                border-radius: 6px;
+                color: #fff;
+                font-family: inherit;
+                font-size: 0.95rem;
+                box-sizing: border-box;
+                outline: none;
+            }
+
+                .search-bar-container input:focus {
+                    border-color: #ff4d4d;
+                }
+
+            .search-bar-container svg {
+                position: absolute;
+                left: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 18px;
+                height: 18px;
+                fill: #777;
+            }
+
+        .tabla-admin {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+            .tabla-admin th, .tabla-admin td {
+                padding: 12px 15px;
+                text-align: left;
+                border-bottom: 1px solid #222;
+            }
+
+            .tabla-admin th {
+                color: #ff4d4d;
+                font-size: 1.1rem;
+                border-bottom: 2px solid #444;
+            }
+
+        .select-rol {
+            background-color: #1a1a1a;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .btn-actualizar {
+            background-color: #00B028;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+            .btn-actualizar:hover {
+                background-color: #008f20;
+            }
+
+        /* --- ESTILO DE TARJETA PARA ACCESO DENEGADO --- */
+        .aviso-denegado-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            max-width: 550px;
+            margin: 80px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+            .aviso-denegado-card h2 {
+                color: #ff4d4d;
+                font-size: 2.2rem;
+                margin-bottom: 15px;
+                font-family: inherit !important;
+                text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            }
+
+            .aviso-denegado-card p {
+                color: #ccc;
+                font-size: 1.1rem;
+                margin-bottom: 25px;
+            }
+
+        /* --- NAVBAR FLEX --- */
+        .navbar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            box-sizing: border-box;
+        }
+
+        .selector-idioma-container {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .selector-idioma {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: Arial, sans-serif !important;
+            cursor: pointer;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+            .selector-idioma:hover {
+                border-color: #ff4d4d;
+                background: rgba(255, 77, 77, 0.1);
+            }
+
+            .selector-idioma option {
+                background: #181818;
+                color: #fff;
+            }
+    </style>
+</head>
+<body>
+
+    <header class="banner">
+        <h1>
+            <span style="color: red;">iJuanFly</span> <span style="color: #ffffff;">Community Post</span>
+        </h1>
+        <p data-i18n="admin_subtitle_banner">Panel de Control de Staff</p>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li class="dropdown"><a href="Index.html" data-i18n="nav_portal">Portal</a></li>
+            <li class="dropdown"><a href="Foro.html" data-i18n="nav_forum">Foro</a></li>
+            <li class="dropdown"><a href="#" data-i18n="nav_games">Juegos</a></li>
+            <li class="dropdown">
+                <a href="#" data-i18n="nav_members">Miembros</a>
+                <div class="dropdown-content">
+                    <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
+                    <a href="cp.html" style="color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
+                    <a href="#" onclick="cerrarSesionGlobal()" style="color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                </div>
+            </li>
+        </ul>
+
+        <!-- SELECTOR DE IDIOMA FLOTANTE A LA DERECHA -->
+        <div class="selector-idioma-container">
+            <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
+                <option value="es">ES - Español</option>
+                <option value="en">EN - English</option>
+                <option value="pt">PT - Português</option>
+                <option value="ru">RU - Русский</option>
+                <option value="ja">JA - 日本語</option>
+                <option value="zh">ZH - 繁體中文</option>
+            </select>
+        </div>
+    </nav>
+
+    <main class="contenido">
+        <!-- PANTALLA DE ACCESO DENEGADO CON TARJETA ESTILIZADA -->
+        <div id="pantalla-bloqueada" class="aviso-denegado-card" style="display: none;">
+            <h2 data-i18n="access_denied_title">Acceso Denegado</h2>
+            <p data-i18n="access_denied_msg">Usted no cuenta con permisos.</p>
+            <a href="Index.html" class="btn-volver" style="display: inline-block; margin-top: 10px;" data-i18n="back_home">Volver al Inicio</a>
+        </div>
+
+        <div id="pantalla-admin" class="admin-container" style="display: none;">
+            <h2 style="font-family: inherit;" data-i18n="admin_heading">Gestión de Rangos y Usuarios</h2>
+            <p style="color: #aaa; margin-top: 5px; margin-bottom: 20px;" data-i18n="admin_subheading">Selecciona el nuevo rol y presiona "Guardar" para aplicar los cambios en tiempo real.</p>
+
+            <!-- PESTAÑAS DE NAVEGACIÓN EN ADMIN -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" id="btn-tab-usuarios" onclick="cambiarTabAdmin('usuarios')" data-i18n="tab_users">👥 Usuarios</button>
+                <button class="tab-btn" id="btn-tab-auditoria" onclick="cambiarTabAdmin('auditoria')" data-i18n="tab_audit">📋 Registro de Auditoría</button>
+            </div>
+
+            <p id="mensaje-feedback" style="margin-top: 10px; font-weight: bold;"></p>
+
+            <!-- SECCIÓN 1: USUARIOS -->
+            <div id="seccion-usuarios">
+                <div class="search-bar-container">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" /></svg>
+                    <input type="text" id="buscador-usuarios" placeholder="Buscar usuario por nombre..." data-i18n-placeholder="search_placeholder" oninput="filtrarUsuariosTabla()">
+                </div>
+
+                <table class="tabla-admin">
+                    <thead>
+                        <tr>
+                            <th data-i18n="th_user">Usuario</th>
+                            <th data-i18n="th_current_role">Rol Actual</th>
+                            <th data-i18n="th_assign_role">Asignar Nuevo Rol</th>
+                            <th data-i18n="th_action">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-usuarios-admin">
+                        <tr><td colspan="4" style="text-align: center; color: #aaa;" data-i18n="loading_users">Cargando usuarios...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECCIÓN 2: AUDITORÍA -->
+            <div id="seccion-auditoria" style="display: none;">
+                <table class="tabla-admin">
+                    <thead>
+                        <tr>
+                            <th data-i18n="audit_mod">Moderador / Staff</th>
+                            <th data-i18n="audit_action">Acción Realizada</th>
+                            <th data-i18n="audit_date">Fecha y Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-auditoria">
+                        <tr><td colspan="3" style="text-align: center; color: #aaa;" data-i18n="loading_audit">Cargando registros...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+                const ZEO_TRADUCCIONES = {
+                    es: {
+                        nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
+                        admin_subtitle_banner: "Panel de Control de Staff", admin_page_title: "Panel de Administración - iJuanFly Community Post",
+                        access_denied_title: "Acceso Denegado", access_denied_msg: "Usted no cuenta con permisos.",
+                        back_home: "Volver al Inicio", admin_heading: "Gestión de Rangos y Usuarios",
+                        admin_subheading: "Selecciona el nuevo rol y presiona \"Guardar\" para aplicar los cambios en tiempo real.",
+                        th_user: "Usuario", th_current_role: "Rol Actual", th_assign_role: "Asignar Nuevo Rol",
+                        th_action: "Acción", loading_users: "Cargando usuarios...", btn_save: "Guardar",
+                        tab_users: "👥 Usuarios", tab_audit: "📋 Registro de Auditoría",
+                        search_placeholder: "Buscar usuario por nombre...",
+                        audit_mod: "Moderador / Staff", audit_action: "Acción Realizada", audit_date: "Fecha y Hora",
+                        loading_audit: "Cargando registros...", no_audit: "No hay registros de auditoría todavía.",
+                        updating: (name) => `Actualizando rol de ${name}...`,
+                        success_update: (name, role) => `¡Rol de ${name} cambiado exitosamente a "${role}"!`,
+                        audit_action_text: (user, role) => `Actualizó el rol de "${user}" a "${role}"`,
+                        load_error: "Error al cargar datos.", error_prefix: "Error al actualizar: "
+                    },
+                    en: {
+                        nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
+                        nav_members_list: "Members List", nav_my_panel: "My Panel", nav_logout: "Log Out",
+                        admin_subtitle_banner: "Staff Control Panel", admin_page_title: "Admin Panel - iJuanFly Community Post",
+                        access_denied_title: "Access Denied", access_denied_msg: "You do not have permissions.",
+                        back_home: "Back to Home", admin_heading: "Role and User Management",
+                        admin_subheading: "Select the new role and click \"Save\" to apply changes in real time.",
+                        th_user: "User", th_current_role: "Current Role", th_assign_role: "Assign New Role",
+                        th_action: "Action", loading_users: "Loading users...", btn_save: "Save",
+                        tab_users: "👥 Users", tab_audit: "📋 Audit Log",
+                        search_placeholder: "Search user by name...",
+                        audit_mod: "Moderator / Staff", audit_action: "Action Performed", audit_date: "Date & Time",
+                        loading_audit: "Loading logs...", no_audit: "No audit logs yet.",
+                        updating: (name) => `Updating role for ${name}...`,
+                        success_update: (name, role) => `${name}'s role successfully changed to "${role}"!`,
+                        audit_action_text: (user, role) => `Updated ${user}'s role to "${role}"`,
+                        load_error: "Error loading data.", error_prefix: "Update error: "
+                    },
+                    pt: {
+                        nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
+                        nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
+                        admin_subtitle_banner: "Painel de Controle da Staff", admin_page_title: "Painel de Administração - iJuanFly Community Post",
+                        access_denied_title: "Acesso Negado", access_denied_msg: "Você não possui permissões.",
+                        back_home: "Voltar ao Início", admin_heading: "Gerenciamento de Cargos e Usuários",
+                        admin_subheading: "Selecione o novo cargo e clique em \"Salvar\" para aplicar as alterações em real time.",
+                        th_user: "Usuário", th_current_role: "Cargo Atual", th_assign_role: "Atribuir Novo Cargo",
+                        th_action: "Ação", loading_users: "Carregando usuários...", btn_save: "Salvar",
+                        tab_users: "👥 Usuários", tab_audit: "📋 Registro de Auditoria",
+                        search_placeholder: "Pesquisar usuário por nome...",
+                        audit_mod: "Moderador / Staff", audit_action: "Ação Realizada", audit_date: "Data e Hora",
+                        loading_audit: "Carregando registros...", no_audit: "Nenhum registro de auditoria ainda.",
+                        updating: (name) => `Atualizando cargo de ${name}...`,
+                        success_update: (name, role) => `Cargo de ${name} alterado com sucesso para "${role}"!`,
+                        audit_action_text: (user, role) => `Atualizou o cargo de "${user}" para "${role}"`,
+                        load_error: "Erro ao carregar dados.", error_prefix: "Erro ao atualizar: "
+                    },
+                    ru: {
+                        nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
+                        nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
+                        admin_subtitle_banner: "Панель управления персоналом", admin_page_title: "Панель администратора - iJuanFly Community Post",
+                        access_denied_title: "Доступ запрещен", access_denied_msg: "У вас нет прав доступа.",
+                        back_home: "На главную", admin_heading: "Управление ролями и пользователями",
+                        admin_subheading: "Выберите новую роль и нажмите «Сохранить», чтобы применить изменения в реальном времени.",
+                        th_user: "Пользователь", th_current_role: "Текущая роль", th_assign_role: "Назначить новую роль",
+                        th_action: "Действие", loading_users: "Загрузка пользователей...", btn_save: "Сохранить",
+                        tab_users: "👥 Пользователи", tab_audit: "📋 Журнал аудита",
+                        search_placeholder: "Поиск пользователя...",
+                        audit_mod: "Модератор", audit_action: "Выполненное действие", audit_date: "Дата и время",
+                        loading_audit: "Загрузка журнала...", no_audit: "Журнал пуст.",
+                        updating: (name) => `Обновление роли для ${name}...`,
+                        success_update: (name, role) => `Роль ${name} успешно изменена на "${role}"!`,
+                        audit_action_text: (user, role) => `Изменил роль "${user}" на "${role}"`,
+                        load_error: "Ошибка загрузки данных.", error_prefix: "Ошибка обновления: "
+                    },
+                    ja: {
+                        nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
+                        nav_members_list: "メンバーリスト", nav_my_panel: "マイパネル", nav_logout: "ログアウト",
+                        admin_subtitle_banner: "スタッフコントロールパネル", admin_page_title: "管理パネル - iJuanFly Community Post",
+                        access_denied_title: "アクセス拒否", access_denied_msg: "権限がありません。",
+                        back_home: "ホームに戻る", admin_heading: "ロールとユーザーの管理",
+                        admin_subheading: "新しいロールを選択し、「保存」をクリックして変更をリアルタイムで適用します。",
+                        th_user: "ユーザー", th_current_role: "現在のロール", th_assign_role: "新しいロールを割り当て",
+                        th_action: "アクション", loading_users: "ユーザーを読み込み中...", btn_save: "保存",
+                        tab_users: "👥 ユーザー", tab_audit: "📋 監査ログ",
+                        search_placeholder: "ユーザー名で検索...",
+                        audit_mod: "モデレーター", audit_action: "実行されたアクション", audit_date: "日時",
+                        loading_audit: "ログを読み込み中...", no_audit: "監査ログはありません。",
+                        updating: (name) => `${name} のロールを更新中...`,
+                        success_update: (name, role) => `${name} のロールが "${role}" に変更されました！`,
+                        audit_action_text: (user, role) => `${user} のロールを "${role}" に変更しました`,
+                        load_error: "データの読み込みエラー。", error_prefix: "エラー: "
+                    },
+                    zh: {
+                        nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
+                        nav_members_list: "成员列表", nav_my_panel: "我的面板", nav_logout: "登出",
+                        admin_subtitle_banner: "员工控制面板", admin_page_title: "管理面板 - iJuanFly Community Post",
+                        access_denied_title: "访问拒绝", access_denied_msg: "您没有权限。",
+                        back_home: "返回首页", admin_heading: "角色与用户管理",
+                        admin_subheading: "选择新角色并点击“保存”以实时应用更改。",
+                        th_user: "用户", th_current_role: "当前角色", th_assign_role: "分配新角色",
+                        th_action: "操作", loading_users: "正在加载用户...", btn_save: "保存",
+                        tab_users: "👥 用户", tab_audit: "📋 审计日志",
+                        search_placeholder: "通过用户名搜索...",
+                        audit_mod: "版主 / 员工", audit_action: "执行的操作", audit_date: "日期和时间",
+                        loading_audit: "正在加载日志...", no_audit: "暂无审计日志。",
+                        updating: (name) => `正在更新 ${name} 的角色...`,
+                        success_update: (name, role) => `${name} 的角色已成功更改为“${role}”！`,
+                        audit_action_text: (user, role) => `已将 "${user}" 的角色更改为 "${role}"`,
+                        load_error: "加载数据出错。", error_prefix: "错误: "
+                    }
+                };
+
+                function obtenerIdiomaActual() {
+                    return localStorage.getItem('zeoWorksIdioma') || 'es';
+                }
+
+                function aplicarTraduccionesGlobales() {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    document.querySelectorAll('[data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if (t[key]) el.textContent = t[key];
+                    });
+
+                    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                        const key = el.getAttribute('data-i18n-placeholder');
+                        if (t[key]) el.placeholder = t[key];
+                    });
+
+                    const selectElem = document.getElementById('select-idioma');
+                    if (selectElem) selectElem.value = lang;
+                }
+
+                function cambiarIdiomaGlobal(lang) {
+                    localStorage.setItem('zeoWorksIdioma', lang);
+                    location.reload();
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    aplicarTraduccionesGlobales();
+                });
+
+                const SUPABASE_URL = 'https://bnwtmjqzfyjwvtzhoyhe.supabase.co';
+                const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
+                const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+                let usuarioActual = null;
+                try {
+                    usuarioActual = JSON.parse(localStorage.getItem('usuarioZeoWorks'));
+                } catch(e) { usuarioActual = null; }
+
+                function cerrarSesionGlobal() {
+                    localStorage.removeItem('usuarioZeoWorks');
+                    window.location.href = 'Login.html';
+                }
+
+                function obtenerEstiloRol(rol) {
+                    if (!rol) return { tipo: 'style', valor: 'color: #00B028;' };
+                    const r = rol.trim().toLowerCase();
+                    if (r === 'banned') return { tipo: 'style', valor: 'color: #888888;' };
+                    switch(r) {
+                        case 'miembro': return { tipo: 'style', valor: 'color: #00B028;' };
+                        case 'premium': return { tipo: 'style', valor: 'color: #EDFF00;' };
+                        case 'vip': return { tipo: 'style', valor: 'color: #7700FF;' };
+                        case 'moderador': return { tipo: 'style', valor: 'color: #00DDFF;' };
+                        case 'creador': return { tipo: 'class', valor: 'rol-holografico' };
+                        default: return { tipo: 'style', valor: 'color: #00B028;' };
+                    }
+                }
+
+                async function verificarPermisosYProcesar() {
+                    if (!usuarioActual || !usuarioActual.id) {
+                        document.getElementById('pantalla-bloqueada').style.display = 'block';
+                        return;
+                    }
+
+                    const { data: usuarioDb, error } = await _supabase
+                        .from('Usuarios')
+                        .select('Rol')
+                        .eq('id', usuarioActual.id)
+                        .single();
+
+                    if (error || !usuarioDb || (usuarioDb.Rol !== 'Creador' && usuarioDb.Rol !== 'Moderador')) {
+                        document.getElementById('pantalla-bloqueada').style.display = 'block';
+                        return;
+                    }
+
+                    document.getElementById('pantalla-admin').style.display = 'block';
+                    cargarUsuariosAdmin(usuarioDb.Rol);
+                    cargarAuditoria();
+                }
+
+                let listaUsuariosCache = [];
+                let rolStaffActual = 'Miembro';
+
+                async function cargarUsuariosAdmin(rolStaff) {
+                    rolStaffActual = rolStaff;
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                    const tbody = document.getElementById('lista-usuarios-admin');
+
+                    const { data: usuarios, error } = await _supabase
+                        .from('Usuarios')
+                        .select('id, Nombre, Rol')
+                        .order('id', { ascending: true });
+
+                    if (error) {
+                        tbody.innerHTML = `<tr><td colspan="4" style="color: #ff4d4d; text-align: center;">${t.load_error}</td></tr>`;
+                        return;
+                    }
+
+                    listaUsuariosCache = usuarios || [];
+                    renderizarTablaUsuarios(listaUsuariosCache);
+                }
+
+                function renderizarTablaUsuarios(usuarios) {
+                    const tbody = document.getElementById('lista-usuarios-admin');
+                    tbody.innerHTML = '';
+
+                    if (usuarios.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #777;">No se encontraron usuarios.</td></tr>`;
+                        return;
+                    }
+
+                    usuarios.forEach(u => {
+                        const rolActual = u.Rol || 'Miembro';
+                        const infoRol = obtenerEstiloRol(rolActual);
+                        const attrRol = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="font-weight: bold; ${infoRol.valor}"`;
+
+                        let opcionesRoles = `
+                            <option value="Miembro">Miembro</option>
+                            <option value="Premium">Premium</option>
+                            <option value="VIP">VIP</option>
+                            <option value="Banned">Banned</option>
+                        `;
+
+                        if (rolStaffActual === 'Creador') {
+                            opcionesRoles += `
+                                <option value="Moderador">Moderador</option>
+                                <option value="Creador">Creador</option>
+                            `;
+                        }
+
+                        const fila = `
+                            <tr>
+                                <td ${attrRol}>${u.Nombre}</td>
+                                <td ${attrRol}>${rolActual}</td>
+                                <td>
+                                    <select id="select-${u.id}" class="select-rol">
+                                        ${opcionesRoles}
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="btn-actualizar" onclick="cambiarRolUsuario(${u.id}, '${u.Nombre}')">${ZEO_TRADUCCIONES[obtenerIdiomaActual()].btn_save}</button>
+                                </td>
+                            </tr>
+                        `;
+                        tbody.innerHTML += fila;
+
+                        setTimeout(() => {
+                            const selector = document.getElementById(`select-${u.id}`);
+                            if (selector) selector.value = rolActual;
+                        }, 50);
+                    });
+                }
+
+                function filtrarUsuariosTabla() {
+                    const query = document.getElementById('buscador-usuarios').value.toLowerCase();
+                    const filtrados = listaUsuariosCache.filter(u => u.Nombre.toLowerCase().includes(query));
+                    renderizarTablaUsuarios(filtrados);
+                }
+
+                function cambiarTabAdmin(tab) {
+                    const btnUsuarios = document.getElementById('btn-tab-usuarios');
+                    const btnAuditoria = document.getElementById('btn-tab-auditoria');
+                    const secUsuarios = document.getElementById('seccion-usuarios');
+                    const secAuditoria = document.getElementById('seccion-auditoria');
+
+                    if (tab === 'usuarios') {
+                        btnUsuarios.classList.add('active');
+                        btnAuditoria.classList.remove('active');
+                        secUsuarios.style.display = 'block';
+                        secAuditoria.style.display = 'none';
+                    } else {
+                        btnAuditoria.classList.add('active');
+                        btnUsuarios.classList.remove('active');
+                        secAuditoria.style.display = 'block';
+                        secUsuarios.style.display = 'none';
+                        cargarAuditoria();
+                    }
+                }
+
+                async function registrarAuditoria(nombreStaff, accion) {
+                    try {
+                        const { error } = await _supabase.from('auditoria').insert([{
+                            staff_nombre: nombreStaff,
+                            accion: accion,
+                            created_at: new Date().toISOString()
+                        }]);
+                        if (error) console.error("Error al registrar auditoría en Supabase:", error.message);
+                    } catch (e) {
+                        console.error("Excepción al registrar auditoría:", e);
+                    }
+                }
+
+                async function cargarAuditoria() {
+                    const tbody = document.getElementById('lista-auditoria');
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    try {
+                        const { data: logs, error } = await _supabase
+                            .from('auditoria')
+                            .select('*')
+                            .order('created_at', { ascending: false })
+                            .limit(50);
+
+                        if (error) {
+                            tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #ff4d4d;">Error al cargar registros: ${error.message}</td></tr>`;
+                            return;
+                        }
+
+                        if (!logs || logs.length === 0) {
+                            tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #777;">${t.no_audit}</td></tr>`;
+                            return;
+                        }
+
+                        let html = '';
+                        logs.forEach(l => {
+                            const fecha = new Date(l.created_at).toLocaleString();
+
+                            // Traducción dinámica universal del texto de auditoría según el idioma activo
+                            let textoAccion = l.accion || '';
+                            const match = textoAccion.match(/"([^"]+)"\s*(?:a|to|para| на |に|更改為)\s*"([^"]+)"/i);
+                            if (match && match[1] && match[2]) {
+                                textoAccion = t.audit_action_text(match[1], match[2]);
+                            }
+
+                            html += `
+                                <tr>
+                                    <td style="font-weight: bold; color: #00DDFF;">${l.staff_nombre || 'Desconocido'}</td>
+                                    <td>${textoAccion}</td>
+                                    <td style="color: #aaa; font-size: 0.85rem;">${fecha}</td>
+                                </tr>
+                            `;
+                        });
+                        tbody.innerHTML = html;
+                    } catch (e) {
+                        tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #777;">${t.no_audit}</td></tr>`;
+                    }
+                }
+
+                async function cambiarRolUsuario(idUsuario, nombreUsuario) {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    const nuevoRol = document.getElementById(`select-${idUsuario}`).value;
+                    const feedback = document.getElementById('mensaje-feedback');
+
+                    feedback.style.color = '#ccc';
+                    feedback.textContent = t.updating(nombreUsuario);
+
+                    const { error } = await _supabase
+                        .from('Usuarios')
+                        .update({ Rol: nuevoRol })
+                        .eq('id', idUsuario);
+
+                    if (error) {
+                        feedback.style.color = '#ff4d4d';
+                        feedback.textContent = t.error_prefix + error.message;
+                    } else {
+                        feedback.style.color = '#00B028';
+                        feedback.textContent = t.success_update(nombreUsuario, nuevoRol);
+
+                        // Registrar en Auditoría usando la función de traducción del idioma actual
+                        const nombreStaffActual = usuarioActual.Nombre || usuarioActual.nombre || "Staff";
+                        const textoAccionLocal = t.audit_action_text(nombreUsuario, nuevoRol);
+                        await registrarAuditoria(nombreStaffActual, textoAccionLocal);
+
+                        if (idUsuario === usuarioActual.id) {
+                            usuarioActual.Rol = nuevoRol;
+                            localStorage.setItem('usuarioZeoWorks', JSON.stringify(usuarioActual));
+                        }
+
+                        verificarPermisosYProcesar();
+                    }
+                }
+
+                verificarPermisosYProcesar();
+    </script>
+</body>
+</html>

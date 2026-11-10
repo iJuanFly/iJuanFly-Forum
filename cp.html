@@ -1,0 +1,1240 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="cp_page_title">Panel de Control - iJuanFly Community Post</title>
+    <link rel="stylesheet" href="Estilos.css">
+
+    <!-- Librería Cropper.js para recorte circular y zoom -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+
+    <style>
+        /* --- LAYOUT GENERAL DEL CP --- */
+        .cp-container-principal {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .cp-layout-grid {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        .cp-columna-izq {
+            width: 360px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        .cp-columna-der {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        /* --- SECCIÓN INFERIOR ANCHA: MIS POSTS --- */
+        .seccion-mis-posts-inferior {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+            .seccion-mis-posts-inferior h3 {
+                color: #ff4d4d;
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                border-bottom: 1px solid #333;
+                padding-bottom: 10px;
+            }
+
+        .lista-mis-posts-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .item-post-cp-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #333;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+            .item-post-cp-card:hover {
+                background: rgba(255, 77, 77, 0.06);
+                border-color: #ff4d4d;
+            }
+
+        .post-titulo-cp {
+            font-size: 1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .post-estrellas-cp {
+            font-size: 0.9rem;
+            color: #ffd700;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* --- DISTRIBUCIÓN INTERNA DEL PERFIL --- */
+        .perfil-grid-sketch {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .perfil-col-avatar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .perfil-col-datos {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .avatar-preview-grande {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff4d4d;
+            background-color: #222;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(255, 77, 77, 0.3);
+        }
+
+        /* EFECTO HOLOGRÁFICO PARA EL NOMBRE (CREADOR) */
+        .rol-holografico {
+            background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hologramaAnim 6s ease infinite;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes hologramaAnim {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* --- BOTONES DE CONFIGURACIÓN Y SALIR --- */
+        .btn-configuracion {
+            background-color: #4f4f4f;
+            margin-top: 5px;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            font-family: inherit;
+            border-radius: 4px;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+            .btn-configuracion:hover {
+                background-color: #626262;
+            }
+
+        .btn-salir {
+            background-color: #ff4d4d;
+            margin-top: 5px;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            font-family: inherit;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+            .btn-salir:hover {
+                background-color: #cc0000;
+            }
+
+        .input-archivo {
+            display: none;
+        }
+
+        .btn-subir-foto {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid #555;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+            .btn-subir-foto:hover {
+                background-color: #444;
+            }
+
+        .campo-grupo {
+            text-align: left;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+            .campo-grupo label {
+                display: flex;
+                justify-content: space-between;
+                color: #ccc;
+                font-size: 0.9rem;
+                margin-bottom: 5px;
+            }
+
+            .campo-grupo input, .campo-grupo textarea {
+                width: 100%;
+                background-color: #1a1a1a;
+                color: #fff;
+                border: 1px solid #444;
+                padding: 10px;
+                border-radius: 6px;
+                font-family: inherit;
+                font-size: 0.95rem;
+                box-sizing: border-box;
+            }
+
+            .campo-grupo textarea {
+                resize: vertical;
+                height: 130px;
+                padding-right: 40px;
+            }
+
+        .btn-emoji-trigger {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+            .btn-emoji-trigger:hover {
+                opacity: 1;
+                transform: scale(1.15);
+            }
+
+        .emoji-picker-container {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            z-index: 999;
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+            width: 280px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .emoji-item {
+            font-size: 1.3rem;
+            padding: 4px;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 4px;
+            user-select: none;
+            transition: background 0.15s;
+        }
+
+            .emoji-item:hover {
+                background: rgba(255, 255, 255, 0.15);
+            }
+
+        .contador-caracteres {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* --- SECCIÓN SOCIAL / AMIGOS --- */
+        .seccion-social-cp h3 {
+            color: #ff4d4d;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 6px;
+        }
+
+        .lista-social-cp {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 380px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .social-item-cp {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #333;
+            padding: 8px 10px;
+            border-radius: 6px;
+            color: #fff;
+        }
+
+        .social-info-cp {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .social-avatar-cp {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #ff4d4d;
+            flex-shrink: 0;
+        }
+
+        .social-nombre-cp {
+            font-weight: bold;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .acciones-social-cp {
+            display: flex;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+
+        .btn-accion-cp {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-aceptar-cp {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .btn-rechazar-cp {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        .btn-dm-cp {
+            background-color: #00B028;
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .estado-punto {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        /* --- VENTANA MODAL PARA RECORTAR --- */
+        .modal-recorte {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box-recorte {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+            width: 400px;
+            border: 1px solid #444;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .contenedor-imagen-crop {
+            width: 100%;
+            max-height: 350px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .cropper-view-box, .cropper-face {
+            border-radius: 50%;
+        }
+
+        .btn-confirmar-crop {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .btn-cancelar-crop {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* --- NAVBAR FLEX --- */
+        .navbar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            box-sizing: border-box;
+        }
+
+        .selector-idioma {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: Arial, sans-serif !important;
+            cursor: pointer;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+            .selector-idioma:hover {
+                border-color: #ff4d4d;
+                background: rgba(255, 77, 77, 0.1);
+            }
+
+            .selector-idioma option {
+                background: #181818;
+                color: #fff;
+            }
+    </style>
+</head>
+<body>
+
+    <header class="banner">
+        <h1>
+            <span style="color: red;">iJuanFly</span> <span style="color: #ffffff;">Community Post</span>
+        </h1>
+        <p data-i18n="cp_subtitle_banner">Panel de Miembro</p>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li class="dropdown"><a href="Index.html" data-i18n="nav_portal">Portal</a></li>
+            <li class="dropdown"><a href="Foro.html" data-i18n="nav_forum">Foro</a></li>
+            <li class="dropdown"><a href="#" data-i18n="nav_games">Juegos</a></li>
+            <li class="dropdown">
+                <a href="#" data-i18n="nav_members">Miembros</a>
+                <div class="dropdown-content">
+                    <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
+                    <a href="cp.html" id="menu-cp" style="display: none; color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                </div>
+            </li>
+        </ul>
+
+        <!-- SELECTOR DE IDIOMA FLOTANTE -->
+        <div class="selector-idioma-container">
+            <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
+                <option value="es">ES - Español</option>
+                <option value="en">EN - English</option>
+                <option value="pt">PT - Português</option>
+                <option value="ru">RU - Русский</option>
+                <option value="ja">JA - 日本語</option>
+                <option value="zh">ZH - 繁體中文</option>
+            </select>
+        </div>
+    </nav>
+
+    <main class="contenido">
+        <div class="cp-container-principal">
+
+            <!-- ZONA SUPERIOR: 2 COLUMNAS (AMIGOS + PERFIL) -->
+            <div class="cp-layout-grid">
+                <!-- COLUMNA IZQUIERDA: AMIGOS Y DMs -->
+                <div class="cp-columna-izq">
+                    <div class="seccion-social-cp">
+                        <h3 data-i18n="pending_requests_title">📥 Solicitudes Pendientes</h3>
+                        <div class="lista-social-cp" id="contenedor-solicitudes">
+                            <p style="color: #777; font-size: 0.85rem; text-align: center;" data-i18n="loading_requests">Cargando solicitudes...</p>
+                        </div>
+
+                        <h3 data-i18n="my_friends_title">👥 Mis Amigos & DMs</h3>
+                        <div class="lista-social-cp" id="contenedor-amigos">
+                            <p style="color: #777; font-size: 0.85rem; text-align: center;" data-i18n="loading_friends">Cargando amigos...</p>
+                        </div>
+                    </div>
+
+                    <!-- BOTÓN DE STAFF -->
+                    <a id="btn-panel-admin" href="admin.html" style="display: none; background-color: #7700FF; color: white; padding: 12px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; text-align: center; box-sizing: border-box; transition: background 0.2s;" data-i18n="admin_panel_btn">
+                        ⚡ Acceder al Panel de Staff
+                    </a>
+
+                    <!-- BOTÓN DE CONFIGURACIÓN Y CERRAR SESIÓN -->
+                    <a href="config.html" class="btn-configuracion" data-i18n="nav_settings">Configuración</a>
+                    <button class="btn-salir" onclick="cerrarSesionGlobal()" data-i18n="nav_logout">Cerrar Sesión</button>
+                </div>
+
+                <!-- COLUMNA DERECHA: PERFIL Y EDICIÓN -->
+                <div class="cp-columna-der">
+                    <form id="form-perfil">
+                        <div class="perfil-grid-sketch">
+                            <!-- Foto y botón de cambio -->
+                            <div class="perfil-col-avatar">
+                                <img id="img-avatar" class="avatar-preview-grande" src="" alt="Avatar">
+                                <label for="input-foto" class="btn-subir-foto" data-i18n="btn_change_avatar">📁 Cambiar foto</label>
+                                <input type="file" id="input-foto" class="input-archivo" accept="image/*">
+                                <p id="nombre-archivo" style="font-size: 0.75rem; color: #aaa; margin-top: 5px; text-align: center; word-break: break-all;" data-i18n="no_file_selected">Ningún archivo seleccionado</p>
+                            </div>
+
+                            <!-- Datos del usuario: Bio y Red Social -->
+                            <div class="perfil-col-datos">
+                                <h1 id="nombre-usuario" style="font-family: inherit; font-size: 2.2rem; margin-top: 0; margin-bottom: 15px;" data-i18n="loading">Cargando...</h1>
+
+                                <div class="campo-grupo">
+                                    <label for="input-bio">
+                                        <span data-i18n="bio_label">Biografía / Descripción</span>
+                                        <span class="contador-caracteres" id="contador-bio">0 / 200</span>
+                                    </label>
+                                    <textarea id="input-bio" maxlength="200" data-i18n-placeholder="bio_placeholder" placeholder="Cuéntanos algo sobre ti..."></textarea>
+                                    <button type="button" class="btn-emoji-trigger" id="btn-toggle-emojis">😀</button>
+                                    <div class="emoji-picker-container" id="picker-emojis">
+                                        <div class="emoji-grid" id="grid-emojis"></div>
+                                    </div>
+                                </div>
+
+                                <div class="campo-grupo" style="margin-bottom: 10px;">
+                                    <label for="input-web"><span data-i18n="web_label">Sitio Web / Red Social</span></label>
+                                    <input type="text" id="input-web" placeholder="https://tu-sitio.com">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-registro" id="btn-guardar" style="width: 100%; margin-top: 20px;" data-i18n="btn_save_changes">Guardar Cambios</button>
+                    </form>
+
+                    <p id="mensaje-estado" style="margin-top: 15px; font-size: 0.9rem; text-align: center;"></p>
+                </div>
+            </div>
+
+            <!-- ZONA INFERIOR: MIS TEMAS PUBLICADOS A ANCHO COMPLETO -->
+            <div class="seccion-mis-posts-inferior">
+                <h3 data-i18n="my_posts_title">📝 Mis Temas Publicados</h3>
+                <div class="lista-mis-posts-grid" id="contenedor-mis-posts">
+                    <p style="color: #777; font-size: 0.9rem; text-align: center; padding: 15px;" data-i18n="loading">Cargando tus posts...</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- VENTANA MODAL PARA RECORTAR -->
+    <div class="modal-recorte" id="modal-recorte">
+        <div class="box-recorte">
+            <h3 style="color: #fff; margin-bottom: 10px;" data-i18n="crop_modal_title">Ajusta tu foto</h3>
+            <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 10px;" data-i18n="crop_modal_desc">Usa la rueda del ratón o arrastra para hacer zoom y reubicar.</p>
+            <div class="contenedor-imagen-crop">
+                <img id="img-para-recortar" src="" alt="Recorte" style="max-width: 100%;">
+            </div>
+            <div>
+                <button class="btn-confirmar-crop" id="btn-aplicar-crop" data-i18n="btn_apply_crop">Aplicar Recorte</button>
+                <button class="btn-cancelar-crop" id="btn-cancelar-crop" data-i18n="btn_cancel_crop">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+                const ZEO_TRADUCCIONES = {
+                    es: {
+                        nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
+                        nav_settings: "Configuración", cp_subtitle_banner: "Panel de Miembro", cp_page_title: "Panel de Control - iJuanFly Community Post",
+                        loading: "Cargando...", btn_change_avatar: "📁 Cambiar foto",
+                        no_file_selected: "Ningún archivo seleccionado", bio_label: "Biografía / Descripción",
+                        bio_placeholder: "Cuéntanos algo sobre ti...", web_label: "Sitio Web / Red Social",
+                        btn_save_changes: "Guardar Cambios", admin_panel_btn: "⚡ Acceder al Panel de Staff",
+                        pending_requests_title: "📥 Solicitudes Pendientes", my_friends_title: "👥 Mis Amigos & DMs",
+                        my_posts_title: "📝 Mis Temas Publicados", loading_requests: "Cargando solicitudes...",
+                        loading_friends: "Cargando amigos...", no_requests: "No tienes solicitudes pendientes.",
+                        no_friends: "Aún no tienes amigos agregados.", no_posts: "No has publicado ningún tema todavía.",
+                        btn_accept: "✔ Aceptar", btn_reject: "✖ Rechazar", btn_dm: "💬 Mensajes",
+                        crop_modal_title: "Ajusta tu foto", crop_modal_desc: "Usa la rueda del ratón o arrastra para hacer zoom.",
+                        btn_apply_crop: "Aplicar Recorte", btn_cancel_crop: "Cancelar", status_online: "En línea",
+                        status_offline: "Desconectado", photo_ready: "Foto lista para guardar.",
+                        saving: "Guardando cambios...", save_success: "¡Perfil actualizado con éxito!",
+                        banned_alert: "Tu perfil ha sido cerrado y no puedes acceder a este panel."
+                    },
+                    en: {
+                        nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
+                        nav_members_list: "Members List", nav_my_panel: "My Panel", nav_logout: "Log Out",
+                        nav_settings: "Settings", cp_subtitle_banner: "Member Panel", cp_page_title: "Control Panel - iJuanFly Community Post",
+                        loading: "Loading...", btn_change_avatar: "📁 Change photo",
+                        no_file_selected: "No file selected", bio_label: "Biography / Description",
+                        bio_placeholder: "Tell us something about yourself...", web_label: "Website / Social Media",
+                        btn_save_changes: "Save Changes", admin_panel_btn: "⚡ Access Staff Panel",
+                        pending_requests_title: "📥 Pending Requests", my_friends_title: "👥 My Friends & DMs",
+                        my_posts_title: "📝 My Published Topics", loading_requests: "Loading requests...",
+                        loading_friends: "Loading friends...", no_requests: "You have no pending requests.",
+                        no_friends: "You haven't added any friends yet.", no_posts: "You haven't published any topics yet.",
+                        btn_accept: "✔ Accept", btn_reject: "✖ Reject", btn_dm: "💬 Messages",
+                        crop_modal_title: "Adjust your photo", crop_modal_desc: "Use mouse wheel or drag to zoom and reposition.",
+                        btn_apply_crop: "Apply Crop", btn_cancel_crop: "Cancel", status_online: "Online",
+                        status_offline: "Offline", photo_ready: "Photo ready to save.",
+                        saving: "Saving changes...", save_success: "Profile updated successfully!",
+                        banned_alert: "Your profile has been closed and you cannot access this panel."
+                    },
+                    pt: {
+                        nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
+                        nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
+                        nav_settings: "Configurações", cp_subtitle_banner: "Painel de Membro", cp_page_title: "Painel de Controle - iJuanFly Community Post",
+                        loading: "Carregando...", btn_change_avatar: "📁 Alterar foto",
+                        no_file_selected: "Nenhum arquivo selecionado", bio_label: "Biografia / Descrição",
+                        bio_placeholder: "Conte-nos algo sobre você...", web_label: "Site / Redes Sociais",
+                        btn_save_changes: "Salvar Alterações", admin_panel_btn: "⚡ Acessar Painel da Staff",
+                        pending_requests_title: "📥 Solicitações Pendentes", my_friends_title: "👥 Meus Amigos & DMs",
+                        my_posts_title: "📝 Meus Tópicos Publicados", loading_requests: "Carregando solicitações...",
+                        loading_friends: "Carregando amigos...", no_requests: "Você não tem solicitações pendentes.",
+                        no_friends: "Você ainda não adicionou amigos.", no_posts: "Você ainda não publicou nenhum tópico.",
+                        btn_accept: "✔ Aceitar", btn_reject: "✖ Rejeitar", btn_dm: "💬 Mensagens",
+                        crop_modal_title: "Ajuste sua foto", crop_modal_desc: "Use a roda do mouse ou arraste.",
+                        btn_apply_crop: "Aplicar Corte", btn_cancel_crop: "Cancelar", status_online: "Online",
+                        status_offline: "Desconectado", photo_ready: "Foto pronta para salvar.",
+                        saving: "Salvando alterações...", save_success: "Perfil atualizado com sucesso!",
+                        banned_alert: "Seu perfil foi encerrado e você não pode acessar este painel."
+                    },
+                    ru: {
+                        nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
+                        nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
+                        nav_settings: "Настройки", cp_subtitle_banner: "Панель участника", cp_page_title: "Панель управления - iJuanFly Community Post",
+                        loading: "Загрузка...", btn_change_avatar: "📁 Изменить фото",
+                        no_file_selected: "Файл не выбран", bio_label: "Биография",
+                        bio_placeholder: "Расскажите о себе...", web_label: "Веб-сайт",
+                        btn_save_changes: "Сохранить изменения", admin_panel_btn: "⚡ Панель персонала",
+                        pending_requests_title: "📥 Запросы", my_friends_title: "👥 Друзья",
+                        my_posts_title: "📝 Мои темы", loading_requests: "Загрузка запросов...",
+                        loading_friends: "Загрузка друзей...", no_requests: "Нет запросов.",
+                        no_friends: "Нет друзей.", no_posts: "Вы еще не создали тем.",
+                        btn_accept: "✔ Принять", btn_reject: "✖ Отклонить", btn_dm: "💬 Чаты",
+                        crop_modal_title: "Настройте фото", crop_modal_desc: "Используйте колесико мыши.",
+                        btn_apply_crop: "Применить", btn_cancel_crop: "Отмена", status_online: "В сети",
+                        status_offline: "Не в сети", photo_ready: "Фото готово.",
+                        saving: "Сохранение...", save_success: "Профиль обновлен!",
+                        banned_alert: "Ваш профиль был закрыт."
+                    },
+                    ja: {
+                        nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
+                        nav_members_list: "メンバーリスト", nav_my_panel: "マイパネル", nav_logout: "ログアウト",
+                        nav_settings: "設定", cp_subtitle_banner: "メンバーパネル", cp_page_title: "コントロールパネル - iJuanFly Community Post",
+                        loading: "読み込み中...", btn_change_avatar: "📁 写真を変更",
+                        no_file_selected: "ファイル未選択", bio_label: "自己紹介",
+                        bio_placeholder: "自己紹介...", web_label: "ウェブサイト",
+                        btn_save_changes: "変更を保存", admin_panel_btn: "⚡ スタッフパネル",
+                        pending_requests_title: "📥 リクエスト", my_friends_title: "👥 フレンド",
+                        my_posts_title: "📝 自分の投稿トピック", loading_requests: "読み込み中...",
+                        loading_friends: "読み込み中...", no_requests: "リクエストはありません。",
+                        no_friends: "フレンドはいません。", no_posts: "投稿されたトピックはありません。",
+                        btn_accept: "✔ 承認", btn_reject: "✖ 拒否", btn_dm: "💬 メッセージ",
+                        crop_modal_title: "写真を調整", crop_modal_desc: "ズームと位置調整を行います。",
+                        btn_apply_crop: "適用", btn_cancel_crop: "キャンセル", status_online: "オンライン",
+                        status_offline: "オフライン", photo_ready: "写真の保存準備完了。",
+                        saving: "保存中...", save_success: "プロフィール更新成功！",
+                        banned_alert: "プロフィールが閉鎖されています。"
+                    },
+                    zh: {
+                        nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
+                        nav_members_list: "成员列表", nav_my_panel: "我的面板", nav_logout: "登出",
+                        nav_settings: "设置", cp_subtitle_banner: "会员面板", cp_page_title: "控制面板 - iJuanFly Community Post",
+                        loading: "加载中...", btn_change_avatar: "📁 更改照片",
+                        no_file_selected: "未选择文件", bio_label: "个人简介",
+                        bio_placeholder: "介绍一下自己...", web_label: "网站",
+                        btn_save_changes: "保存更改", admin_panel_btn: "⚡ 访问管理面板",
+                        pending_requests_title: "📥 待处理请求", my_friends_title: "👥 好友",
+                        my_posts_title: "📝 我的主题", loading_requests: "正在加载...",
+                        loading_friends: "正在加载...", no_requests: "没有请求。",
+                        no_friends: "还没有好友。", no_posts: "您还没有发布过主题。",
+                        btn_accept: "✔ 接受", btn_reject: "✖ 拒绝", btn_dm: "💬 私信",
+                        crop_modal_title: "调整照片", crop_modal_desc: "缩放和调整位置。",
+                        btn_apply_crop: "应用", btn_cancel_crop: "取消", status_online: "在线",
+                        status_offline: "离线", photo_ready: "照片已准备好。",
+                        saving: "正在保存...", save_success: "个人资料更新成功！",
+                        banned_alert: "您的个人资料已被关闭。"
+                    }
+                };
+
+                function obtenerIdiomaActual() {
+                    return localStorage.getItem('zeoWorksIdioma') || 'es';
+                }
+
+                function aplicarTraduccionesGlobales() {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    document.querySelectorAll('[data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if (t[key]) el.textContent = t[key];
+                    });
+
+                    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                        const key = el.getAttribute('data-i18n-placeholder');
+                        if (t[key]) el.placeholder = t[key];
+                    });
+
+                    const selectElem = document.getElementById('select-idioma');
+                    if (selectElem) selectElem.value = lang;
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    aplicarTraduccionesGlobales();
+                });
+
+                function cambiarIdiomaGlobal(lang) {
+                    localStorage.setItem('zeoWorksIdioma', lang);
+                    location.reload();
+                }
+
+                const SUPABASE_URL = 'https://bnwtmjqzfyjwvtzhoyhe.supabase.co';
+                const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
+                const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+                const listaEmojis = [
+                    "😀","😃","😄","😁","😆","😅","😂","🤣","🥲","☺️","😊","😇","🙂","🙃","😉","🪽","😈","👿",
+                    "😍","🥰","😘","😗","😙","😚","😋","😛","😜","🤪","😝","🤑","🤗","🤭","🤫","🤔","🤐","🤨",
+                    "😐","😑","😶","😏","😒","🙄","😬","🤥","😌","😔","😪","🤤","😴","😷","🤒","🤕","🤢","🤮",
+                    "🥶","🥵","😵","🤯","🤠","🥳","🥸","😎","🤓","🧐","😕","😟","🙁","😮","😯","😲","😳","🥺",
+                    "😦","😧","📁","👑","⭐","🔥","💀","👻","🤖","🎮","👾","⚡","💎","🎯","🚀","❤️","🖤","💜"
+                ];
+
+                const gridEmojis = document.getElementById('grid-emojis');
+                const pickerEmojis = document.getElementById('picker-emojis');
+                const btnToggleEmojis = document.getElementById('btn-toggle-emojis');
+                const inputBio = document.getElementById('input-bio');
+                const contadorBio = document.getElementById('contador-bio');
+
+                listaEmojis.forEach(emoji => {
+                    const span = document.createElement('span');
+                    span.className = 'emoji-item';
+                    span.textContent = emoji;
+                    span.onclick = () => {
+                        if (inputBio.value.length + emoji.length <= 200) {
+                            inputBio.value += emoji;
+                            actualizarContadorBio();
+                        }
+                    };
+                    gridEmojis.appendChild(span);
+                });
+
+                btnToggleEmojis.onclick = (e) => {
+                    e.stopPropagation();
+                    pickerEmojis.style.display = pickerEmojis.style.display === 'block' ? 'none' : 'block';
+                };
+
+                document.onclick = (e) => {
+                    if (!pickerEmojis.contains(e.target) && e.target !== btnToggleEmojis) {
+                        pickerEmojis.style.display = 'none';
+                    }
+                };
+
+                function actualizarContadorBio() {
+                    const actual = inputBio.value.length;
+                    contadorBio.textContent = `${actual} / 200`;
+                    contadorBio.style.color = actual >= 190 ? '#ff4d4d' : '#888';
+                }
+                inputBio.oninput = actualizarContadorBio;
+
+                function obtenerEstiloRol(rol) {
+                    if (!rol) return { tipo: 'style', valor: 'color: #00B028;' };
+                    const r = rol.trim().toLowerCase();
+                    if (r === 'banned') return { tipo: 'style', valor: 'color: #888888;' };
+                    switch(r) {
+                        case 'miembro': return { tipo: 'style', valor: 'color: #00B028;' };
+                        case 'premium': return { tipo: 'style', valor: 'color: #EDFF00;' };
+                        case 'vip': return { tipo: 'style', valor: 'color: #7700FF;' };
+                        case 'moderador': return { tipo: 'style', valor: 'color: #00DDFF;' };
+                        case 'creador': return { tipo: 'class', valor: 'rol-holografico' };
+                        default: return { tipo: 'style', valor: 'color: #00B028;' };
+                    }
+                }
+
+                let usuarioGuardado = null;
+                let nombreUsuarioSesion = '';
+
+                try {
+                    const rawSesion = localStorage.getItem('usuarioZeoWorks');
+                    if (rawSesion) {
+                        const parsed = JSON.parse(rawSesion);
+                        nombreUsuarioSesion = (typeof parsed === 'object' && parsed !== null) ? (parsed.Nombre || parsed.nombre) : rawSesion;
+                    }
+                } catch (e) {
+                    nombreUsuarioSesion = '';
+                }
+
+                const avatarPorDefecto = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
+
+                if (!nombreUsuarioSesion) {
+                    window.location.href = 'Login.html';
+                } else {
+                    _supabase
+                        .from('Usuarios')
+                        .select('*')
+                        .eq('Nombre', nombreUsuarioSesion)
+                        .single()
+                        .then(async ({ data: usuarioDb, error }) => {
+                            if (error || !usuarioDb) {
+                                localStorage.removeItem('usuarioZeoWorks');
+                                window.location.href = 'Login.html';
+                                return;
+                            }
+
+                            if (usuarioDb.Rol && usuarioDb.Rol.trim().toLowerCase() === 'banned') {
+                                const lang = obtenerIdiomaActual();
+                                const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                                alert(t.banned_alert);
+                                localStorage.removeItem('usuarioZeoWorks');
+                                window.location.href = 'Login.html';
+                                return;
+                            }
+
+                            usuarioGuardado = usuarioDb;
+                            localStorage.setItem('usuarioZeoWorks', JSON.stringify(usuarioGuardado));
+
+                            const elemNombre = document.getElementById('nombre-usuario');
+                            elemNombre.textContent = usuarioGuardado.Nombre;
+
+                            const infoRol = obtenerEstiloRol(usuarioGuardado.Rol);
+                            if (infoRol.tipo === 'class') {
+                                elemNombre.className = 'rol-holografico';
+                                elemNombre.removeAttribute('style');
+                            } else {
+                                elemNombre.className = '';
+                                elemNombre.setAttribute('style', infoRol.valor);
+                            }
+
+                            inputBio.value = usuarioGuardado.bio || '';
+                            actualizarContadorBio();
+
+                            document.getElementById('input-web').value = usuarioGuardado.sitio_web || '';
+                            document.getElementById('img-avatar').src = usuarioGuardado.Avatar ? usuarioGuardado.Avatar : avatarPorDefecto;
+
+                            if (usuarioGuardado.Rol === 'Creador' || usuarioGuardado.Rol === 'Moderador') {
+                                const btnAdmin = document.getElementById('btn-panel-admin');
+                                if (btnAdmin) btnAdmin.style.display = 'block';
+                            }
+
+                            _supabase
+                                .from('Usuarios')
+                                .update({ ultima_conexion: new Date().toISOString() })
+                                .eq('id', usuarioGuardado.id)
+                                .then();
+
+                            cargarSeccionSocial(usuarioGuardado.id);
+                            cargarMisPosts(usuarioGuardado.id);
+                        });
+                }
+
+                async function cargarSeccionSocial(miId) {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    const contenedorSolicitudes = document.getElementById('contenedor-solicitudes');
+                    const contenedorAmigos = document.getElementById('contenedor-amigos');
+
+                    const { data: solicitudes } = await _supabase
+                        .from('Amistades')
+                        .select('*')
+                        .eq('estado', 'pendiente')
+                        .eq('amigo_id', miId);
+
+                    if (!solicitudes || solicitudes.length === 0) {
+                        contenedorSolicitudes.innerHTML = `<p style="color: #777; font-size: 0.85rem; text-align: center;">${t.no_requests}</p>`;
+                    } else {
+                        const idsEmisores = solicitudes.map(s => s.usuario_id);
+                        const { data: usuariosEmisores } = await _supabase
+                            .from('Usuarios')
+                            .select('id, Nombre, Avatar, Rol')
+                            .in('id', idsEmisores);
+
+                        let htmlSol = '';
+                        solicitudes.forEach(sol => {
+                            const emisor = usuariosEmisores.find(u => u.id === sol.usuario_id);
+                            if (emisor) {
+                                const foto = emisor.Avatar ? emisor.Avatar : avatarPorDefecto;
+                                const infoRol = obtenerEstiloRol(emisor.Rol);
+                                const attrRolEmisor = infoRol.tipo === 'class' ? `class="social-nombre-cp rol-holografico"` : `class="social-nombre-cp" style="${infoRol.valor}"`;
+
+                                htmlSol += `
+                                    <div class="social-item-cp">
+                                        <a href="perfil.html?nombre=${encodeURIComponent(emisor.Nombre)}" class="social-info-cp">
+                                            <img src="${foto}" class="social-avatar-cp" alt="Avatar">
+                                            <span ${attrRolEmisor}>${emisor.Nombre}</span>
+                                        </a>
+                                        <div class="acciones-social-cp">
+                                            <button class="btn-accion-cp btn-aceptar-cp" onclick="gestionarAmistad(${sol.id}, 'aceptar')">${t.btn_accept}</button>
+                                            <button class="btn-accion-cp btn-rechazar-cp" onclick="gestionarAmistad(${sol.id}, 'rechazar')">${t.btn_reject}</button>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                        });
+                        contenedorSolicitudes.innerHTML = htmlSol;
+                    }
+
+                    const { data: amistades } = await _supabase
+                        .from('Amistades')
+                        .select('*')
+                        .eq('estado', 'aceptado')
+                        .or(`usuario_id.eq.${miId},amigo_id.eq.${miId}`);
+
+                    if (!amistades || amistades.length === 0) {
+                        contenedorAmigos.innerHTML = `<p style="color: #777; font-size: 0.85rem; text-align: center;">${t.no_friends}</p>`;
+                        return;
+                    }
+
+                    const idsAmigos = amistades.map(rel => rel.usuario_id === miId ? rel.amigo_id : rel.usuario_id);
+                    const { data: usuariosAmigos } = await _supabase
+                        .from('Usuarios')
+                        .select('id, Nombre, Avatar, Rol, ultima_conexion')
+                        .in('id', idsAmigos);
+
+                    if (!usuariosAmigos || usuariosAmigos.length === 0) {
+                        contenedorAmigos.innerHTML = `<p style="color: #777; font-size: 0.85rem; text-align: center;">${t.no_friends}</p>`;
+                        return;
+                    }
+
+                    const ahora = new Date();
+                    let htmlAmigos = '';
+
+                    amistades.forEach(rel => {
+                        const otroId = rel.usuario_id === miId ? rel.amigo_id : rel.usuario_id;
+                        const amigo = usuariosAmigos.find(u => u.id === otroId);
+                        if (amigo) {
+                            const avatarAmigo = amigo.Avatar ? amigo.Avatar : avatarPorDefecto;
+                            const infoRolAmigo = obtenerEstiloRol(amigo.Rol);
+                            const attrRolAmigo = infoRolAmigo.tipo === 'class' ? `class="social-nombre-cp rol-holografico"` : `class="social-nombre-cp" style="${infoRolAmigo.valor}"`;
+
+                            let enLinea = false;
+                            if (amigo.ultima_conexion) {
+                                const diff = Math.floor((ahora - new Date(amigo.ultima_conexion)) / 1000);
+                                if (diff < 300) enLinea = true;
+                            }
+
+                            htmlAmigos += `
+                                <div class="social-item-cp">
+                                    <a href="perfil.html?nombre=${encodeURIComponent(amigo.Nombre)}" class="social-info-cp">
+                                        <img src="${avatarAmigo}" class="social-avatar-cp" alt="Avatar">
+                                        <span ${attrRolAmigo}>${amigo.Nombre}</span>
+                                        <span class="estado-punto" title="${enLinea ? t.status_online : t.status_offline}" style="background-color: ${enLinea ? '#2ecc71' : '#777'};"></span>
+                                    </a>
+                                    <div class="acciones-social-cp">
+                                        <a href="dm.html?para=${encodeURIComponent(amigo.Nombre)}" class="btn-accion-cp btn-dm-cp">${t.btn_dm}</a>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+
+                    contenedorAmigos.innerHTML = htmlAmigos;
+                }
+
+                async function cargarMisPosts(miId) {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                    const contenedorMisPosts = document.getElementById('contenedor-mis-posts');
+
+                    if (!contenedorMisPosts) return;
+
+                    try {
+                        const { data: temas, error } = await _supabase
+                            .from('temas_foro')
+                            .select('id, titulo, created_at')
+                            .eq('usuario_id', miId)
+                            .order('created_at', { ascending: false });
+
+                        if (error || !temas || temas.length === 0) {
+                            contenedorMisPosts.innerHTML = `<p style="color: #777; font-size: 0.9rem; text-align: center; padding: 15px;">${t.no_posts}</p>`;
+                            return;
+                        }
+
+                        let calificacionesMap = {};
+                        const idsTemas = temas.map(t => t.id);
+                        const { data: calificaciones } = await _supabase
+                            .from('calificaciones_temas')
+                            .select('tema_id, puntuacion')
+                            .in('tema_id', idsTemas);
+
+                        if (calificaciones) {
+                            let sumas = {};
+                            let conteos = {};
+                            calificaciones.forEach(c => {
+                                sumas[c.tema_id] = (sumas[c.tema_id] || 0) + c.puntuacion;
+                                conteos[c.tema_id] = (conteos[c.tema_id] || 0) + 1;
+                            });
+                            idsTemas.forEach(id => {
+                                if (conteos[id]) {
+                                    calificacionesMap[id] = (sumas[id] / conteos[id]).toFixed(1);
+                                } else {
+                                    calificacionesMap[id] = '0.0';
+                                }
+                            });
+                        }
+
+                        let htmlPosts = '';
+                        temas.forEach(tema => {
+                            const promedio = calificacionesMap[tema.id] || '0.0';
+                            htmlPosts += `
+                                <a href="tema.html?id=${tema.id}" class="item-post-cp-card" title="${tema.titulo}">
+                                    <div class="post-titulo-cp">📌 <span>${tema.titulo}</span></div>
+                                    <div class="post-estrellas-cp">⭐ ${promedio} / 5 ESTRELLAS</div>
+                                </a>
+                            `;
+                        });
+                        contenedorMisPosts.innerHTML = htmlPosts;
+                    } catch (err) {
+                        let htmlPosts = '';
+                        temas.forEach(tema => {
+                            htmlPosts += `
+                                <a href="tema.html?id=${tema.id}" class="item-post-cp-card" title="${tema.titulo}">
+                                    <div class="post-titulo-cp">📌 <span>${tema.titulo}</span></div>
+                                    <div class="post-estrellas-cp">⭐ 0.0 / 5 ESTRELLAS</div>
+                                </a>
+                            `;
+                        });
+                        contenedorMisPosts.innerHTML = htmlPosts;
+                    }
+                }
+
+                async function gestionarAmistad(idRelacion, accion) {
+                    if (accion === 'aceptar') {
+                        await _supabase.from('Amistades').update({ estado: 'aceptado' }).eq('id', idRelacion);
+                        location.reload();
+                    } else if (accion === 'rechazar') {
+                        await _supabase.from('Amistades').delete().eq('id', idRelacion);
+                        location.reload();
+                    }
+                }
+
+                const inputFoto = document.getElementById('input-foto');
+                const nombreArchivo = document.getElementById('nombre-archivo');
+                const modalRecorte = document.getElementById('modal-recorte');
+                const imgParaRecortar = document.getElementById('img-para-recortar');
+                const btnAplicarCrop = document.getElementById('btn-aplicar-crop');
+                const btnCancelarCrop = document.getElementById('btn-cancelar-crop');
+                const imgAvatar = document.getElementById('img-avatar');
+                const mensajeEstado = document.getElementById('mensaje-estado');
+
+                let cropper = null;
+                let imagenBase64Circular = '';
+
+                inputFoto.addEventListener('change', (e) => {
+                    const archivos = e.target.files;
+                    if (archivos && archivos.length > 0) {
+                        const archivo = archivos[0];
+                        nombreArchivo.textContent = archivo.name;
+                        const urlImagen = URL.createObjectURL(archivo);
+                        imgParaRecortar.src = urlImagen;
+                        modalRecorte.style.display = 'flex';
+
+                        if (cropper) cropper.destroy();
+                        cropper = new Cropper(imgParaRecortar, {
+                            aspectRatio: 1,
+                            viewMode: 1,
+                            dragMode: 'move',
+                            autoCropArea: 0.8,
+                        });
+                    }
+                });
+
+                btnAplicarCrop.addEventListener('click', () => {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                    if (!cropper) return;
+
+                    const canvasCuadrado = cropper.getCroppedCanvas({ width: 300, height: 300 });
+                    const canvasCircular = document.createElement('canvas');
+                    canvasCircular.width = 300;
+                    canvasCircular.height = 300;
+                    const ctx = canvasCircular.getContext('2d');
+
+                    ctx.beginPath();
+                    ctx.arc(150, 150, 150, 0, Math.PI * 2, true);
+                    ctx.closePath();
+                    ctx.clip();
+                    ctx.drawImage(canvasCuadrado, 0, 0, 300, 300);
+
+                    imagenBase64Circular = canvasCircular.toDataURL('image/png');
+                    imgAvatar.src = imagenBase64Circular;
+
+                    modalRecorte.style.display = 'none';
+                    mensajeEstado.textContent = t.photo_ready;
+                    mensajeEstado.style.color = '#2ecc71';
+                    inputFoto.value = '';
+                });
+
+                btnCancelarCrop.addEventListener('click', () => {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                    modalRecorte.style.display = 'none';
+                    if (cropper) cropper.destroy();
+                    inputFoto.value = '';
+                    nombreArchivo.textContent = t.no_file_selected;
+                });
+
+                const formPerfil = document.getElementById('form-perfil');
+                formPerfil.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    if (!usuarioGuardado) return;
+
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    const nuevaBio = inputBio.value;
+                    const nuevoWeb = document.getElementById('input-web').value;
+
+                    mensajeEstado.style.color = '#ccc';
+                    mensajeEstado.textContent = t.saving;
+
+                    let datosActualizar = {
+                        bio: nuevaBio,
+                        sitio_web: nuevoWeb
+                    };
+
+                    if (imagenBase64Circular) {
+                        datosActualizar.Avatar = imagenBase64Circular;
+                    }
+
+                    const { error } = await _supabase
+                        .from('Usuarios')
+                        .update(datosActualizar)
+                        .eq('id', usuarioGuardado.id);
+
+                    if (error) {
+                        mensajeState = document.getElementById('mensaje-estado');
+                        mensajeEstado.style.color = '#ff4d4d';
+                        mensajeEstado.textContent = 'Error: ' + error.message;
+                    } else {
+                        mensajeEstado = document.getElementById('mensaje-estado');
+                        mensajeEstado.style.color = '#2ecc71';
+                        mensajeEstado.textContent = t.save_success;
+
+                        if (imagenBase64Circular) usuarioGuardado.Avatar = imagenBase64Circular;
+                        usuarioGuardado.bio = nuevaBio;
+                        usuarioGuardado.sitio_web = nuevoWeb;
+                        localStorage.setItem('usuarioZeoWorks', JSON.stringify(usuarioGuardado));
+                    }
+                });
+
+                function cerrarSesionGlobal() {
+                    localStorage.removeItem('usuarioZeoWorks');
+                    window.location.href = 'Login.html';
+                }
+    </script>
+</body>
+</html>

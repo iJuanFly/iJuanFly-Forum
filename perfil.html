@@ -1,0 +1,763 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="profile_page_title">Perfil de Usuario - iJuanFly Community Post</title>
+    <link rel="stylesheet" href="Estilos.css">
+    <style>
+        /* LAYOUT DE DOS COLUMNAS PARA EL PERFIL Y LOS POSTS */
+        .perfil-layout-grid {
+            display: flex;
+            gap: 25px;
+            max-width: 1050px;
+            margin: 30px auto;
+            padding: 0 15px;
+            box-sizing: border-box;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .perfil-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            width: 550px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        /* SECCIÓN LATERAL DE LOS ÚLTIMOS POSTS */
+        .perfil-sidebar-posts {
+            width: 320px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+            .perfil-sidebar-posts h3 {
+                color: #ff4d4d;
+                font-size: 1.1rem;
+                margin-top: 0;
+                margin-bottom: 15px;
+                border-bottom: 1px solid #333;
+                padding-bottom: 8px;
+                text-align: left;
+            }
+
+        .post-reciente-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+            color: #fff;
+            transition: background 0.2s, border-color 0.2s;
+            text-align: left;
+        }
+
+            .post-reciente-item:hover {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: #ff4d4d;
+            }
+
+        .post-reciente-titulo {
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .post-reciente-estrellas {
+            font-size: 0.85rem;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-amigo-flotante {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+            .btn-amigo-flotante:hover {
+                background: rgba(255, 77, 77, 0.15);
+                border-color: #ff4d4d;
+                transform: scale(1.08);
+            }
+
+            .btn-amigo-flotante svg {
+                width: 22px;
+                height: 22px;
+                fill: #ccc;
+                transition: fill 0.2s;
+            }
+
+            .btn-amigo-flotante:hover svg {
+                fill: #ff4d4d;
+            }
+
+            .btn-amigo-flotante.aceptado {
+                background: rgba(46, 204, 113, 0.1);
+                border-color: #2ecc71;
+            }
+
+                .btn-amigo-flotante.aceptado svg {
+                    fill: #2ecc71;
+                }
+
+            .btn-amigo-flotante::after {
+                content: attr(data-tooltip);
+                position: absolute;
+                right: 55px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: #181818;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 6px;
+                font-size: 0.75rem;
+                white-space: nowrap;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s ease;
+                border: 1px solid #444;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            }
+
+            .btn-amigo-flotante:hover::after {
+                opacity: 1;
+            }
+
+        .avatar-perfil {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff4d4d;
+            background-color: #222;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
+        }
+
+        .nombre-perfil {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            font-family: inherit !important;
+        }
+
+        /* EFECTO HOLOGRÁFICO PARA EL NOMBRE (CREADOR) */
+        .rol-holografico {
+            background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hologramaAnim 6s ease infinite;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes hologramaAnim {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* EFECTO BLANCO CON GLOW PARA LA ETIQUETA DE CREADOR */
+        .rol-creador-glow {
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.6) !important;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .rol-perfil {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bio-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px dashed #444;
+            padding: 15px;
+            border-radius: 8px;
+            color: #ccc;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            word-break: break-word;
+            min-height: 40px;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+
+        .enlace-web {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #00DDFF;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: bold;
+        }
+
+            .enlace-web:hover {
+                text-decoration: underline;
+            }
+
+        .detalles-perfil {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        .detalle-item span {
+            color: #fff;
+            display: block;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .btn-volver {
+            display: inline-block;
+            margin-top: 25px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s;
+            border: 1px solid #555;
+        }
+
+            .btn-volver:hover {
+                background-color: #444;
+            }
+
+        /* --- SELECTOR DE IDIOMA MINIMALISTA EN NAVBAR --- */
+        .navbar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            box-sizing: border-box;
+        }
+
+        .selector-idioma {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: Arial, sans-serif !important;
+            cursor: pointer;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+            .selector-idioma:hover {
+                border-color: #ff4d4d;
+                background: rgba(255, 77, 77, 0.1);
+            }
+
+            .selector-idioma option {
+                background: #181818;
+                color: #fff;
+            }
+
+        @media(max-width: 950px) {
+            .perfil-layout-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .perfil-card {
+                width: 100%;
+                max-width: 550px;
+            }
+
+            .perfil-sidebar-posts {
+                width: 100%;
+                max-width: 550px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="banner">
+        <h1>
+            <span style="color: red;">iJuanFly</span> <span style="color: #ffffff;">Community Post</span>
+        </h1>
+        <p data-i18n="sub_banner">Portal Oficial de la Comunidad</p>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li class="dropdown"><a href="Index.html" data-i18n="nav_portal">Portal</a></li>
+            <li class="dropdown"><a href="Foro.html" data-i18n="nav_forum">Foro</a></li>
+            <li class="dropdown"><a href="#" data-i18n="nav_games">Juegos</a></li>
+            <li class="dropdown">
+                <a href="#" data-i18n="nav_members">Miembros</a>
+                <div class="dropdown-content">
+                    <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
+                    <a href="cp.html" id="menu-cp" style="display: none; color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                </div>
+            </li>
+        </ul>
+
+        <!-- SELECTOR DE IDIOMA FLOTANTE A LA DERECHA -->
+        <div class="selector-idioma-container">
+            <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
+                <option value="es">ES - Español</option>
+                <option value="en">EN - English</option>
+                <option value="pt">PT - Português</option>
+                <option value="ru">RU - Русский</option>
+                <option value="ja">JA - 日本語</option>
+                <option value="zh">ZH - 繁體中文</option>
+            </select>
+        </div>
+    </nav>
+
+    <main class="contenido">
+        <div class="perfil-layout-grid">
+            <!-- TARJETA PRINCIPAL DEL PERFIL -->
+            <div id="contenedor-perfil">
+                <p style="text-align: center; color: #aaa; margin-top: 50px;" data-i18n="loading_profile">Cargando perfil...</p>
+            </div>
+
+            <!-- SIDEBAR LATERAL CON LOS ÚLTIMOS 3 POSTS Y ESTRELLAS -->
+            <div class="perfil-sidebar-posts">
+                <h3 data-i18n="sidebar_recent_posts">📝 Últimos Posts</h3>
+                <div id="contenedor-ultimos-posts">
+                    <p style="color: #777; font-size: 0.85rem;" data-i18n="loading_posts">Cargando posts...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SUPABASE Y LÓGICA MULTIDIOMA -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+                const ZEO_TRADUCCIONES = {
+                    es: {
+                        nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
+                        sub_banner: "iJuanFly Community Post", profile_page_title: "Perfil de Usuario - iJuanFly Community Post",
+                        loading_profile: "Cargando perfil...", user_not_specified: "Usuario no especificado",
+                        user_not_exist: "El usuario no existe", back_to_members: "← Volver a la Lista de Miembros",
+                        member_since: "Miembro desde", status_label: "Estado", no_bio: "Este usuario aún no ha escrito una biografía.",
+                        status_online: "● En línea", offline: "Desconectado", unknown_date: "Desconocida",
+                        hidden_text: "Oculto",
+                        tooltip_add_friend: "Agregar a amigos", tooltip_friends: "Amigos",
+                        tooltip_sent: "Solicitud enviada", tooltip_accept: "Aceptar solicitud",
+                        profile_closed: "⛔ Este perfil ha sido cerrado.",
+                        sidebar_recent_posts: "📝 Últimos Posts", loading_posts: "Cargando posts...", no_posts_yet: "Este usuario aún no ha publicado ningún tema en el foro.",
+                        min_ago: (m) => `Hace ${m} min`, h_ago: (h) => `Hace ${h} h`, d_ago: (d) => `Hace ${d} d`
+                    },
+                    en: {
+                        nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
+                        nav_members_list: "Members List", nav_my_panel: "My Panel", nav_logout: "Log Out",
+                        sub_banner: "iJuanFly Community Post", profile_page_title: "User Profile - iJuanFly Community Post",
+                        loading_profile: "Loading profile...", user_not_specified: "User not specified",
+                        user_not_exist: "User does not exist", back_to_members: "← Back to Members List",
+                        member_since: "Member since", status_label: "Status", no_bio: "This user has not written a bio yet.",
+                        status_online: "● Online", offline: "Offline", unknown_date: "Unknown",
+                        hidden_text: "Hidden",
+                        tooltip_add_friend: "Add friend", tooltip_friends: "Friends",
+                        tooltip_sent: "Request sent", tooltip_accept: "Accept request",
+                        profile_closed: "⛔ This profile has been closed.",
+                        sidebar_recent_posts: "📝 Recent Posts", loading_posts: "Loading posts...", no_posts_yet: "This user hasn't posted any threads yet.",
+                        min_ago: (m) => `${m} min ago`, h_ago: (h) => `${h} h ago`, d_ago: (d) => `${d} d ago`
+                    },
+                    pt: {
+                        nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
+                        nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
+                        sub_banner: "iJuanFly Community Post", profile_page_title: "Perfil de Usuário - iJuanFly Community Post",
+                        loading_profile: "Carregando perfil...", user_not_specified: "Usuário não especificado",
+                        user_not_exist: "O usuário não existe", back_to_members: "← Voltar para a Lista de Membros",
+                        member_since: "Membro desde", status_label: "Estado", no_bio: "Este usuário ainda não escreveu uma biografia.",
+                        status_online: "● Online", offline: "Desconectado", unknown_date: "Desconhecida",
+                        hidden_text: "Oculto",
+                        tooltip_add_friend: "Adicionar amigo", tooltip_friends: "Amigos",
+                        tooltip_sent: "Pedido enviado", tooltip_accept: "Aceitar pedido",
+                        profile_closed: "⛔ Este perfil foi encerrado.",
+                        sidebar_recent_posts: "📝 Últimas Postagens", loading_posts: "Carregando posts...", no_posts_yet: "Este usuário ainda não publicou nenhum tópico.",
+                        min_ago: (m) => `Há ${m} min`, h_ago: (h) => `Há ${h} h`, d_ago: (d) => `Há ${d} d`
+                    },
+                    ru: {
+                        nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
+                        nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
+                        sub_banner: "iJuanFly Community Post", profile_page_title: "Профиль пользователя - iJuanFly Community Post",
+                        loading_profile: "Загрузка профиля...", user_not_specified: "Пользователь не указан",
+                        user_not_exist: "Пользователь не существует", back_to_members: "← Вернуться к списку участников",
+                        member_since: "Участник с", status_label: "Статус", no_bio: "Этот пользователь еще не написал биографию.",
+                        status_online: "● В сети", offline: "Не в сети", unknown_date: "Неизвестно",
+                        hidden_text: "Скрыто",
+                        tooltip_add_friend: "Добавить в друзья", tooltip_friends: "Друзья",
+                        tooltip_sent: "Запрос отправлен", tooltip_accept: "Принять запрос",
+                        profile_closed: "⛔ Этот профиль был закрыт.",
+                        sidebar_recent_posts: "📝 Последние темы", loading_posts: "Загрузка постов...", no_posts_yet: "Этот пользователь еще ничего не публиковал.",
+                        min_ago: (m) => `${m} мин назад`, h_ago: (h) => `${h} ч назад`, d_ago: (d) => `${d} д назад`
+                    },
+                    ja: {
+                        nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
+                        nav_members_list: "メンバーリスト", nav_my_panel: "マイパネル", nav_logout: "ログアウト",
+                        sub_banner: "iJuanFly Community Post", profile_page_title: "ユーザープロフィール - iJuanFly Community Post",
+                        loading_profile: "プロフィールを読み込み中...", user_not_specified: "ユーザーが指定されていません",
+                        user_not_exist: "ユーザーが存在しません", back_to_members: "← メンバーリストに戻る",
+                        member_since: "登録日", status_label: "ステータス", no_bio: "このユーザーはまだ自己紹介を書いていません。",
+                        status_online: "● オンライン", offline: "オフライン", unknown_date: "不明",
+                        hidden_text: "非表示",
+                        tooltip_add_friend: "友達に追加", tooltip_friends: "友達",
+                        tooltip_sent: "リクエスト送信済み", tooltip_accept: "リクエストを承認",
+                        profile_closed: "⛔ このプロフィールは閉鎖されました。",
+                        sidebar_recent_posts: "📝 最近の投稿", loading_posts: "投稿を読み込み中...", no_posts_yet: "このユーザーはまだスレッドを投稿していません。",
+                        min_ago: (m) => `${m}分前`, h_ago: (h) => `${h}時間前`, d_ago: (d) => `${d}日前`
+                    },
+                    zh: {
+                        nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
+                        nav_members_list: "成员列表", nav_my_panel: "我的面板", nav_logout: "登出",
+                        sub_banner: "iJuanFly Community Post", profile_page_title: "用户个人资料 - iJuanFly Community Post",
+                        loading_profile: "正在加载个人资料...", user_not_specified: "未指定用户",
+                        user_not_exist: "用户不存在", back_to_members: "← 返回成员列表",
+                        member_since: "加入时间", status_label: "状态", no_bio: "该用户尚未填写个人简介。",
+                        status_online: "● 在线", offline: "离线", unknown_date: "未知",
+                        hidden_text: "已隐藏",
+                        tooltip_add_friend: "添加好友", tooltip_friends: "好友",
+                        tooltip_sent: "已发送请求", tooltip_accept: "接受请求",
+                        profile_closed: "⛔ 此个人资料已被关闭。",
+                        sidebar_recent_posts: "📝 最新帖子", loading_posts: "正在加载帖子...", no_posts_yet: "该用户尚未发布任何主题。",
+                        min_ago: (m) => `${m}分钟前`, h_ago: (h) => `${h}小时前`, d_ago: (d) => `${d}天前`
+                    }
+                };
+
+                function obtenerIdiomaActual() {
+                    return localStorage.getItem('zeoWorksIdioma') || 'es';
+                }
+
+                function aplicarTraduccionesGlobales() {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    document.querySelectorAll('[data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if (t[key]) el.textContent = t[key];
+                    });
+
+                    const selectElem = document.getElementById('select-idioma');
+                    if (selectElem) selectElem.value = lang;
+                }
+
+                function cambiarIdiomaGlobal(lang) {
+                    localStorage.setItem('zeoWorksIdioma', lang);
+                    location.reload();
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    aplicarTraduccionesGlobales();
+                });
+
+                const SUPABASE_URL = 'https://bnwtmjqzfyjwvtzhoyhe.supabase.co';
+                const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
+                const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+                let usuarioActualSesion = null;
+                try {
+                    const raw = localStorage.getItem('usuarioZeoWorks');
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        usuarioActualSesion = (typeof parsed === 'object') ? parsed : { Nombre: raw };
+                    }
+                } catch(e) { usuarioActualSesion = null; }
+
+                if (usuarioActualSesion) {
+                    const cp = document.getElementById('menu-cp');
+                    const salir = document.getElementById('menu-salir');
+                    if (cp) cp.style.display = 'block';
+                    if (salir) salir.style.display = 'block';
+                }
+
+                function cerrarSesionGlobal() {
+                    localStorage.removeItem('usuarioZeoWorks');
+                    window.location.href = 'Login.html';
+                }
+
+                function obtenerEstiloRol(rol) {
+                    if (!rol) return { tipo: 'style', valor: 'color: #00B028; border-color: #00B028;' };
+                    const r = rol.trim().toLowerCase();
+                    if (r === 'banned') return { tipo: 'style', valor: 'color: #000000; border-color: transparent;' };
+                    switch(r) {
+                        case 'miembro': return { tipo: 'style', valor: 'color: #00B028; border-color: #00B028;' };
+                        case 'premium': return { tipo: 'style', valor: 'color: #EDFF00; border-color: #EDFF00;' };
+                        case 'vip': return { tipo: 'style', valor: 'color: #7700FF; border-color: #7700FF;' };
+                        case 'moderador': return { tipo: 'style', valor: 'color: #00DDFF; border-color: #00DDFF;' };
+                        case 'creador': return { tipo: 'class', valor: 'rol-holografico', badgeClass: 'rol-creador-glow' };
+                        default: return { tipo: 'style', valor: 'color: #00B028; border-color: #00B028;' };
+                    }
+                }
+
+                function formatearUltimaConexion(fechaIso, ocultarUltimavez, esAmigoOPropietario) {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    if (ocultarUltimavez && !esAmigoOPropietario) {
+                        return { texto: t.hidden_text, enLinea: false };
+                    }
+
+                    if (!fechaIso) return { texto: t.offline, enLinea: false };
+                    const ahora = new Date();
+                    const ultimaConexion = new Date(fechaIso);
+                    const segundosDiferencia = Math.floor((ahora - ultimaConexion) / 1000);
+
+                    if (segundosDiferencia < 300) return { texto: t.status_online, enLinea: true };
+                    const minutos = Math.floor(segundosDiferencia / 60);
+                    if (minutos < 60) return { texto: t.min_ago(minutos), enLinea: false };
+                    const horas = Math.floor(minutos / 60);
+                    if (horas < 24) return { texto: t.h_ago(horas), enLinea: false };
+                    const dias = Math.floor(horas / 24);
+                    if (dias < 7) return { texto: t.d_ago(dias), enLinea: false };
+                    return { texto: ultimaConexion.toLocaleDateString(), enLinea: false };
+                }
+
+                async function cargarDatosPerfil() {
+                    const contenedor = document.getElementById('contenedor-perfil');
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    const parametrosUrl = new URLSearchParams(window.location.search);
+                    const nombreUsuarioPerfil = parametrosUrl.get('nombre');
+
+                    if (!nombreUsuarioPerfil) {
+                        contenedor.innerHTML = `<div class="perfil-card"><h3 style="color: #ff4d4d;">${t.user_not_specified}</h3><a href="Miembros.html" class="btn-volver">${t.back_to_members}</a></div>`;
+                        document.getElementById('contenedor-ultimos-posts').innerHTML = `<p style="color: #777; font-size: 0.85rem;">-</p>`;
+                        return;
+                    }
+
+                    const { data: perfilUser, error } = await _supabase
+                        .from('Usuarios')
+                        .select('*')
+                        .eq('Nombre', nombreUsuarioPerfil)
+                        .single();
+
+                    if (error || !perfilUser) {
+                        contenedor.innerHTML = `<div class="perfil-card"><h3 style="color: #ff4d4d;">${t.user_not_exist}</h3><a href="Miembros.html" class="btn-volver">${t.back_to_members}</a></div>`;
+                        document.getElementById('contenedor-ultimos-posts').innerHTML = `<p style="color: #777; font-size: 0.85rem;">-</p>`;
+                        return;
+                    }
+
+                    let miIdSesion = null;
+                    let esPropietario = false;
+                    let esAmigo = false;
+
+                    if (usuarioActualSesion) {
+                        const { data: meData } = await _supabase
+                            .from('Usuarios')
+                            .select('id, Rol')
+                            .eq('Nombre', usuarioActualSesion.Nombre || usuarioActualSesion.nombre)
+                            .single();
+
+                        if (meData) {
+                            miIdSesion = meData.id;
+                            if (miIdSesion === perfilUser.id || meData.Rol === 'Creador' || meData.Rol === 'Moderador') {
+                                esPropietario = true;
+                            } else {
+                                const { data: amistadData } = await _supabase
+                                    .from('Amistades')
+                                    .select('*')
+                                    .eq('estado', 'aceptado')
+                                    .or(`and(usuario_id.eq.${miIdSesion},amigo_id.eq.${perfilUser.id}),and(usuario_id.eq.${perfilUser.id},amigo_id.eq.${miIdSesion})`);
+
+                                if (amistadData && amistadData.length > 0) {
+                                    esAmigo = true;
+                                }
+                            }
+                        }
+                    }
+
+                    const esAmigoOPropietario = esPropietario || esAmigo;
+
+                    const avatarPorDefecto = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
+                    const fotoAvatar = perfilUser.Avatar ? perfilUser.Avatar : avatarPorDefecto;
+                    const rolUsuario = perfilUser.Rol ? perfilUser.Rol : 'Miembro';
+
+                    const infoRol = obtenerEstiloRol(rolUsuario);
+                    const attrRolNombre = infoRol.tipo === 'class' ? `class="nombre-perfil rol-holografico"` : `class="nombre-perfil" style="${infoRol.valor.split(';')[0]}"`;
+                    const attrRolBadge = infoRol.tipo === 'class' ? `class="rol-perfil ${infoRol.badgeClass}"` : `class="rol-perfil" style="${infoRol.valor}"`;
+
+                    const esBanned = rolUsuario.trim().toLowerCase() === 'banned';
+
+                    let fechaFormateada = t.unknown_date;
+                    if (perfilUser.ocultar_registro && !esAmigoOPropietario) {
+                        fechaFormateada = t.hidden_text;
+                    } else if (perfilUser.fecha_registro) {
+                        fechaFormateada = new Date(perfilUser.fecha_registro).toLocaleDateString();
+                    }
+
+                    const estado = formatearUltimaConexion(perfilUser.ultima_conexion, perfilUser.ocultar_ultimavez, esAmigoOPropietario);
+                    const bioTexto = esBanned ? `<span style="color: #ff4d4d; font-weight: bold;" data-i18n="profile_closed">${t.profile_closed}</span>` : (perfilUser.bio ? perfilUser.bio : t.no_bio);
+
+                    let enlaceHtml = '';
+                    if (perfilUser.sitio_web && !esBanned) {
+                        let urlWeb = perfilUser.sitio_web;
+                        if (!urlWeb.startsWith('http://') && !urlWeb.startsWith('https://')) urlWeb = 'https://' + urlWeb;
+                        enlaceHtml = `<a href="${urlWeb}" target="_blank" class="enlace-web">🔗 ${perfilUser.sitio_web}</a>`;
+                    }
+
+                    const svgAmigos = `<svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>`;
+
+                    let botonFlotanteHtml = '';
+                    if (miIdSesion && !esBanned && miIdSesion !== perfilUser.id) {
+                        const { data: amistadData } = await _supabase
+                            .from('Amistades')
+                            .select('*')
+                            .or(`and(usuario_id.eq.${miIdSesion},amigo_id.eq.${perfilUser.id}),and(usuario_id.eq.${perfilUser.id},amigo_id.eq.${miIdSesion})`);
+
+                        const relacion = amistadData && amistadData.length > 0 ? amistadData[0] : null;
+
+                        if (!relacion) {
+                            botonFlotanteHtml = `<a href="#" class="btn-amigo-flotante" data-tooltip="${t.tooltip_add_friend}" onclick="enviarSolicitud(${miIdSesion}, ${perfilUser.id}); return false;">${svgAmigos}</a>`;
+                        } else if (relacion.estado === 'aceptado') {
+                            botonFlotanteHtml = `<div class="btn-amigo-flotante aceptado" data-tooltip="${t.tooltip_friends}">${svgAmigos}</div>`;
+                        } else if (relacion.estado === 'pendiente') {
+                            if (relacion.usuario_id === miIdSesion) {
+                                botonFlotanteHtml = `<div class="btn-amigo-flotante" data-tooltip="${t.tooltip_sent}">${svgAmigos}</div>`;
+                            } else {
+                                botonFlotanteHtml = `<a href="#" class="btn-amigo-flotante aceptado" data-tooltip="${t.tooltip_accept}" onclick="aceptarSolicitud(${relacion.id}); return false;">${svgAmigos}</a>`;
+                            }
+                        }
+                    }
+
+                    contenedor.innerHTML = `
+                        <div class="perfil-card">
+                            ${botonFlotanteHtml}
+                            <img src="${fotoAvatar}" class="avatar-perfil" alt="Avatar">
+                            <div ${attrRolNombre}>${perfilUser.Nombre}</div>
+                            <div ${attrRolBadge}>${rolUsuario}</div>
+
+                            <div class="bio-box">${bioTexto}</div>
+                            ${enlaceHtml}
+
+                            <div class="detalles-perfil">
+                                <div class="detalle-item">
+                                    ${t.member_since} <span>${fechaFormateada}</span>
+                                </div>
+                                <div class="detalle-item">
+                                    ${t.status_label} <span style="color: ${estado.enLinea ? '#2ecc71' : '#aaa'};">${estado.texto}</span>
+                                </div>
+                            </div>
+
+                            <a href="Miembros.html" class="btn-volver">${t.back_to_members}</a>
+                        </div>
+                    `;
+
+                    cargarUltimosPostsUsuario(perfilUser.id);
+                }
+
+                async function cargarUltimosPostsUsuario(usuarioId) {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                    const contenedorPosts = document.getElementById('contenedor-ultimos-posts');
+
+                    const { data: posts } = await _supabase
+                        .from('temas_foro')
+                        .select('id, titulo, estrellas_promedio, estrellas_conteo, created_at')
+                        .eq('usuario_id', usuarioId)
+                        .order('created_at', { ascending: false })
+                        .limit(3);
+
+                    if (!posts || posts.length === 0) {
+                        contenedorPosts.innerHTML = `<p style="color: #777; font-size: 0.85rem; text-align: center; padding: 10px;">${t.no_posts_yet}</p>`;
+                        return;
+                    }
+
+                    let html = '';
+                    posts.forEach(p => {
+                        const prom = p.estrellas_promedio ? Number(p.estrellas_promedio).toFixed(1) : '0.0';
+                        const conteo = p.estrellas_conteo || 0;
+
+                        html += `
+                            <a href="Tema.html?id=${p.id}" class="post-reciente-item">
+                                <div class="post-reciente-titulo">${escaparHtml(p.titulo)}</div>
+                                <div class="post-reciente-estrellas">
+                                    ⭐ ${prom} <small style="color: #aaa;">(${conteo})</small>
+                                </div>
+                            </a>
+                        `;
+                    });
+
+                    contenedorPosts.innerHTML = html;
+                }
+
+                async function enviarSolicitud(miId, amigoId) {
+                    const { error } = await _supabase
+                        .from('Amistades')
+                        .insert([{ usuario_id: miId, amigo_id: amigoId, estado: 'pendiente' }]);
+
+                    if (!error) location.reload();
+                    else alert('Error: ' + error.message);
+                }
+
+                async function aceptarSolicitud(relacionId) {
+                    const { error } = await _supabase
+                        .from('Amistades')
+                        .update({ estado: 'aceptado' })
+                        .eq('id', relacionId);
+
+                    if (!error) location.reload();
+                    else alert('Error: ' + error.message);
+                }
+
+                function escaparHtml(str) {
+                    if (!str) return '';
+                    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                }
+
+                cargarDatosPerfil();
+    </script>
+</body>
+</html>

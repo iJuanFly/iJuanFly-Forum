@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="members_title">Miembros - iJuanFly Community Post</title>
+    <link rel="stylesheet" href="Estilos.css">
+    <style>
+        .registro-container {
+            max-width: 1050px !important;
+            margin: 30px auto !important;
+            padding: 30px !important;
+            box-sizing: border-box;
+        }
+
+        /* BARRA DE BÚSQUEDA (LUPA) */
+        .search-bar-container {
+            position: relative;
+            margin-top: 20px;
+            margin-bottom: 25px;
+        }
+
+            .search-bar-container input {
+                width: 100%;
+                background: #1a1a1a;
+                border: 1px solid #444;
+                padding: 12px 15px 12px 42px;
+                border-radius: 8px;
+                color: #fff;
+                font-family: inherit;
+                font-size: 1rem;
+                box-sizing: border-box;
+                outline: none;
+            }
+
+                .search-bar-container input:focus {
+                    border-color: #ff4d4d;
+                }
+
+            .search-bar-container svg {
+                position: absolute;
+                left: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 18px;
+                height: 18px;
+                fill: #777;
+            }
+
+        .lista-miembros-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tarjeta-miembro {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            padding: 20px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+        }
+
+            .tarjeta-miembro:hover {
+                background: rgba(255, 255, 255, 0.04);
+                border-color: #ff4d4d;
+                transform: translateY(-2px);
+            }
+
+        .avatar-grande {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff4d4d;
+            background-color: #222;
+            flex-shrink: 0;
+            margin-right: 25px;
+        }
+
+        .info-principal {
+            flex-grow: 1;
+        }
+
+        .nombre-fila {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 6px;
+        }
+
+        .nombre-grande {
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            font-family: inherit !important;
+        }
+
+        /* EFECTO HOLOGRÁFICO PARA EL ROL DE CREADOR */
+        .rol-holografico {
+            background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hologramaAnim 6s ease infinite;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes hologramaAnim {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .info-secundaria {
+            display: flex;
+            gap: 35px;
+            color: #ccc;
+            font-size: 1rem;
+            align-items: center;
+        }
+
+        /* CONTROLES DE PAGINACIÓN */
+        .paginacion-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-pag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+            .btn-pag:hover:not(:disabled) {
+                background: #ff4d4d;
+                border-color: #ff4d4d;
+            }
+
+            .btn-pag:disabled {
+                opacity: 0.4;
+                cursor: not-allowed;
+            }
+
+        #info-paginacion {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* --- SELECTOR DE IDIOMA MINIMALISTA EN NAVBAR --- */
+        .selector-idioma-container {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .navbar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            box-sizing: border-box;
+        }
+
+        .selector-idioma {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: Arial, sans-serif !important;
+            cursor: pointer;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+            .selector-idioma:hover {
+                border-color: #ff4d4d;
+                background: rgba(255, 77, 77, 0.1);
+            }
+
+            .selector-idioma option {
+                background: #181818;
+                color: #fff;
+            }
+    </style>
+</head>
+<body>
+
+    <header class="banner">
+        <h1>
+            <span style="color: red;">iJuanFly</span> <span style="color: #ffffff;">Community Post</span>
+        </h1>
+        <p data-i18n="sub_banner">Portal Oficial de la Comunidad</p>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li class="dropdown"><a href="Index.html" data-i18n="nav_portal">Portal</a></li>
+            <li class="dropdown"><a href="Foro.html" data-i18n="nav_forum">Foro</a></li>
+            <li class="dropdown"><a href="#" data-i18n="nav_games">Juegos</a></li>
+            <li class="dropdown">
+                <a href="#" data-i18n="nav_members">Miembros</a>
+                <div class="dropdown-content">
+                    <a href="Registro.html" id="menu-registro" data-i18n="btn_register">Registrarse</a>
+                    <a href="Login.html" id="menu-login" data-i18n="btn_login">Iniciar Sesion</a>
+                    <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
+                    <a href="cp.html" id="menu-cp" style="display: none; color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
+                </div>
+            </li>
+        </ul>
+
+        <!-- SELECTOR DE IDIOMA FLOTANTE A LA DERECHA -->
+        <div class="selector-idioma-container">
+            <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
+                <option value="es">ES - Español</option>
+                <option value="en">EN - English</option>
+                <option value="pt">PT - Português</option>
+                <option value="ru">RU - Русский</option>
+                <option value="ja">JA - 日本語</option>
+                <option value="zh">ZH - 繁體中文</option>
+            </select>
+        </div>
+    </nav>
+
+    <main class="contenido">
+        <div class="registro-container">
+            <h2 style="font-size: 2rem; margin-bottom: 8px;" data-i18n="members_title">Miembros de la Comunidad</h2>
+            <p class="subtitulo-registro" style="font-size: 1.1rem; color: #aaa;" data-i18n="members_subtitle">Lista de usuarios registrados en iJuanFly Community Post</p>
+
+            <!-- LUPA / BARRA DE BÚSQUEDA -->
+            <div class="search-bar-container">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" /></svg>
+                <input type="text" id="buscador-miembros" placeholder="Buscar miembro por nombre..." data-i18n-placeholder="search_members_placeholder" oninput="filtrarYCambiarPagina(1)">
+            </div>
+
+            <div id="contenedor-miembros" class="lista-miembros-container">
+                <p style="text-align: center; color: #aaa; font-size: 1.1rem;" data-i18n="loading">Cargando miembros...</p>
+            </div>
+
+            <!-- CONTROLES DE PAGINACIÓN -->
+            <div id="paginacion-controles" class="paginacion-container" style="display: none;">
+                <button class="btn-pag" id="btn-anterior" onclick="cambiarPagina(-1)" data-i18n="btn_prev">Anterior</button>
+                <span id="info-paginacion">Página 1 de 1</span>
+                <button class="btn-pag" id="btn-siguiente" onclick="cambiarPagina(1)" data-i18n="btn_next">Siguiente</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- SUPABASE Y LÓGICA MULTIDIOMA -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+                const ZEO_TRADUCCIONES = {
+                    es: {
+                        nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
+                        loading: "Cargando miembros...", sub_banner: "iJuanFly Community Post",
+                        members_title: "Miembros de la Comunidad", members_subtitle: "Lista de usuarios registrados en iJuanFly Community Post",
+                        btn_register: "Registrarse", btn_login: "Iniciar Sesion", status_online: "● En línea",
+                        reg_label: "Registro:", conn_label: "Conexion:", offline: "Desconectado",
+                        hidden_text: "(Oculto)", search_members_placeholder: "Buscar miembro por nombre...",
+                        btn_prev: "Anterior", btn_next: "Siguiente", page_info: (actual, total) => `Página ${actual} de ${total}`,
+                        min_ago: (m) => `Hace ${m} min`, h_ago: (h) => `Hace ${h} h`, d_ago: (d) => `Hace ${d} d`
+                    },
+                    en: {
+                        nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
+                        nav_members_list: "Members List", nav_my_panel: "My Panel", nav_logout: "Log Out",
+                        loading: "Loading members...", sub_banner: "iJuanFly Community Post",
+                        members_title: "Community Members", members_subtitle: "List of registered users in iJuanFly Community Post",
+                        btn_register: "Register", btn_login: "Log In", status_online: "● Online",
+                        reg_label: "Registered:", conn_label: "Connection:", offline: "Offline",
+                        hidden_text: "(Hidden)", search_members_placeholder: "Search member by name...",
+                        btn_prev: "Previous", btn_next: "Next", page_info: (actual, total) => `Page ${actual} of ${total}`,
+                        min_ago: (m) => `${m} min ago`, h_ago: (h) => `${h} h ago`, d_ago: (d) => `${d} d ago`
+                    },
+                    pt: {
+                        nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
+                        nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
+                        loading: "Carregando membros...", sub_banner: "iJuanFly Community Post",
+                        members_title: "Membros da Comunidade", members_subtitle: "Lista de usuários registrados no iJuanFly Community Post",
+                        btn_register: "Registrar", btn_login: "Entrar", status_online: "● Online",
+                        reg_label: "Registro:", conn_label: "Conexão:", offline: "Desconectado",
+                        hidden_text: "(Oculto)", search_members_placeholder: "Pesquisar membro por nome...",
+                        btn_prev: "Anterior", btn_next: "Próximo", page_info: (actual, total) => `Página ${actual} de ${total}`,
+                        min_ago: (m) => `Há ${m} min`, h_ago: (h) => `Há ${h} h`, d_ago: (d) => `Há ${d} d`
+                    },
+                    ru: {
+                        nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
+                        nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
+                        loading: "Загрузка участников...", sub_banner: "iJuanFly Community Post",
+                        members_title: "Участники сообщества", members_subtitle: "Список зарегистрированных пользователей в iJuanFly Community Post",
+                        btn_register: "Регистрация", btn_login: "Вход", status_online: "● В сети",
+                        reg_label: "Регистрация:", conn_label: "Связь:", offline: "Не в сети",
+                        hidden_text: "(Скрыто)", search_members_placeholder: "Поиск участника...",
+                        btn_prev: "Назад", btn_next: "Вперед", page_info: (actual, total) => `Страница ${actual} из ${total}`,
+                        min_ago: (m) => `${m} мин назад`, h_ago: (h) => `${h} ч назад`, d_ago: (d) => `${d} д назад`
+                    },
+                    ja: {
+                        nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
+                        nav_members_list: "メンバーリスト", nav_my_panel: "マイパネル", nav_logout: "ログアウト",
+                        loading: "メンバーを読み込み中...", sub_banner: "iJuanFly Community Post",
+                        members_title: "コミュニティメンバー", members_subtitle: "iJuanFly Community Postに登録されているユーザーのリスト",
+                        btn_register: "登録", btn_login: "ログイン", status_online: "● オンライン",
+                        reg_label: "登録:", conn_label: "接続:", offline: "オフライン",
+                        hidden_text: "(非表示)", search_members_placeholder: "ユーザー名でメンバーを検索...",
+                        btn_prev: "前へ", btn_next: "次へ", page_info: (actual, total) => `${actual} / ${total} ページ`,
+                        min_ago: (m) => `${m}分前`, h_ago: (h) => `${h}時間前`, d_ago: (d) => `${d}日前`
+                    },
+                    zh: {
+                        nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
+                        nav_members_list: "成员列表", nav_my_panel: "我的面板", nav_logout: "登出",
+                        loading: "正在加载成员...", sub_banner: "iJuanFly Community Post",
+                        members_title: "社区成员", members_subtitle: "iJuanFly Community Post 注册用户列表",
+                        btn_register: "注册", btn_login: "登录", status_online: "● 在线",
+                        reg_label: "注册:", conn_label: "连接:", offline: "离线",
+                        hidden_text: "(已隐藏)", search_members_placeholder: "通过用户名搜索成员...",
+                        btn_prev: "上一页", btn_next: "下一页", page_info: (actual, total) => `第 ${actual} 页，共 ${total} 页`,
+                        min_ago: (m) => `${m}分钟前`, h_ago: (h) => `${h}小时前`, d_ago: (d) => `${d}天前`
+                    }
+                };
+
+                function obtenerIdiomaActual() {
+                    return localStorage.getItem('zeoWorksIdioma') || 'es';
+                }
+
+                function aplicarTraduccionesGlobales() {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    document.querySelectorAll('[data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if (t[key]) el.textContent = t[key];
+                    });
+
+                    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                        const key = el.getAttribute('data-i18n-placeholder');
+                        if (t[key]) el.placeholder = t[key];
+                    });
+
+                    const selectElem = document.getElementById('select-idioma');
+                    if (selectElem) selectElem.value = lang;
+                }
+
+                function cambiarIdiomaGlobal(lang) {
+                    localStorage.setItem('zeoWorksIdioma', lang);
+                    location.reload();
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    aplicarTraduccionesGlobales();
+                    cargarMiembros();
+                });
+
+                const sesionActiva = localStorage.getItem('usuarioZeoWorks');
+                if (sesionActiva) {
+                    const reg = document.getElementById('menu-registro');
+                    const log = document.getElementById('menu-login');
+                    const cp = document.getElementById('menu-cp');
+                    const salir = document.getElementById('menu-salir');
+                    if (reg) reg.style.display = 'none';
+                    if (log) log.style.display = 'none';
+                    if (cp) cp.style.display = 'block';
+                    if (salir) salir.style.display = 'block';
+                }
+
+                function cerrarSesionGlobal() {
+                    localStorage.removeItem('usuarioZeoWorks');
+                    window.location.href = 'Login.html';
+                }
+
+                const SUPABASE_URL = 'https://bnwtmjqzfyjwvtzhoyhe.supabase.co';
+                const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
+                const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+                let listaMiembrosCache = [];
+                let paginaActual = 1;
+                const elementosPorPagina = 5;
+
+                function obtenerEstiloRol(rol) {
+                    if (!rol) return { tipo: 'style', valor: 'color: #00B028;' };
+                    const r = rol.trim().toLowerCase();
+                    if (r === 'banned') return { tipo: 'style', valor: 'color: #000000;' };
+                    switch(r) {
+                        case 'miembro': return { tipo: 'style', valor: 'color: #00B028;' };
+                        case 'premium': return { tipo: 'style', valor: 'color: #EDFF00;' };
+                        case 'vip': return { tipo: 'style', valor: 'color: #7700FF;' };
+                        case 'moderador': return { tipo: 'style', valor: 'color: #00DDFF;' };
+                        case 'creador': return { tipo: 'class', valor: 'rol-holografico' };
+                        default: return { tipo: 'style', valor: 'color: #00B028;' };
+                    }
+                }
+
+                function formatearUltimaConexion(fechaIso, ocultarUltimavez) {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    if (ocultarUltimavez) {
+                        return { texto: t.hidden_text, enLinea: false };
+                    }
+
+                    if (!fechaIso) return { texto: t.offline, enLinea: false };
+
+                    const ahora = new Date();
+                    const ultimaConexion = new Date(fechaIso);
+                    const segundosDiferencia = Math.floor((ahora - ultimaConexion) / 1000);
+
+                    if (segundosDiferencia < 300) {
+                        return { texto: t.status_online, enLinea: true };
+                    }
+
+                    const minutos = Math.floor(segundosDiferencia / 60);
+                    if (minutos < 60) {
+                        return { texto: t.min_ago(minutos), enLinea: false };
+                    }
+
+                    const horas = Math.floor(minutos / 60);
+                    if (horas < 24) {
+                        return { texto: t.h_ago(horas), enLinea: false };
+                    }
+
+                    const dias = Math.floor(horas / 24);
+                    if (dias < 7) {
+                        return { texto: t.d_ago(dias), enLinea: false };
+                    }
+
+                    return { texto: ultimaConexion.toLocaleDateString(), enLinea: false };
+                }
+
+                async function cargarMiembros() {
+                    const contenedor = document.getElementById('contenedor-miembros');
+                    if (!contenedor) return;
+
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    try {
+                        const { data: usuarios, error } = await _supabase
+                            .from('Usuarios')
+                            .select('Nombre, fecha_registro, Avatar, Rol, ultima_conexion, ocultar_registro, ocultar_ultimavez')
+                            .order('id', { ascending: true });
+
+                        if (error) {
+                            contenedor.innerHTML = `<p style="text-align: center; color: #ff4d4d;">Error al cargar: ${error.message}</p>`;
+                            return;
+                        }
+
+                        if (!usuarios || usuarios.length === 0) {
+                            contenedor.innerHTML = `<p style="text-align: center; color: #aaa;">No hay miembros registrados todavía.</p>`;
+                            return;
+                        }
+
+                        listaMiembrosCache = usuarios;
+                        renderizarMiembrosPaginados();
+                    } catch (err) {
+                        contenedor.innerHTML = `<p style="text-align: center; color: #ff4d4d;">Error de conexión.</p>`;
+                    }
+                }
+
+                function filtrarYCambiarPagina(nuevaPagina) {
+                    paginaActual = nuevaPagina;
+                    renderizarMiembrosPaginados();
+                }
+
+                function cambiarPagina(direccion) {
+                    paginaActual += direccion;
+                    renderizarMiembrosPaginados();
+                }
+
+                function renderizarMiembrosPaginados() {
+                    const contenedor = document.getElementById('contenedor-miembros');
+                    const controlesPaginacion = document.getElementById('paginacion-controles');
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    const query = document.getElementById('buscador-miembros').value.toLowerCase();
+                    const filtrados = listaMiembrosCache.filter(u => u.Nombre.toLowerCase().includes(query));
+
+                    if (filtrados.length === 0) {
+                        contenedor.innerHTML = `<p style="text-align: center; color: #aaa; font-size: 1.1rem;">No se encontraron miembros.</p>`;
+                        controlesPaginacion.style.display = 'none';
+                        return;
+                    }
+
+                    const totalPaginas = Math.ceil(filtrados.length / elementosPorPagina);
+                    if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+                    if (paginaActual < 1) paginaActual = 1;
+
+                    const inicio = (paginaActual - 1) * elementosPorPagina;
+                    const fin = inicio + elementosPorPagina;
+                    const miembrosPagina = filtrados.slice(inicio, fin);
+
+                    const avatarPorDefecto = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
+
+                    let html = '';
+                    miembrosPagina.forEach(user => {
+                        let fechaFormateada = 'Sin registro';
+
+                        if (user.ocultar_registro) {
+                            fechaFormateada = t.hidden_text;
+                        } else if (user.fecha_registro) {
+                            const fecha = new Date(user.fecha_registro);
+                            fechaFormateada = fecha.toLocaleDateString();
+                        }
+
+                        const fotoAvatar = user.Avatar ? user.Avatar : avatarPorDefecto;
+                        const rolUsuario = user.Rol ? user.Rol : 'Miembro';
+
+                        const infoRol = obtenerEstiloRol(rolUsuario);
+                        const attrRolNombre = infoRol.tipo === 'class' ? `class="nombre-grande rol-holografico"` : `class="nombre-grande" style="${infoRol.valor}"`;
+
+                        const estado = formatearUltimaConexion(user.ultima_conexion, user.ocultar_ultimavez);
+                        const colorEstado = estado.enLinea ? '#2ecc71' : '#aaa';
+
+                        html += `
+                            <div class="tarjeta-miembro" onclick="window.location.href='perfil.html?nombre=${encodeURIComponent(user.Nombre)}'">
+                                <img src="${fotoAvatar}" class="avatar-grande" alt="Avatar">
+                                <div class="info-principal">
+                                    <div class="nombre-fila">
+                                        <span ${attrRolNombre}>${user.Nombre}</span>
+                                    </div>
+                                </div>
+                                <div class="info-secundaria">
+                                    <div><strong>${t.reg_label}</strong> ${fechaFormateada}</div>
+                                    <div><strong>${t.conn_label}</strong> <span style="color: ${colorEstado}; font-weight: bold;">${estado.texto}</span></div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    contenedor.innerHTML = html;
+
+                    // Mostrar u ocultar controles de paginación según la cantidad de resultados
+                    if (totalPaginas > 1) {
+                        controlesPaginacion.style.display = 'flex';
+                        document.getElementById('info-paginacion').textContent = t.page_info(paginaActual, totalPaginas);
+                        document.getElementById('btn-anterior').disabled = paginaActual === 1;
+                        document.getElementById('btn-siguiente').disabled = paginaActual === totalPaginas;
+                    } else {
+                        controlesPaginacion.style.display = 'none';
+                    }
+                }
+    </script>
+</body>
+</html>

@@ -1,0 +1,944 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="dm_page_title">Mensajes Privados - iJuanFly Community Post</title>
+    <link rel="stylesheet" href="Estilos.css">
+
+    <style>
+        .dm-layout {
+            display: flex;
+            gap: 20px;
+            max-width: 1050px;
+            height: 75vh;
+            margin: 30px auto;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+
+        /* EFECTO HOLOGRÁFICO PARA EL ROL DE CREADOR */
+        .rol-holografico {
+            background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hologramaAnim 6s ease infinite;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes hologramaAnim {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .dm-sidebar {
+            width: 320px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+            .dm-sidebar h3 {
+                color: #ff4d4d;
+                font-size: 0.95rem;
+                border-bottom: 1px solid #333;
+                padding-bottom: 6px;
+                margin-bottom: 0;
+            }
+
+        /* BARRA DE BÚSQUEDA (LUPA) EN SIDEBAR */
+        .search-bar-dm {
+            position: relative;
+        }
+
+            .search-bar-dm input {
+                width: 100%;
+                background: #1a1a1a;
+                border: 1px solid #444;
+                padding: 8px 12px 8px 34px;
+                border-radius: 6px;
+                color: #fff;
+                font-family: inherit;
+                font-size: 0.9rem;
+                box-sizing: border-box;
+                outline: none;
+            }
+
+                .search-bar-dm input:focus {
+                    border-color: #ff4d4d;
+                }
+
+            .search-bar-dm svg {
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 15px;
+                height: 15px;
+                fill: #777;
+            }
+
+        .dm-contacto-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #333;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #fff;
+            transition: background 0.2s;
+            position: relative;
+        }
+
+            .dm-contacto-item:hover, .dm-contacto-item.activo {
+                background: rgba(255, 77, 77, 0.15);
+                border-color: #ff4d4d;
+            }
+
+        .avatar-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .dm-contacto-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #ff4d4d;
+            display: block;
+        }
+
+        /* PUNTO VERDE DE EN LÍNEA */
+        .estado-punto {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid #181818;
+        }
+
+        .punto-online {
+            background-color: #00B028;
+            box-shadow: 0 0 6px #00B028;
+        }
+
+        .punto-offline {
+            background-color: #666;
+        }
+
+        .dm-contacto-info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            flex: 1;
+            white-space: nowrap;
+        }
+
+        .dm-chat-box {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dm-chat-header {
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+            .dm-chat-header img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid #ff4d4d;
+            }
+
+        .dm-mensajes-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .mensaje-burbuja {
+            max-width: 70%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            word-break: break-word;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .mensaje-propio {
+            background: rgba(255, 77, 77, 0.2);
+            border: 1px solid rgba(255, 77, 77, 0.4);
+            align-self: flex-end;
+            color: #fff;
+            border-top-right-radius: 2px;
+        }
+
+        .mensaje-ajeno {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            align-self: flex-start;
+            color: #ddd;
+            border-top-left-radius: 2px;
+        }
+
+        .mensaje-burbuja img, .mensaje-burbuja video {
+            max-width: 280px;
+            max-height: 250px;
+            border-radius: 6px;
+            margin-top: 6px;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Contenedor del área de input y previsualización */
+        .dm-input-wrapper {
+            display: flex;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.6);
+            border-top: 1px solid #333;
+        }
+
+        .preview-imagen-container {
+            display: none;
+            padding: 8px 15px;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #333;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+            .preview-imagen-container img, .preview-imagen-container video {
+                width: 45px;
+                height: 45px;
+                object-fit: cover;
+                border-radius: 6px;
+                border: 1px solid #ff4d4d;
+            }
+
+        .btn-quitar-preview {
+            background: #ff4d4d;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dm-input-area {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+            .dm-input-area input[type="text"] {
+                flex: 1;
+                background: #1a1a1a;
+                border: 1px solid #444;
+                color: #fff;
+                padding: 10px 14px;
+                border-radius: 6px;
+                font-family: inherit;
+                outline: none;
+            }
+
+        .btn-enviar-dm {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+            transition: background 0.2s;
+        }
+
+            .btn-enviar-dm:hover {
+                background-color: #cc0000;
+            }
+
+        .btn-adjuntar-img {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.2s;
+        }
+
+            .btn-adjuntar-img:hover {
+                background: #444;
+            }
+
+        .btn-emoji-chat {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: transform 0.2s;
+        }
+
+            .btn-emoji-chat:hover {
+                opacity: 1;
+                transform: scale(1.15);
+            }
+
+        .emoji-picker-dm {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            right: 20px;
+            z-index: 999;
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+            width: 280px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .emoji-grid-dm {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .emoji-item-dm {
+            font-size: 1.3rem;
+            padding: 4px;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 4px;
+            user-select: none;
+        }
+
+            .emoji-item-dm:hover {
+                background: rgba(255, 255, 255, 0.15);
+            }
+
+        .navbar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            box-sizing: border-box;
+        }
+
+        .selector-idioma-container {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .selector-idioma {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: Arial, sans-serif !important;
+            cursor: pointer;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+            .selector-idioma option {
+                background: #181818;
+                color: #fff;
+            }
+    </style>
+</head>
+<body>
+
+    <header class="banner">
+        <h1>
+            <span style="color: red;">iJuanFly</span> <span style="color: #ffffff;">Community Post</span>
+        </h1>
+        <p data-i18n="dm_subtitle_banner">Mensajería Privada</p>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li class="dropdown"><a href="Index.html" data-i18n="nav_portal">Portal</a></li>
+            <li class="dropdown"><a href="Foro.html" data-i18n="nav_forum">Foro</a></li>
+            <li class="dropdown"><a href="#" data-i18n="nav_games">Juegos</a></li>
+            <li class="dropdown">
+                <a href="#" data-i18n="nav_members">Miembros</a>
+                <div class="dropdown-content">
+                    <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
+                    <a href="cp.html" id="menu-cp" style="color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                </div>
+            </li>
+        </ul>
+
+        <div class="selector-idioma-container">
+            <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
+                <option value="es">ES - Español</option>
+                <option value="en">EN - English</option>
+                <option value="pt">PT - Português</option>
+                <option value="ru">RU - Русский</option>
+                <option value="ja">JA - 日本語</option>
+                <option value="zh">ZH - 繁體中文</option>
+            </select>
+        </div>
+    </nav>
+
+    <main class="contenido">
+        <div class="dm-layout">
+            <div class="dm-sidebar">
+                <h3 data-i18n="sidebar_chats">💬 Conversaciones</h3>
+
+                <!-- LUPA DE BÚSQUEDA RÁPIDA -->
+                <div class="search-bar-dm">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" /></svg>
+                    <input type="text" id="buscador-amigos-dm" placeholder="Buscar amigo..." data-i18n-placeholder="search_friend_placeholder" oninput="filtrarAmigosSidebar()">
+                </div>
+
+                <div id="lista-conversaciones" style="display: flex; flex-direction: column; gap: 8px; overflow-y: auto;">
+                    <p style="color: #777; font-size: 0.85rem;" data-i18n="loading_chats">Cargando...</p>
+                </div>
+            </div>
+
+            <div class="dm-chat-box">
+                <div class="dm-chat-header" id="chat-header">
+                    <div class="avatar-container">
+                        <img id="chat-header-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E" alt="Avatar">
+                        <span id="chat-header-punto" class="estado-punto punto-offline"></span>
+                    </div>
+                    <div>
+                        <h3 id="chat-header-nombre" style="margin: 0; font-size: 1.1rem;" data-i18n="select_chat">Selecciona un chat</h3>
+                        <span id="chat-header-estado" style="font-size: 0.75rem; color: #888;"></span>
+                    </div>
+                </div>
+
+                <div class="dm-mensajes-container" id="mensajes-container">
+                    <p style="color: #777; text-align: center; margin-top: 50px;" data-i18n="no_chat_selected">Selecciona un usuario a la izquierda para empezar a chatear.</p>
+                </div>
+
+                <!-- Input de mensajes con soporte multimedia (Imágenes, GIFs, Videos) -->
+                <div class="dm-input-wrapper" id="input-area" style="display: none;">
+                    <div class="preview-imagen-container" id="preview-container">
+                        <div id="preview-media-wrapper"></div>
+                        <span id="nombre-img-preview" style="color: #ccc; font-size: 0.85rem; flex: 1;"></span>
+                        <button type="button" class="btn-quitar-preview" onclick="quitarMedia()">×</button>
+                    </div>
+
+                    <div class="dm-input-area">
+                        <input type="file" id="input-multimedia-dm" accept="image/*,video/mp4,video/webm,image/gif" style="display: none;" onchange="mostrarPreviewMedia(this)">
+                        <label for="input-multimedia-dm" class="btn-adjuntar-img" title="Adjuntar imagen, GIF o video">📁</label>
+
+                        <input type="text" id="mensaje-texto" placeholder="Escribe un mensaje..." data-i18n-placeholder="type_message" onkeydown="if(event.key === 'Enter') enviarMensaje()">
+
+                        <button type="button" class="btn-emoji-chat" id="btn-toggle-emojis-dm">😀</button>
+                        <div class="emoji-picker-dm" id="picker-emojis-dm">
+                            <div class="emoji-grid-dm" id="grid-emojis-dm"></div>
+                        </div>
+
+                        <button class="btn-enviar-dm" id="btn-enviar" onclick="enviarMensaje()" data-i18n="btn_send">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+                const ZEO_TRADUCCIONES = {
+                    es: {
+                        nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
+                        dm_subtitle_banner: "Mensajería Privada", dm_page_title: "Mensajes Privados - iJuanFly Community Post",
+                        sidebar_chats: "💬 Conversaciones", loading_chats: "Cargando chats...", select_chat: "Selecciona un chat",
+                        no_chat_selected: "Selecciona un usuario a la izquierda para empezar a chatear.",
+                        type_message: "Escribe un mensaje...", btn_send: "Enviar", status_online: "En línea", status_offline: "Desconectado",
+                        no_friends: "No hay amigos aún", search_friend_placeholder: "Buscar amigo..."
+                    },
+                    en: {
+                        nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
+                        nav_members_list: "Members List", nav_my_panel: "My Panel", nav_logout: "Log Out",
+                        dm_subtitle_banner: "Direct Messages", dm_page_title: "Direct Messages - iJuanFly Community Post",
+                        sidebar_chats: "💬 Conversations", loading_chats: "Loading chats...", select_chat: "Select a chat",
+                        no_chat_selected: "Select a user on the left to start chatting.",
+                        type_message: "Type a message...", btn_send: "Send", status_online: "Online", status_offline: "Offline",
+                        no_friends: "No friends yet", search_friend_placeholder: "Search friend..."
+                    },
+                    pt: {
+                        nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
+                        nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
+                        dm_subtitle_banner: "Mensagens Diretas", dm_page_title: "Mensagens - iJuanFly Community Post",
+                        sidebar_chats: "💬 Conversas", loading_chats: "Carregando...", select_chat: "Selecione um chat",
+                        no_chat_selected: "Selecione um usuário à esquerda para começar.",
+                        type_message: "Digite uma mensagem...", btn_send: "Enviar", status_online: "Online", status_offline: "Desconectado",
+                        no_friends: "Nenhum amigo ainda", search_friend_placeholder: "Pesquisar amigo..."
+                    },
+                    ru: {
+                        nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
+                        nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
+                        dm_subtitle_banner: "Личные сообщения", dm_page_title: "Личные сообщения - iJuanFly Community Post",
+                        sidebar_chats: "💬 Беседы", loading_chats: "Загрузка...", select_chat: "Выберите чат",
+                        no_chat_selected: "Выберите пользователя слева, чтобы начать чат.",
+                        type_message: "Введите сообщение...", btn_send: "Отправить", status_online: "В сети", status_offline: "Не в сети",
+                        no_friends: "Пока нет друзей", search_friend_placeholder: "Поиск друга..."
+                    },
+                    ja: {
+                        nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
+                        nav_members_list: "メンバーリスト", nav_my_panel: "マイパネル", nav_logout: "ログアウト",
+                        dm_subtitle_banner: "ダイレクトメッセージ", dm_page_title: "DM - iJuanFly Community Post",
+                        sidebar_chats: "💬 チャット", loading_chats: "読み込み中...", select_chat: "チャットを選択",
+                        no_chat_selected: "左側のユーザーを選択してチャットを開始してください。",
+                        type_message: "メッセージを入力...", btn_send: "送信", status_online: "オンライン", status_offline: "オフライン",
+                        no_friends: "まだフレンドがいません", search_friend_placeholder: "フレンドを検索..."
+                    },
+                    zh: {
+                        nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
+                        nav_members_list: "成员列表", nav_my_panel: "我的面板", nav_logout: "登出",
+                        dm_subtitle_banner: "私信", dm_page_title: "私信 - iJuanFly Community Post",
+                        sidebar_chats: "💬 会话", loading_chats: "加载中...", select_chat: "选择聊天",
+                        no_chat_selected: "请在左侧选择一个用户开始聊天。",
+                        type_message: "输入消息...", btn_send: "发送", status_online: "在线", status_offline: "离线",
+                        no_friends: "还没有好友", search_friend_placeholder: "搜索好友..."
+                    }
+                };
+
+                function obtenerIdiomaActual() { return localStorage.getItem('zeoWorksIdioma') || 'es'; }
+
+                function aplicarTraduccionesGlobales() {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                    document.querySelectorAll('[data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if (t[key] && el.id !== 'chat-header-nombre') el.textContent = t[key];
+                    });
+                    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                        const key = el.getAttribute('data-i18n-placeholder');
+                        if (t[key]) el.placeholder = t[key];
+                    });
+                    const selectElem = document.getElementById('select-idioma');
+                    if (selectElem) selectElem.value = lang;
+
+                    // Actualizar textos dinámicos si ya hay usuario destino cargado
+                    if (usuarioDestino) {
+                        configurarHeaderChat();
+                    }
+                    if (listaAmigosCache.length > 0) {
+                        renderizarAmigosSidebar(listaAmigosCache);
+                    }
+                }
+
+                function cambiarIdiomaGlobal(lang) {
+                    localStorage.setItem('zeoWorksIdioma', lang);
+                    location.reload();
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    aplicarTraduccionesGlobales();
+                    inicializarChat();
+                });
+
+                const SUPABASE_URL = 'https://bnwtmjqzfyjwvtzhoyhe.supabase.co';
+                const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
+                const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+                function obtenerEstiloRol(rol) {
+                    if (!rol) return { tipo: 'style', valor: 'color: #00B028;' };
+                    const r = rol.trim().toLowerCase();
+                    if (r === 'banned') return { tipo: 'style', valor: 'color: #888888;' };
+                    switch(r) {
+                        case 'miembro': return { tipo: 'style', valor: 'color: #00B028;' };
+                        case 'premium': return { tipo: 'style', valor: 'color: #EDFF00;' };
+                        case 'vip': return { tipo: 'style', valor: 'color: #7700FF;' };
+                        case 'moderador': return { tipo: 'style', valor: 'color: #00DDFF;' };
+                        case 'creador': return { tipo: 'class', valor: 'rol-holografico' };
+                        default: return { tipo: 'style', valor: 'color: #00B028;' };
+                    }
+                }
+
+                const avatarPorDefecto = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
+
+                let usuarioActual = null;
+                let usuarioDestino = null;
+                let listaAmigosCache = [];
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const nombreDestinoParam = urlParams.get('para');
+
+                try {
+                    const raw = localStorage.getItem('usuarioZeoWorks');
+                    if (raw) usuarioActual = JSON.parse(raw);
+                } catch(e) {}
+
+                if (!usuarioActual) {
+                    window.location.href = 'Login.html';
+                }
+
+                async function actualizarUltimaConexion() {
+                    if (!usuarioActual) return;
+                    await _supabase
+                        .from('Usuarios')
+                        .update({ ultima_conexion: new Date().toISOString() })
+                        .eq('id', usuarioActual.id);
+                }
+
+                async function inicializarChat() {
+                    await actualizarUltimaConexion();
+                    setInterval(actualizarUltimaConexion, 30000);
+
+                    const { data: amistades } = await _supabase
+                        .from('Amistades')
+                        .select('*')
+                        .eq('estado', 'aceptado')
+                        .or(`usuario_id.eq.${usuarioActual.id},amigo_id.eq.${usuarioActual.id}`);
+
+                    if (amistades && amistades.length > 0) {
+                        const idsAmigos = amistades.map(a => a.usuario_id === usuarioActual.id ? a.amigo_id : a.usuario_id);
+                        const { data: amigosDb } = await _supabase
+                            .from('Usuarios')
+                            .select('id, Nombre, Avatar, Rol, ultima_conexion')
+                            .in('id', idsAmigos);
+
+                        if (amigosDb) {
+                            listaAmigosCache = amigosDb;
+                            renderizarAmigosSidebar(listaAmigosCache);
+                        }
+                    } else {
+                        const lang = obtenerIdiomaActual();
+                        const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                        document.getElementById('lista-conversaciones').innerHTML = `<p style="color: #777; font-size: 0.85rem;">${t.no_friends}</p>`;
+                    }
+
+                    if (nombreDestinoParam) {
+                        const { data: userExtra } = await _supabase
+                            .from('Usuarios')
+                            .select('*')
+                            .eq('Nombre', nombreDestinoParam)
+                            .single();
+                        if (userExtra) {
+                            usuarioDestino = userExtra;
+                            configurarHeaderChat();
+                            cargarMensajes();
+                            suscripcionTiempoReal();
+                        }
+                    }
+
+                    aplicarTraduccionesGlobales();
+                }
+
+                function renderizarAmigosSidebar(amigos) {
+                    const contenedorLista = document.getElementById('lista-conversaciones');
+                    if (!amigos || amigos.length === 0) {
+                        contenedorLista.innerHTML = `<p style="color: #777; font-size: 0.85rem;">No hay resultados</p>`;
+                        return;
+                    }
+
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                    const ahora = new Date();
+                    let html = '';
+
+                    amigos.forEach(amigo => {
+                        const avatar = amigo.Avatar || avatarPorDefecto;
+                        const esActivo = nombreDestinoParam && amigo.Nombre.toLowerCase() === nombreDestinoParam.toLowerCase();
+
+                        let online = false;
+                        if (amigo.ultima_conexion) {
+                            const diff = (ahora - new Date(amigo.ultima_conexion)) / 1000;
+                            if (diff < 60) online = true;
+                        }
+
+                        const estiloRol = obtenerEstiloRol(amigo.Rol);
+                        const attrRol = estiloRol.tipo === 'class' ? `class="rol-holografico"` : `style="font-weight: bold; ${estiloRol.valor}; font-size: 0.9rem;"`;
+
+                        html += `
+                            <a href="dm.html?para=${encodeURIComponent(amigo.Nombre)}" class="dm-contacto-item ${esActivo ? 'activo' : ''}">
+                                <div class="avatar-container">
+                                    <img src="${avatar}" class="dm-contacto-avatar" alt="Avatar">
+                                    <span class="estado-punto ${online ? 'punto-online' : 'punto-offline'}"></span>
+                                </div>
+                                <div class="dm-contacto-info">
+                                    <span ${attrRol} style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${amigo.Nombre}</span>
+                                    <span style="font-size: 0.75rem; color: #888;">${online ? t.status_online : t.status_offline}</span>
+                                </div>
+                            </a>
+                        `;
+                    });
+                    contenedorLista.innerHTML = html;
+                }
+
+                function filtrarAmigosSidebar() {
+                    const query = document.getElementById('buscador-amigos-dm').value.toLowerCase();
+                    const filtrados = listaAmigosCache.filter(a => a.Nombre.toLowerCase().includes(query));
+                    renderizarAmigosSidebar(filtrados);
+                }
+
+                function configurarHeaderChat() {
+                    if (!usuarioDestino) return;
+                    document.getElementById('chat-header-avatar').src = usuarioDestino.Avatar || avatarPorDefecto;
+
+                    const headerNombre = document.getElementById('chat-header-nombre');
+                    headerNombre.textContent = usuarioDestino.Nombre;
+                    const estiloRol = obtenerEstiloRol(usuarioDestino.Rol);
+                    if (estiloRol.tipo === 'class') {
+                        headerNombre.className = 'rol-holografico';
+                        headerNombre.removeAttribute('style');
+                    } else {
+                        headerNombre.className = '';
+                        headerNombre.setAttribute('style', `margin: 0; font-size: 1.1rem; ${estiloRol.valor}`);
+                    }
+
+                    const ahora = new Date();
+                    let online = false;
+                    if (usuarioDestino.ultima_conexion) {
+                        const diff = (ahora - new Date(usuarioDestino.ultima_conexion)) / 1000;
+                        if (diff < 60) online = true;
+                    }
+                    const puntoHeader = document.getElementById('chat-header-punto');
+                    puntoHeader.className = `estado-punto ${online ? 'punto-online' : 'punto-offline'}`;
+
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                    document.getElementById('chat-header-estado').textContent = online ? t.status_online : t.status_offline;
+
+                    document.getElementById('input-area').style.display = 'flex';
+                }
+
+                async function cargarMensajes() {
+                    const contenedor = document.getElementById('mensajes-container');
+
+                    let { data: msgs, error } = await _supabase
+                        .from('mensajes')
+                        .select('*')
+                        .or(`and(remitente_id.eq.${usuarioActual.id},destinatario_id.eq.${usuarioDestino.id}),and(remitente_id.eq.${usuarioDestino.id},destinatario_id.eq.${usuarioActual.id})`)
+                        .order('created_at', { ascending: true });
+
+                    if (error) {
+                        msgs = [];
+                    }
+
+                    if (!msgs || msgs.length === 0) {
+                        contenedor.innerHTML = `<p style="color: #777; text-align: center; margin-top: 50px;">Inicia la conversación con ${usuarioDestino.Nombre}</p>`;
+                        return;
+                    }
+
+                    let html = '';
+                    msgs.forEach(m => {
+                        const propio = m.remitente_id === usuarioActual.id;
+                        let contenidoHtml = m.mensaje ? `<p style="margin: 0;">${escaparHtml(m.mensaje)}</p>` : '';
+
+                        if (m.imagen) {
+                            const esVideo = m.imagen.includes('video/') || m.imagen.endsWith('.mp4') || m.imagen.endsWith('.webm');
+                            if (esVideo) {
+                                contenidoHtml += `<video src="${m.imagen}" controls style="max-width: 280px; max-height: 250px; border-radius: 6px; margin-top: 6px;"></video>`;
+                            } else {
+                                contenidoHtml += `<img src="${m.imagen}" onclick="window.open(this.src)" alt="Archivo adjunto">`;
+                            }
+                        }
+
+                        html += `
+                            <div class="mensaje-burbuja ${propio ? 'mensaje-propio' : 'mensaje-ajeno'}">
+                                ${contenidoHtml}
+                            </div>
+                        `;
+                    });
+                    contenedor.innerHTML = html;
+                    contenedor.scrollTop = contenedor.scrollHeight;
+                }
+
+                function suscripcionTiempoReal() {
+                    _supabase
+                        .channel('public:mensajes-dm')
+                        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mensajes' }, payload => {
+                            const nuevo = payload.new;
+                            if (usuarioDestino && (
+                                (nuevo.remitente_id === usuarioActual.id && nuevo.destinatario_id === usuarioDestino.id) ||
+                                (nuevo.remitente_id === usuarioDestino.id && nuevo.destinatario_id === usuarioActual.id)
+                            )) {
+                                cargarMensajes();
+                            }
+                        })
+                        .subscribe();
+                }
+
+                function mostrarPreviewMedia(input) {
+                    if (input.files && input.files[0]) {
+                        const file = input.files[0];
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const wrapper = document.getElementById('preview-media-wrapper');
+                            wrapper.innerHTML = '';
+                            if (file.type.startsWith('video/')) {
+                                wrapper.innerHTML = `<video src="${e.target.result}" style="width: 45px; height: 45px; object-fit: cover; border-radius: 6px; border: 1px solid #ff4d4d;"></video>`;
+                            } else {
+                                wrapper.innerHTML = `<img src="${e.target.result}" alt="Vista previa">`;
+                            }
+                            document.getElementById('nombre-img-preview').textContent = file.name;
+                            document.getElementById('preview-container').style.display = 'flex';
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+
+                function quitarMedia() {
+                    document.getElementById('input-multimedia-dm').value = '';
+                    document.getElementById('preview-container').style.display = 'none';
+                    document.getElementById('preview-media-wrapper').innerHTML = '';
+                }
+
+                async function enviarMensaje() {
+                    const inputTexto = document.getElementById('mensaje-texto');
+                    const inputMedia = document.getElementById('input-multimedia-dm');
+                    const texto = inputTexto.value.trim();
+                    let base64Media = null;
+
+                    if (inputMedia.files && inputMedia.files[0]) {
+                        base64Media = await convertirArchivoBase64(inputMedia.files[0]);
+                    }
+
+                    if (!texto && !base64Media) return;
+
+                    let { error } = await _supabase.from('mensajes').insert([
+                        {
+                            remitente_id: usuarioActual.id,
+                            destinatario_id: usuarioDestino.id,
+                            mensaje: texto,
+                            imagen: base64Media
+                        }
+                    ]);
+
+                    if (error) {
+                        alert("Error al enviar mensaje: " + error.message);
+                        return;
+                    }
+
+                    inputTexto.value = '';
+                    quitarMedia();
+                    cargarMensajes();
+                }
+
+                function convertirArchivoBase64(file) {
+                    return new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = (event) => {
+                            if (file.type.startsWith('video/') || file.type === 'image/gif') {
+                                resolve(event.target.result);
+                            } else {
+                                const img = new Image();
+                                img.src = event.target.result;
+                                img.onload = () => {
+                                    const canvas = document.createElement('canvas');
+                                    let width = img.width;
+                                    let height = img.height;
+                                    const maxDim = 800;
+
+                                    if (width > height && width > maxDim) {
+                                        height *= maxDim / width;
+                                        width = maxDim;
+                                    } else if (height > maxDim) {
+                                        width *= maxDim / height;
+                                        height = maxDim;
+                                    }
+
+                                    canvas.width = width;
+                                    canvas.height = height;
+                                    const ctx = canvas.getContext('2d');
+                                    ctx.drawImage(img, 0, 0, width, height);
+                                    resolve(canvas.toDataURL('image/jpeg', 0.8));
+                                };
+                            }
+                        };
+                    });
+                }
+
+                function escaparHtml(str) {
+                    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                }
+
+                const listaEmojisChat = ["😀","😃","😄","😁","😆","😅","😂","🤣","🥲","☺️","😊","😇","🙂","🙃","😉","😍","🥰","😘","😋","😛","😜","🤪","🤑","🤗","🤫","🤔","🔥","⭐","🚀","❤️","🖤","💜","👍","👎"];
+                const gridEmojisDm = document.getElementById('grid-emojis-dm');
+                const pickerEmojisDm = document.getElementById('picker-emojis-dm');
+                const btnToggleEmojisDm = document.getElementById('btn-toggle-emojis-dm');
+                const inputTexto = document.getElementById('mensaje-texto');
+
+                listaEmojisChat.forEach(emoji => {
+                    const span = document.createElement('span');
+                    span.className = 'emoji-item-dm';
+                    span.textContent = emoji;
+                    span.onclick = () => {
+                        inputTexto.value += emoji;
+                        pickerEmojisDm.style.display = 'none';
+                        inputTexto.focus();
+                    };
+                    gridEmojisDm.appendChild(span);
+                });
+
+                btnToggleEmojisDm.onclick = (e) => {
+                    e.stopPropagation();
+                    pickerEmojisDm.style.display = pickerEmojisDm.style.display === 'block' ? 'none' : 'block';
+                };
+
+                document.onclick = (e) => {
+                    if (!pickerEmojisDm.contains(e.target) && e.target !== btnToggleEmojisDm) {
+                        pickerEmojisDm.style.display = 'none';
+                    }
+                };
+
+                function cerrarSesionGlobal() {
+                    localStorage.removeItem('usuarioZeoWorks');
+                    window.location.href = 'Login.html';
+                }
+    </script>
+</body>
+</html>

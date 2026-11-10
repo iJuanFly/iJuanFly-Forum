@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="register_page_title">Registro - iJuanFly Community Post</title>
+    <link rel="stylesheet" href="Estilos.css">
+    <style>
+        .registro-container {
+            max-width: 450px !important;
+            padding: 35px !important;
+            margin: 40px auto;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+        }
+
+        .campo {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+            .campo label {
+                display: block;
+                color: #ccc;
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+            }
+
+            .campo input {
+                width: 100%;
+                background-color: #1a1a1a;
+                color: #fff;
+                border: 1px solid #444;
+                padding: 12px;
+                border-radius: 6px;
+                font-family: inherit;
+                font-size: 0.95rem;
+                box-sizing: border-box;
+                transition: border-color 0.2s;
+            }
+
+                .campo input:focus {
+                    border-color: #ff4d4d;
+                    outline: none;
+                }
+
+        /* --- NAVBAR FLEX --- */
+        .navbar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            box-sizing: border-box;
+        }
+
+        .selector-idioma-container {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .selector-idioma {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: Arial, sans-serif !important;
+            cursor: pointer;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+            .selector-idioma:hover {
+                border-color: #ff4d4d;
+                background: rgba(255, 77, 77, 0.1);
+            }
+
+            .selector-idioma option {
+                background: #181818;
+                color: #fff;
+            }
+    </style>
+</head>
+<body>
+
+    <header class="banner">
+        <h1>
+            <span style="color: red;">iJuanFly</span> <span style="color: #ffffff;">Community Post</span>
+        </h1>
+        <p data-i18n="sub_banner">Portal Oficial de la Comunidad</p>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li class="dropdown"><a href="Index.html" data-i18n="nav_portal">Portal</a></li>
+            <li class="dropdown"><a href="Foro.html" data-i18n="nav_forum">Foro</a></li>
+            <li class="dropdown"><a href="#" data-i18n="nav_games">Juegos</a></li>
+            <li class="dropdown">
+                <a href="#" data-i18n="nav_members">Miembros</a>
+                <div class="dropdown-content">
+                    <a href="Registro.html" id="menu-registro" data-i18n="btn_register">Registrarse</a>
+                    <a href="Login.html" id="menu-login" data-i18n="btn_login">Iniciar Sesión</a>
+                    <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
+                    <a href="cp.html" id="menu-cp" style="display: none; color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                </div>
+            </li>
+        </ul>
+
+        <!-- SELECTOR DE IDIOMA FLOTANTE A LA DERECHA -->
+        <div class="selector-idioma-container">
+            <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
+                <option value="es">ES - Español</option>
+                <option value="en">EN - English</option>
+                <option value="pt">PT - Português</option>
+                <option value="ru">RU - Русский</option>
+                <option value="ja">JA - 日本語</option>
+                <option value="zh">ZH - 繁體中文</option>
+            </select>
+        </div>
+    </nav>
+
+    <main class="contenido">
+        <div class="registro-container">
+            <h2 style="font-size: 2rem; margin-bottom: 8px;" data-i18n="register_heading">Crear Cuenta</h2>
+            <p class="subtitulo-registro" style="font-size: 1.05rem; margin-bottom: 25px;" data-i18n="register_subheading">Únete a la comunidad de iJuanFly Community Post</p>
+
+            <form id="form-registro">
+                <div class="campo">
+                    <label for="usuario" data-i18n="username_label">Nombre de usuario</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Tu apodo" required>
+                </div>
+
+                <div class="campo">
+                    <label for="email" data-i18n="email_label">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
+                </div>
+
+                <div class="campo">
+                    <label for="password" data-i18n="password_label">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-registro" style="width: 100%; margin-top: 10px;" data-i18n="btn_register_submit">Registrarse</button>
+            </form>
+            <p id="mensaje-estado" style="text-align: center; margin-top: 20px; font-size: 0.9rem;"></p>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+                const ZEO_TRADUCCIONES = {
+                    es: {
+                        nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
+                        btn_register: "Registrarse", btn_login: "Iniciar Sesión", sub_banner: "Portal Oficial de la Comunidad",
+                        register_page_title: "Registro - iJuanFly Community Post", register_heading: "Crear Cuenta",
+                        register_subheading: "Únete a la comunidad de iJuanFly Community Post", username_label: "Nombre de usuario",
+                        email_label: "Correo electrónico", password_label: "Contraseña", btn_register_submit: "Registrarse",
+                        registering: "Registrando usuario...", success_msg: "¡Registro exitoso! Redirigiendo a inicio de sesión...",
+                        error_prefix: "Error al registrar: "
+                    },
+                    en: {
+                        nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
+                        nav_members_list: "Members List", nav_my_panel: "My Panel", nav_logout: "Log Out",
+                        btn_register: "Register", btn_login: "Log In", sub_banner: "Official Community Portal",
+                        register_page_title: "Register - iJuanFly Community Post", register_heading: "Create Account",
+                        register_subheading: "Join the iJuanFly Community Post community", username_label: "Username",
+                        email_label: "Email", password_label: "Password", btn_register_submit: "Register",
+                        registering: "Registering user...", success_msg: "Registration successful! Redirecting to login...",
+                        error_prefix: "Registration error: "
+                    },
+                    pt: {
+                        nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
+                        nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
+                        btn_register: "Registrar", btn_login: "Entrar", sub_banner: "Portal Oficial da Comunidade",
+                        register_page_title: "Registro - iJuanFly Community Post", register_heading: "Criar Conta",
+                        register_subheading: "Junte-se à comunidade iJuanFly Community Post", username_label: "Nome de usuário",
+                        email_label: "E-mail", password_label: "Senha", btn_register_submit: "Registrar",
+                        registering: "Registrando usuário...", success_msg: "Registro bem-sucedido! Redirecionando para o login...",
+                        error_prefix: "Erro ao registrar: "
+                    },
+                    ru: {
+                        nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
+                        nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
+                        btn_register: "Регистрация", btn_login: "Вход", sub_banner: "Официальный портал сообщества",
+                        register_page_title: "Регистрация - iJuanFly Community Post", register_heading: "Создать аккаунт",
+                        register_subheading: "Присоединяйтесь к сообществу iJuanFly Community Post", username_label: "Имя пользователя",
+                        email_label: "Электронная почта", password_label: "Пароль", btn_register_submit: "Регистрация",
+                        registering: "Регистрация пользователя...", success_msg: "Регистрация прошла успешно! Перенаправление...",
+                        error_prefix: "Ошибка регистрации: "
+                    },
+                    ja: {
+                        nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
+                        nav_members_list: "メンバーリスト", nav_my_panel: "マイパネル", nav_logout: "ログアウト",
+                        btn_register: "登録", btn_login: "ログイン", sub_banner: "公式コミュニティポータル",
+                        register_page_title: "登録 - iJuanFly Community Post", register_heading: "アカウント作成",
+                        register_subheading: "iJuanFly Community Post コミュニティに参加しよう", username_label: "ユーザー名",
+                        email_label: "メールアドレス", password_label: "パスワード", btn_register_submit: "登録",
+                        registering: "ユーザーを登録中...", success_msg: "登録成功！ログインページにリダイレクト中...",
+                        error_prefix: "登録エラー: "
+                    },
+                    zh: {
+                        nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
+                        nav_members_list: "成员列表", nav_my_panel: "我的面板", nav_logout: "登出",
+                        btn_register: "注册", btn_login: "登录", sub_banner: "官方社区门户",
+                        register_page_title: "注册 - iJuanFly Community Post", register_heading: "创建账户",
+                        register_subheading: "加入 iJuanFly Community Post 社区", username_label: "用户名",
+                        email_label: "电子邮箱", password_label: "密码", btn_register_submit: "注册",
+                        registering: "正在注册用户...", success_msg: "注册成功！正在重定向到登录页面...",
+                        error_prefix: "注册错误: "
+                    }
+                };
+
+                function obtenerIdiomaActual() {
+                    return localStorage.getItem('zeoWorksIdioma') || 'es';
+                }
+
+                function aplicarTraduccionesGlobales() {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    document.querySelectorAll('[data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if (t[key]) el.textContent = t[key];
+                    });
+
+                    const selectElem = document.getElementById('select-idioma');
+                    if (selectElem) selectElem.value = lang;
+                }
+
+                function cambiarIdiomaGlobal(lang) {
+                    localStorage.setItem('zeoWorksIdioma', lang);
+                    location.reload();
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    aplicarTraduccionesGlobales();
+                });
+
+                const SUPABASE_URL = 'https://bnwtmjqzfyjwvtzhoyhe.supabase.co';
+                const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
+                const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+                const formRegistro = document.getElementById('form-registro');
+                const mensajeEstado = document.getElementById('mensaje-estado');
+
+                formRegistro.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    const usuario = document.getElementById('usuario').value;
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+
+                    mensajeEstado.style.color = '#ccc';
+                    mensajeEstado.textContent = t.registering;
+
+                    const { data, error } = await _supabase
+                        .from('Usuarios')
+                        .insert([
+                            { Nombre: usuario, Correo: email, Contraseña: password }
+                        ]);
+
+                    if (error) {
+                        mensajeEstado.style.color = '#ff4d4d';
+                        mensajeEstado.textContent = t.error_prefix + error.message;
+                    } else {
+                        mensajeEstado.style.color = '#2ecc71';
+                        mensajeEstado.textContent = t.success_msg;
+                        formRegistro.reset();
+
+                        setTimeout(() => {
+                            window.location.href = 'Login.html';
+                        }, 1500);
+                    }
+                });
+
+                const sesionActiva = localStorage.getItem('usuarioZeoWorks');
+                if (sesionActiva) {
+                    const reg = document.getElementById('menu-registro');
+                    const log = document.getElementById('menu-login');
+                    const cp = document.getElementById('menu-cp');
+                    const salir = document.getElementById('menu-salir');
+                    if (reg) reg.style.display = 'none';
+                    if (log) log.style.display = 'none';
+                    if (cp) cp.style.display = 'block';
+                    if (salir) salir.style.display = 'block';
+                }
+
+                function cerrarSesionGlobal() {
+                    localStorage.removeItem('usuarioZeoWorks');
+                    window.location.href = 'Login.html';
+                }
+    </script>
+</body>
+</html>
