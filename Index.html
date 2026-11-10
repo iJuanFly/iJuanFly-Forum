@@ -38,6 +38,87 @@
                 gap: 8px;
             }
 
+        /* ESTILOS PARA NOVEDADES DEL DÍA */
+        .novedades-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px 18px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+            .novedades-card h3 {
+                color: #ff4d4d;
+                font-size: 1rem;
+                margin: 0 0 10px 0;
+                border-bottom: 1px solid #333;
+                padding-bottom: 6px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+        .novedades-item {
+            font-size: 0.85rem;
+            color: #ccc;
+            margin-bottom: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+            .novedades-item a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+                .novedades-item a:hover {
+                    color: #ff4d4d;
+                    text-decoration: underline;
+                }
+
+        /* ESTILO PARA GUEST / VISITANTE EN TEXTO BLANCO */
+        .guest-item-index {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #222;
+            padding: 10px;
+            border-radius: 8px;
+            color: #ffffff !important;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* EFECTO HOLOGRÁFICO PARA EL ROL DE CREADOR */
+        .rol-holografico {
+            background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hologramaAnim 6s ease infinite;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes hologramaAnim {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         .punto-verde-titulo {
             width: 9px;
             height: 9px;
@@ -95,7 +176,6 @@
             margin-top: 2px;
         }
 
-        /* --- CONTENIDO PRINCIPAL --- */
         .main-content-lobby {
             flex: 1;
             display: flex;
@@ -103,7 +183,6 @@
             gap: 20px;
         }
 
-        /* SECCIÓN ANUNCIOS / HILOS FIJADOS */
         .seccion-anuncios-index {
             background: rgba(255, 77, 77, 0.08);
             border: 1px solid rgba(255, 77, 77, 0.3);
@@ -219,7 +298,6 @@
                 color: #fff;
             }
 
-        /* --- AVISO DE CUENTA BANEADA --- */
         .banned-banner-box {
             background: rgba(0, 0, 0, 0.85);
             border: 2px solid #fff;
@@ -243,7 +321,6 @@
                 line-height: 1.5;
             }
 
-        /* --- SELECTOR DE IDIOMA MINIMALISTA --- */
         .selector-idioma-container {
             position: absolute;
             right: 25px;
@@ -270,20 +347,13 @@
             cursor: pointer;
             font-size: 0.85rem;
             outline: none;
-            transition: all 0.2s;
         }
-
-            .selector-idioma:hover {
-                border-color: #ff4d4d;
-                background: rgba(255, 77, 77, 0.1);
-            }
 
             .selector-idioma option {
                 background: #181818;
                 color: #fff;
             }
 
-        /* --- CHAT POP-UP FLOTANTE --- */
         .chat-widget-container {
             position: fixed;
             bottom: 20px;
@@ -537,7 +607,7 @@
 
     <nav class="navbar" id="barra-navegacion">
         <ul>
-            <li class="dropdown"><a href="Index_3.html" style="color: #ff4d4d; font-weight: bold;" data-i18n="nav_portal">Portal</a></li>
+            <li class="dropdown"><a href="Index.html" style="color: #ff4d4d; font-weight: bold;" data-i18n="nav_portal">Portal</a></li>
             <li class="dropdown"><a href="Foro.html" data-i18n="nav_forum">Foro</a></li>
             <li class="dropdown"><a href="#" data-i18n="nav_games">Juegos</a></li>
             <li class="dropdown">
@@ -552,7 +622,6 @@
             </li>
         </ul>
 
-        <!-- SELECTOR DE IDIOMA FLOTANTE -->
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
                 <option value="es">ES - Español</option>
@@ -568,23 +637,30 @@
     <main class="contenido" id="contenedor-principal">
         <div class="layout-lobby" id="layout-lobby-principal">
 
-            <!-- BARRA LATERAL DE MIEMBROS EN LÍNEA -->
             <aside class="sidebar-miembros">
+                <!-- TARJETA NOVEDADES DEL DÍA -->
+                <div class="novedades-card">
+                    <h3 data-i18n="daily_news_title">📰 Novedades del día</h3>
+                    <div class="novedades-item" id="novedad-ultimo-post">
+                        <strong data-i18n="latest_post">Último Post:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
+                    </div>
+                    <div class="novedades-item" id="novedad-ultimo-miembro">
+                        <strong data-i18n="latest_member">Último Miembro:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
+                    </div>
+                </div>
+
                 <h3><span class="punto-verde-titulo"></span> <span data-i18n="sidebar_online">En Línea</span></h3>
                 <div class="lista-miembros-index" id="lista-miembros-index">
                     <p style="color: #777; font-size: 0.85rem; text-align: center;" data-i18n="loading">Cargando...</p>
                 </div>
             </aside>
 
-            <!-- CONTENIDO PRINCIPAL: SOLO HILOS FIJADOS Y ÚLTIMOS POSTS -->
             <main class="main-content-lobby">
-                <!-- SECCIÓN ANUNCIOS / HILOS FIJADOS EN EL PORTAL -->
                 <div class="seccion-anuncios-index" id="seccion-anuncios-index" style="display: none;">
                     <h3 data-i18n="announcements_title">📌 Anuncios Oficiales</h3>
                     <div class="feed-foro-container" id="contenedor-anuncios-index"></div>
                 </div>
 
-                <!-- FEED DINÁMICO DE POSTS GENERALES (ÚLTIMOS POSTS) -->
                 <div class="feed-foro-container" id="feed-foro-container">
                     <p style="color: #777; text-align: center; padding: 20px;" data-i18n="loading">Cargando publicaciones recientes...</p>
                 </div>
@@ -593,7 +669,6 @@
         </div>
     </main>
 
-    <!-- CHAT POP-UP FLOTANTE -->
     <div class="chat-widget-container" id="contenedor-widget-chat">
         <button class="chat-toggle-btn" onclick="toggleChatPopup()">
             💬 <span data-i18n="chat_btn">Chat Global</span> <span id="indicador-chat-abierto">▲</span>
@@ -624,7 +699,6 @@
         </div>
     </div>
 
-    <!-- SUPABASE Y LÓGICA INTEGRADA -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
                 const ZEO_TRADUCCIONES = {
@@ -639,7 +713,8 @@
                         banned_title: "Acceso Denegado", banned_desc: "Tu perfil ha sido cerrado.",
                         no_posts: "No hay publicaciones recientes en el foro.", btn_view_discussion: "Ver discusión 💬",
                         announcements_title: "📌 Anuncios Oficiales", tag_pinned: "📌 Hilo fijado",
-                        by_author: "Por"
+                        by_author: "Por", daily_news_title: "📰 Novedades del día",
+                        latest_post: "Último Post:", latest_member: "Último Miembro:", guest_label: "Visitante (Guest)", no_recent_posts: "Ninguno"
                     },
                     en: {
                         nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
@@ -652,7 +727,8 @@
                         banned_title: "Access Denied", banned_desc: "Your profile has been closed.",
                         no_posts: "No recent posts in the forum.", btn_view_discussion: "View discussion 💬",
                         announcements_title: "📌 Official Announcements", tag_pinned: "📌 Pinned Thread",
-                        by_author: "By"
+                        by_author: "By", daily_news_title: "📰 Daily News",
+                        latest_post: "Latest Post:", latest_member: "Latest Member:", guest_label: "Guest", no_recent_posts: "None"
                     },
                     pt: {
                         nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
@@ -665,7 +741,8 @@
                         banned_title: "Acesso Negado", banned_desc: "Seu perfil foi encerrado.",
                         no_posts: "Nenhuma postagem recente.", btn_view_discussion: "Ver discussão 💬",
                         announcements_title: "📌 Anúncios Oficiais", tag_pinned: "📌 Tópico Fixado",
-                        by_author: "Por"
+                        by_author: "Por", daily_news_title: "📰 Novidades do dia",
+                        latest_post: "Último Post:", latest_member: "Último Membro:", guest_label: "Visitante (Guest)", no_recent_posts: "Nenhum"
                     },
                     ru: {
                         nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
@@ -678,7 +755,8 @@
                         banned_title: "Доступ запрещен", banned_desc: "Ваш профиль был закрыт.",
                         no_posts: "Нет недавних публикаций.", btn_view_discussion: "Обсуждение 💬",
                         announcements_title: "📌 Официальные объявления", tag_pinned: "📌 Закреплено",
-                        by_author: "Автор:"
+                        by_author: "Автор:", daily_news_title: "📰 Новости дня",
+                        latest_post: "Последний пост:", latest_member: "Последний участник:", guest_label: "Гость", no_recent_posts: "Нет"
                     },
                     ja: {
                         nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
@@ -691,7 +769,8 @@
                         banned_title: "アクセス拒否", banned_desc: "あなたのプロフィールは閉鎖されました。",
                         no_posts: "最近の投稿はありません。", btn_view_discussion: "ディスカッションを見る 💬",
                         announcements_title: "📌 公式アナウンス", tag_pinned: "📌 ピン留め",
-                        by_author: "投稿者:"
+                        by_author: "投稿者:", daily_news_title: "📰 本日のニュース",
+                        latest_post: "最新の投稿:", latest_member: "最新のメンバー:", guest_label: "ゲスト", no_recent_posts: "なし"
                     },
                     zh: {
                         nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
@@ -704,13 +783,12 @@
                         banned_title: "访问拒绝", banned_desc: "您的个人资料已被关闭。",
                         no_posts: "暂无最新动态。", btn_view_discussion: "查看讨论 💬",
                         announcements_title: "📌 官方公告", tag_pinned: "📌 置顶主题",
-                        by_author: "作者:"
+                        by_author: "作者:", daily_news_title: "📰 今日动态",
+                        latest_post: "最新帖子:", latest_member: "最新成员:", guest_label: "访客 (Guest)", no_recent_posts: "无"
                     }
                 };
 
-                function obtenerIdiomaActual() {
-                    return localStorage.getItem('zeoWorksIdioma') || 'es';
-                }
+                function obtenerIdiomaActual() { return localStorage.getItem('zeoWorksIdioma') || 'es'; }
 
                 function aplicarTraduccionesGlobales() {
                     const lang = obtenerIdiomaActual();
@@ -736,6 +814,7 @@
 
                 document.addEventListener("DOMContentLoaded", () => {
                     aplicarTraduccionesGlobales();
+                    cargarNovedadesDelDia();
                     cargarMiembrosEnLinea();
                     cargarFeedForoIndex();
                     cargarMensajesChat();
@@ -771,46 +850,25 @@
 
                     nombreUsuarioActual = usuarioActualSesion.Nombre || usuarioActualSesion.nombre;
                     if (nombreUsuarioActual) {
-                        _supabase
-                            .from('Usuarios')
-                            .select('Rol')
-                            .eq('Nombre', nombreUsuarioActual)
-                            .single()
-                            .then(({ data }) => {
-                                if (data && data.Rol) {
-                                    rolUsuarioActual = data.Rol;
-                                    if (rolUsuarioActual.trim().toLowerCase() === 'banned') {
-                                        bloquearVistaBanned();
-                                    }
-                                }
-                            })
-                            .catch(() => {});
+                        _supabase.from('Usuarios').select('Rol').eq('Nombre', nombreUsuarioActual).single().then(({ data }) => {
+                            if (data && data.Rol) {
+                                rolUsuarioActual = data.Rol;
+                                if (rolUsuarioActual.trim().toLowerCase() === 'banned') bloquearVistaBanned();
+                            }
+                        }).catch(() => {});
 
-                        _supabase
-                            .from('Usuarios')
-                            .update({ ultima_conexion: new Date().toISOString() })
-                            .eq('Nombre', nombreUsuarioActual)
-                            .then()
-                            .catch(() => {});
+                        _supabase.from('Usuarios').update({ ultima_conexion: new Date().toISOString() }).eq('Nombre', nombreUsuarioActual).then().catch(() => {});
                     }
                 }
 
                 function bloquearVistaBanned() {
                     const lang = obtenerIdiomaActual();
-                    const t = (ZEO_TRADUCCIONES && ZEO_TRADUCCIONES[lang]) ? ZEO_TRADUCCIONES[lang] : ZEO_TRADUCCIONES.es;
-
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
                     const contenedorPrincipal = document.getElementById('contenedor-principal');
                     const widgetChat = document.getElementById('contenedor-widget-chat');
-
                     if (widgetChat) widgetChat.style.display = 'none';
-
                     if (contenedorPrincipal) {
-                        contenedorPrincipal.innerHTML = `
-                            <div class="banned-banner-box">
-                                <h2>${t.banned_title}</h2>
-                                <p>${t.banned_desc}</p>
-                            </div>
-                        `;
+                        contenedorPrincipal.innerHTML = `<div class="banned-banner-box"><h2>${t.banned_title}</h2><p>${t.banned_desc}</p></div>`;
                     }
                 }
 
@@ -833,16 +891,51 @@
                     }
                 }
 
-                // --- CARGAR FEED DINÁMICO DEL FORO ---
+                // CARGAR NOVEDADES DEL DÍA CON COLOR DE ROL
+                async function cargarNovedadesDelDia() {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    const { data: ultimoTema } = await _supabase
+                        .from('temas_foro')
+                        .select('id, titulo')
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .single();
+
+                    const contenedorPost = document.getElementById('novedad-ultimo-post');
+                    if (ultimoTema) {
+                        contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <a href="tema.html?id=${ultimoTema.id}" title="${escaparHtml(ultimoTema.titulo)}">${escaparHtml(ultimoTema.titulo)}</a>`;
+                    } else {
+                        contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <span style="color: #777;">${t.no_recent_posts}</span>`;
+                    }
+
+                    const { data: ultimoUser } = await _supabase
+                        .from('Usuarios')
+                        .select('Nombre, Rol')
+                        .order('id', { ascending: false })
+                        .limit(1)
+                        .single();
+
+                    const contenedorMiembro = document.getElementById('novedad-ultimo-miembro');
+                    if (ultimoUser) {
+                        const infoRol = obtenerEstiloRol(ultimoUser.Rol);
+                        const attrRolEstilo = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="${infoRol.valor}; font-weight: bold;"`;
+
+                        contenedorMiembro.innerHTML = `<strong>${t.latest_member}</strong> <a href="perfil.html?nombre=${encodeURIComponent(ultimoUser.Nombre)}" ${attrRolEstilo}>${ultimoUser.Nombre}</a>`;
+                    } else {
+                        contenedorMiembro.innerHTML = `<strong>${t.latest_member}</strong> <span style="color: #777;">${t.no_recent_posts}</span>`;
+                    }
+                }
+
                 async function cargarFeedForoIndex() {
                     const contenedorFeed = document.getElementById('feed-foro-container');
                     const contenedorAnunciosIndex = document.getElementById('contenedor-anuncios-index');
                     const seccionAnunciosIndex = document.getElementById('seccion-anuncios-index');
-
                     if (!contenedorFeed) return;
 
                     const lang = obtenerIdiomaActual();
-                    const t = (ZEO_TRADUCCIONES && ZEO_TRADUCCIONES[lang]) ? ZEO_TRADUCCIONES[lang] : ZEO_TRADUCCIONES.es;
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
 
                     try {
                         const { data: temas, error } = await _supabase
@@ -858,10 +951,7 @@
                         }
 
                         const idsUsuarios = [...new Set(temas.map(item => item.usuario_id))];
-                        const { data: usuarios } = await _supabase
-                            .from('Usuarios')
-                            .select('id, Nombre, Avatar, Rol')
-                            .in('id', idsUsuarios);
+                        const { data: usuarios } = await _supabase.from('Usuarios').select('id, Nombre, Avatar, Rol').in('id', idsUsuarios);
 
                         let htmlAnuncios = '';
                         let htmlTemas = '';
@@ -874,18 +964,14 @@
 
                             const infoRol = obtenerEstiloRol(autor ? autor.Rol : 'Miembro');
                             const attrRolAutor = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="${infoRol.valor}"`;
-
                             const fecha = new Date(tema.created_at).toLocaleString();
 
                             let multimediaHtml = '';
                             if (tema.multimedia && Array.isArray(tema.multimedia) && tema.multimedia.length > 0) {
                                 multimediaHtml += '<div class="multimedia-galeria">';
                                 tema.multimedia.forEach(m => {
-                                    if (m.tipo === 'video') {
-                                        multimediaHtml += `<video src="${m.url}" controls></video>`;
-                                    } else {
-                                        multimediaHtml += `<img src="${m.url}" onclick="window.open(this.src)" alt="Media">`;
-                                    }
+                                    if (m.tipo === 'video') multimediaHtml += `<video src="${m.url}" controls></video>`;
+                                    else multimediaHtml += `<img src="${m.url}" onclick="window.open(this.src)" alt="Media">`;
                                 });
                                 multimediaHtml += '</div>';
                             } else if (tema.imagen) {
@@ -904,13 +990,8 @@
                                                 <span style="font-size: 0.8rem; color: #aaa;">${t.by_author} <strong ${attrRolAutor}>${nombreAutor}</strong> • ${fecha}</span>
                                             </div>
                                         </div>
-                                        <div class="post-body-content">
-                                            <div>${tema.contenido}</div>
-                                            ${multimediaHtml}
-                                        </div>
-                                        <div class="post-footer-actions">
-                                            <a href="tema.html?id=${tema.id}" class="btn-ver-discusion">${t.btn_view_discussion}</a>
-                                        </div>
+                                        <div class="post-body-content"><div>${tema.contenido}</div>${multimediaHtml}</div>
+                                        <div class="post-footer-actions"><a href="tema.html?id=${tema.id}" class="btn-ver-discusion">${t.btn_view_discussion}</a></div>
                                     </div>
                                 `;
                             } else {
@@ -923,13 +1004,8 @@
                                                 <span style="font-size: 0.8rem; color: #aaa;">${t.by_author} <strong ${attrRolAutor}>${nombreAutor}</strong> • ${fecha}</span>
                                             </div>
                                         </div>
-                                        <div class="post-body-content">
-                                            <div>${tema.contenido}</div>
-                                            ${multimediaHtml}
-                                        </div>
-                                        <div class="post-footer-actions">
-                                            <a href="tema.html?id=${tema.id}" class="btn-ver-discusion">${t.btn_view_discussion}</a>
-                                        </div>
+                                        <div class="post-body-content"><div>${tema.contenido}</div>${multimediaHtml}</div>
+                                        <div class="post-footer-actions"><a href="tema.html?id=${tema.id}" class="btn-ver-discusion">${t.btn_view_discussion}</a></div>
                                     </div>
                                 `;
                             }
@@ -942,11 +1018,7 @@
                             seccionAnunciosIndex.style.display = 'none';
                         }
 
-                        if (htmlTemas === '') {
-                            contenedorFeed.innerHTML = `<p style="color: #777; text-align: center; padding: 20px;">${t.no_posts}</p>`;
-                        } else {
-                            contenedorFeed.innerHTML = htmlTemas;
-                        }
+                        contenedorFeed.innerHTML = htmlTemas || `<p style="color: #777; text-align: center; padding: 20px;">${t.no_posts}</p>`;
                     } catch (err) {
                         contenedorFeed.innerHTML = `<p style="color: #777; text-align: center; padding: 25px;">Error al cargar el feed.</p>`;
                     }
@@ -961,7 +1033,6 @@
                     const popup = document.getElementById('chat-popup-box');
                     const indicador = document.getElementById('indicador-chat-abierto');
                     if (!popup) return;
-
                     popup.classList.toggle('activo');
                     if (popup.classList.contains('activo')) {
                         indicador.textContent = '▼';
@@ -977,52 +1048,73 @@
                     if (!contenedorMiembros) return;
 
                     const lang = obtenerIdiomaActual();
-                    const t = (ZEO_TRADUCCIONES && ZEO_TRADUCCIONES[lang]) ? ZEO_TRADUCCIONES[lang] : ZEO_TRADUCCIONES.es;
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
                     const cincoMinutosAtras = new Date(new Date().getTime() - 5 * 60 * 1000).toISOString();
+                    const dosMinutosAtrasGuest = new Date(new Date().getTime() - 2 * 60 * 1000).toISOString();
+
+                    let guestSessionId = sessionStorage.getItem('zeoTabSessionId');
+                    if (!guestSessionId) {
+                        guestSessionId = 'guest_' + Math.random().toString(36).substring(2) + Date.now();
+                        sessionStorage.setItem('zeoTabSessionId', guestSessionId);
+                    }
 
                     try {
-                        const { data: miembrosOnline, error } = await _supabase
+                        await _supabase.from('visitantes_activos').upsert([
+                            { session_id: guestSessionId, ultima_conexion: new Date().toISOString() }
+                        ], { onConflict: 'session_id' });
+
+                        const { data: miembrosOnline } = await _supabase
                             .from('Usuarios')
                             .select('*')
                             .gte('ultima_conexion', cincoMinutosAtras)
                             .order('ultima_conexion', { ascending: false });
 
-                        if (error || !miembrosOnline || miembrosOnline.length === 0) {
-                            contenedorMiembros.innerHTML = `<p style="color: #777; font-size: 0.85rem; text-align: center; padding: 10px;">${t.no_online}</p>`;
-                            return;
-                        }
+                        const { data: guestsOnline } = await _supabase
+                            .from('visitantes_activos')
+                            .select('session_id')
+                            .gte('ultima_conexion', dosMinutosAtrasGuest);
 
-                        const miembrosFiltrados = miembrosOnline.filter(usuario => {
-                            if (!usuario.ocultar_enlinea) return true;
-                            if (nombreUsuarioActual && usuario.Nombre === nombreUsuarioActual) return true;
-                            return false;
-                        });
-
-                        if (miembrosFiltrados.length === 0) {
-                            contenedorMiembros.innerHTML = `<p style="color: #777; font-size: 0.85rem; text-align: center; padding: 10px;">${t.no_online}</p>`;
-                            return;
-                        }
+                        let totalGuests = (guestsOnline && guestsOnline.length > 0) ? guestsOnline.length : 1;
 
                         let html = '';
-                        miembrosFiltrados.forEach(usuario => {
-                            const foto = usuario.Avatar ? usuario.Avatar : avatarPorDefecto;
+                        if (miembrosOnline && miembrosOnline.length > 0) {
+                            const miembrosFiltrados = miembrosOnline.filter(usuario => {
+                                if (!usuario.ocultar_enlinea) return true;
+                                if (nombreUsuarioActual && usuario.Nombre === nombreUsuarioActual) return true;
+                                return false;
+                            });
 
-                            const infoRol = obtenerEstiloRol(usuario.Rol);
-                            const attrRolNombre = infoRol.tipo === 'class' ? `class="miembro-nombre-index rol-holografico"` : `class="miembro-nombre-index" style="${infoRol.valor}"`;
+                            miembrosFiltrados.forEach(usuario => {
+                                const foto = usuario.Avatar ? usuario.Avatar : avatarPorDefecto;
+                                const infoRol = obtenerEstiloRol(usuario.Rol);
+                                const attrRolNombre = infoRol.tipo === 'class' ? `class="miembro-nombre-index rol-holografico"` : `class="miembro-nombre-index" style="${infoRol.valor}"`;
 
-                            html += `
-                                <a href="perfil.html?nombre=${encodeURIComponent(usuario.Nombre)}" class="miembro-card-index">
-                                    <img src="${foto}" class="miembro-avatar-index" alt="Avatar">
-                                    <div class="miembro-info-index">
-                                        <div ${attrRolNombre}>${usuario.Nombre}</div>
-                                        <div class="miembro-estado-index">${t.status_online}</div>
-                                    </div>
-                                </a>
-                            `;
-                        });
+                                html += `
+                                    <a href="perfil.html?nombre=${encodeURIComponent(usuario.Nombre)}" class="miembro-card-index">
+                                        <img src="${foto}" class="miembro-avatar-index" alt="Avatar">
+                                        <div class="miembro-info-index">
+                                            <div ${attrRolNombre}>${usuario.Nombre}</div>
+                                            <div class="miembro-estado-index">${t.status_online}</div>
+                                        </div>
+                                    </a>
+                                `;
+                            });
+                        }
+
+                        let etiquetaGuest = totalGuests === 1 ? `1 ${t.guest_label}` : `${totalGuests} Visitantes (Guests)`;
+                        html += `
+                            <div class="guest-item-index">
+                                👁️ <span>${etiquetaGuest}</span>
+                            </div>
+                        `;
+
                         contenedorMiembros.innerHTML = html;
                     } catch (err) {
-                        contenedorMiembros.innerHTML = `<p style="color: #777; font-size: 0.85rem; text-align: center; padding: 10px;">Error</p>`;
+                        contenedorMiembros.innerHTML = `
+                            <div class="guest-item-index">
+                                👁️ <span>1 ${t.guest_label}</span>
+                            </div>
+                        `;
                     }
                 }
 
@@ -1038,10 +1130,7 @@
                         const span = document.createElement('span');
                         span.className = 'emoji-item';
                         span.textContent = emoji;
-                        span.onclick = () => {
-                            inputMensajeChat.value += emoji;
-                            pickerChatEmojis.style.display = 'none';
-                        };
+                        span.onclick = () => { inputMensajeChat.value += emoji; pickerChatEmojis.style.display = 'none'; };
                         gridChatEmojis.appendChild(span);
                     });
                 }
@@ -1064,7 +1153,7 @@
                     if (!contenedorChat) return;
 
                     const lang = obtenerIdiomaActual();
-                    const t = (ZEO_TRADUCCIONES && ZEO_TRADUCCIONES[lang]) ? ZEO_TRADUCCIONES[lang] : ZEO_TRADUCCIONES.es;
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
                     const treintaMinutosAtras = new Date(new Date().getTime() - 30 * 60 * 1000).toISOString();
 
                     try {
@@ -1082,7 +1171,6 @@
                         let htmlChat = '';
                         mensajes.forEach(msg => {
                             const hora = new Date(msg.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
                             const infoRol = obtenerEstiloRol(msg.rol_usuario);
                             const attrRolChat = infoRol.tipo === 'class' ? `class="chat-msg-user rol-holografico"` : `class="chat-msg-user" style="${infoRol.valor}"`;
 
@@ -1110,64 +1198,36 @@
                 }
 
                 async function enviarMensajeChat() {
-                    if (!usuarioActualSesion) {
-                        alert('Debes iniciar sesión para hablar en el chat.');
-                        window.location.href = 'Login.html';
-                        return;
-                    }
-
-                    if (rolUsuarioActual.trim().toLowerCase() === 'banned') {
-                        alert('No puedes enviar mensajes porque tu perfil ha sido cerrado.');
-                        return;
-                    }
+                    if (!usuarioActualSesion) { alert('Debes iniciar sesión para hablar en el chat.'); window.location.href = 'Login.html'; return; }
+                    if (rolUsuarioActual.trim().toLowerCase() === 'banned') { alert('No puedes enviar mensajes porque tu perfil ha sido cerrado.'); return; }
 
                     const texto = inputMensajeChat.value.trim();
                     if (!texto) return;
-
                     const nombreUser = usuarioActualSesion.Nombre || usuarioActualSesion.nombre;
 
                     try {
-                        const { data: uData } = await _supabase
-                            .from('Usuarios')
-                            .select('id, Rol')
-                            .eq('Nombre', nombreUser)
-                            .single();
+                        const { data: uData } = await _supabase.from('Usuarios').select('id, Rol').eq('Nombre', nombreUser).single();
+                        const { error } = await _supabase.from('Chat_Global').insert([{
+                            usuario_id: uData ? uData.id : null,
+                            nombre_usuario: nombreUser,
+                            rol_usuario: uData ? uData.Rol : 'Miembro',
+                            mensaje: texto
+                        }]);
 
-                        const { error } = await _supabase
-                            .from('Chat_Global')
-                            .insert([{
-                                usuario_id: uData ? uData.id : null,
-                                nombre_usuario: nombreUser,
-                                rol_usuario: uData ? uData.Rol : 'Miembro',
-                                mensaje: texto
-                            }]);
-
-                        if (!error) {
-                            inputMensajeChat.value = '';
-                            cargarMensajesChat();
-                        } else {
-                            alert('Error: ' + error.message);
-                        }
-                    } catch (err) {
-                        alert('Error de conexión.');
-                    }
+                        if (!error) { inputMensajeChat.value = ''; cargarMensajesChat(); }
+                        else { alert('Error: ' + error.message); }
+                    } catch (err) { alert('Error de conexión.'); }
                 }
 
                 async function borrarMensajeChat(idMsg) {
                     try {
-                        const { error } = await _supabase
-                            .from('Chat_Global')
-                            .delete()
-                            .eq('id', idMsg);
-
-                        if (!error) {
-                            cargarMensajesChat();
-                        }
+                        const { error } = await _supabase.from('Chat_Global').delete().eq('id', idMsg);
+                        if (!error) cargarMensajesChat();
                     } catch (err) {}
                 }
 
                 setInterval(cargarMensajesChat, 4000);
-                setInterval(cargarMiembrosEnLinea, 30000);
+                setInterval(cargarMiembrosEnLinea, 15000);
                 setInterval(cargarFeedForoIndex, 15000);
     </script>
 </body>

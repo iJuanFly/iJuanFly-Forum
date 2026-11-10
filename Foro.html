@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="forum_page_title">Foro - ZeoWorks</title>
+    <title data-i18n="forum_page_title">Foro - iJuanFly Community Post</title>
     <link rel="stylesheet" href="Estilos.css">
     <style>
         .foro-layout-grid {
@@ -37,6 +37,87 @@
                 align-items: center;
                 gap: 8px;
             }
+
+        /* ESTILOS PARA NOVEDADES DEL DÍA */
+        .novedades-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px 18px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+            .novedades-card h3 {
+                color: #ff4d4d;
+                font-size: 1rem;
+                margin: 0 0 10px 0;
+                border-bottom: 1px solid #333;
+                padding-bottom: 6px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+        .novedades-item {
+            font-size: 0.85rem;
+            color: #ccc;
+            margin-bottom: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+            .novedades-item a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+                .novedades-item a:hover {
+                    color: #ff4d4d;
+                    text-decoration: underline;
+                }
+
+        /* ESTILO PARA GUEST / VISITANTE EN TEXTO BLANCO */
+        .guest-item-index {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #222;
+            padding: 10px;
+            border-radius: 8px;
+            color: #ffffff !important;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* EFECTO HOLOGRÁFICO PARA EL ROL DE CREADOR */
+        .rol-holografico {
+            background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hologramaAnim 6s ease infinite;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes hologramaAnim {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
         .punto-verde-titulo {
             width: 9px;
@@ -220,7 +301,6 @@
             flex-wrap: wrap;
         }
 
-        /* CALIFICACIÓN DE ESTRELLAS DE IZQUIERDA A DERECHA */
         .rating-interactive {
             display: inline-flex;
             flex-direction: row-reverse;
@@ -267,7 +347,6 @@
                 color: #ff4d4d;
             }
 
-        /* MODAL Y EDITOR ENRIQUECIDO */
         .modal-foro {
             display: none;
             position: fixed;
@@ -497,6 +576,17 @@
         <div class="foro-layout-grid">
 
             <aside class="sidebar-miembros">
+                <!-- TARJETA NOVEDADES DEL DÍA -->
+                <div class="novedades-card">
+                    <h3 data-i18n="daily_news_title">📰 Novedades del día</h3>
+                    <div class="novedades-item" id="novedad-ultimo-post">
+                        <strong data-i18n="latest_post">Último Post:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
+                    </div>
+                    <div class="novedades-item" id="novedad-ultimo-miembro">
+                        <strong data-i18n="latest_member">Último Miembro:</strong> <span style="color: #888;" data-i18n="loading">Cargando...</span>
+                    </div>
+                </div>
+
                 <h3><span class="punto-verde-titulo"></span> <span data-i18n="sidebar_online">En Línea</span></h3>
                 <div class="lista-miembros-index" id="lista-miembros-index">
                     <p style="color: #777; font-size: 0.85rem; text-align: center;" data-i18n="loading">Cargando...</p>
@@ -504,7 +594,6 @@
             </aside>
 
             <div class="foro-main-content">
-
                 <div class="seccion-anuncios" id="seccion-anuncios" style="display: none;">
                     <h3 data-i18n="announcements_title">📌 Anuncios Oficiales</h3>
                     <div class="lista-temas" id="contenedor-anuncios"></div>
@@ -533,7 +622,6 @@
                 <option value="" data-i18n="loading_cats">Cargando categorías...</option>
             </select>
 
-            <!-- EDITOR ENRIQUECIDO CON TOOLBAR -->
             <div>
                 <div class="toolbar-editor">
                     <select id="editor-font-size" onchange="aplicarEstiloEditor('fontSize', this.value)" title="Tamaño de letra">
@@ -545,12 +633,9 @@
                     </select>
 
                     <input type="color" id="editor-font-color" onchange="aplicarEstiloEditor('foreColor', this.value)" title="Color de la fuente" value="#ffffff">
-
                     <button type="button" class="toolbar-btn-item" onclick="toggleEmojiPickerModal(event)">😀 Emojis</button>
-
                     <button type="button" class="toolbar-btn-item" onclick="aplicarEstiloEditor('bold')" title="Negrita"><b>B</b></button>
                     <button type="button" class="toolbar-btn-item" onclick="aplicarEstiloEditor('italic')" title="Cursiva"><i>I</i></button>
-
                     <button type="button" class="toolbar-btn-item" style="margin-left: auto; background: #333;" onclick="toggleVistaPrevia()" data-i18n="btn_preview">👁 Vista Previa</button>
                 </div>
 
@@ -562,18 +647,15 @@
                 </div>
             </div>
 
-            <!-- PICKER EMOJIS -->
             <div class="emoji-picker-modal" id="picker-emojis-modal">
                 <div class="grid-emojis-modal" id="grid-emojis-modal"></div>
             </div>
 
-            <!-- VISTA PREVIA -->
             <div class="preview-box-container" id="preview-box-container">
                 <h4 style="margin: 0 0 8px 0; color: #ff4d4d;" data-i18n="preview_title">Vista Previa:</h4>
                 <div id="preview-contenido-inner"></div>
             </div>
 
-            <!-- ADJUNTAR MÚLTIPLES ARCHIVOS -->
             <div style="margin-top: 5px;">
                 <label style="color: #ccc; font-size: 0.85rem;" data-i18n="label_attach_img">Adjuntar archivos (opcional):</label>
                 <input type="file" id="input-media-tema" accept="image/*,video/*,.gif" multiple style="background: none; border: none; padding: 5px 0; color: #aaa;">
@@ -604,7 +686,8 @@
                         announcements_title: "📌 Anuncios Oficiales", btn_pin: "📌 Fijar", btn_unpin: "📍 Desfijar", btn_delete: "🗑 Eliminar",
                         font_normal: "Normal", font_small: "Pequeña", font_medium: "Mediana", font_large: "Grande", font_title: "Título",
                         btn_preview: "👁 Vista Previa", preview_title: "Vista Previa:", file_limit_info: "Máx 50 MB por archivo",
-                        chars_label: "caracteres", uploading_files: "Subiendo archivos..."
+                        chars_label: "caracteres", uploading_files: "Subiendo archivos...",
+                        daily_news_title: "📰 Novedades del día", latest_post: "Último Post:", latest_member: "Último Miembro:", guest_label: "Visitante (Guest)", no_recent_posts: "Ninguno"
                     },
                     en: {
                         nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
@@ -620,7 +703,8 @@
                         announcements_title: "📌 Official Announcements", btn_pin: "📌 Pin", btn_unpin: "📍 Unpin", btn_delete: "🗑 Delete",
                         font_normal: "Normal", font_small: "Small", font_medium: "Medium", font_large: "Large", font_title: "Title",
                         btn_preview: "👁 Preview", preview_title: "Preview:", file_limit_info: "Max 50 MB per file",
-                        chars_label: "characters", uploading_files: "Uploading files..."
+                        chars_label: "characters", uploading_files: "Uploading files...",
+                        daily_news_title: "📰 Daily News", latest_post: "Latest Post:", latest_member: "Latest Member:", guest_label: "Guest", no_recent_posts: "None"
                     },
                     pt: {
                         nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
@@ -636,7 +720,8 @@
                         announcements_title: "📌 Anúncios Oficiais", btn_pin: "📌 Fixar", btn_unpin: "📍 Desfixar", btn_delete: "🗑 Excluir",
                         font_normal: "Normal", font_small: "Pequena", font_medium: "Média", font_large: "Grande", font_title: "Título",
                         btn_preview: "👁 Pré-visualização", preview_title: "Pré-visualização:", file_limit_info: "Máx 50 MB por arquivo",
-                        chars_label: "caracteres", uploading_files: "Enviando arquivos..."
+                        chars_label: "caracteres", uploading_files: "Enviando arquivos...",
+                        daily_news_title: "📰 Novidades do dia", latest_post: "Último Post:", latest_member: "Último Membro:", guest_label: "Visitante (Guest)", no_recent_posts: "Nenhum"
                     },
                     ru: {
                         nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
@@ -652,7 +737,8 @@
                         announcements_title: "📌 Официальные объявления", btn_pin: "📌 Закрепить", btn_unpin: "📍 Открепить", btn_delete: "🗑 Удалить",
                         font_normal: "Обычный", font_small: "Маленький", font_medium: "Средний", font_large: "Большой", font_title: "Заголовок",
                         btn_preview: "👁 Предпросмотр", preview_title: "Предпросмотр:", file_limit_info: "Макс 50 МБ на файл",
-                        chars_label: "символов", uploading_files: "Загрузка файлов..."
+                        chars_label: "символов", uploading_files: "Загрузка файлов...",
+                        daily_news_title: "📰 Новости дня", latest_post: "Последний пост:", latest_member: "Последний участник:", guest_label: "Гость", no_recent_posts: "Нет"
                     },
                     ja: {
                         nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
@@ -668,7 +754,8 @@
                         announcements_title: "📌 公式アナウンス", btn_pin: "📌 ピン留め", btn_unpin: "📍 ピン解除", btn_delete: "🗑 削除",
                         font_normal: "標準", font_small: "小", font_medium: "中", font_large: "大", font_title: "タイトル",
                         btn_preview: "👁 プレビュー", preview_title: "プレビュー:", file_limit_info: "1ファイル最大 50 MB",
-                        chars_label: "文字", uploading_files: "ファイルをアップロード中..."
+                        chars_label: "文字", uploading_files: "ファイルをアップロード中...",
+                        daily_news_title: "📰 本日のニュース", latest_post: "最新の投稿:", latest_member: "最新のメンバー:", guest_label: "ゲスト", no_recent_posts: "なし"
                     },
                     zh: {
                         nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
@@ -684,7 +771,8 @@
                         announcements_title: "📌 官方公告", btn_pin: "📌 置顶", btn_unpin: "📍 取消置顶", btn_delete: "🗑 删除",
                         font_normal: "正常", font_small: "小", font_medium: "中", font_large: "大", font_title: "标题",
                         btn_preview: "👁 预览", preview_title: "预览:", file_limit_info: "每个文件最大 50 MB",
-                        chars_label: "字符", uploading_files: "正在上传文件..."
+                        chars_label: "字符", uploading_files: "正在上传文件...",
+                        daily_news_title: "📰 今日动态", latest_post: "最新帖子:", latest_member: "最新成员:", guest_label: "访客 (Guest)", no_recent_posts: "无"
                     }
                 };
 
@@ -714,6 +802,28 @@
                 const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
                 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+                let usuarioActual = null;
+                let rolUsuarioActual = 'Miembro';
+                try {
+                    const raw = localStorage.getItem('usuarioZeoWorks');
+                    if (raw) usuarioActual = JSON.parse(raw);
+                } catch(e) {}
+
+                document.addEventListener("DOMContentLoaded", async () => {
+                    aplicarTraduccionesGlobales();
+                    inicializarEmojisModal();
+                    cargarNovedadesDelDia();
+
+                    if (usuarioActual) {
+                        const nombreUser = usuarioActual.Nombre || usuarioActual.nombre;
+                        const { data: uData } = await _supabase.from('Usuarios').select('Rol').eq('Nombre', nombreUser).single();
+                        if (uData) rolUsuarioActual = uData.Rol;
+                    }
+
+                    cargarMiembrosEnLinea();
+                    cargarTemasForo();
+                });
+
                 function obtenerEstiloRol(rol) {
                     if (!rol) return { tipo: 'style', valor: 'color: #00B028;' };
                     const r = rol.trim().toLowerCase();
@@ -727,29 +837,6 @@
                         default: return { tipo: 'style', valor: 'color: #00B028;' };
                     }
                 }
-
-                const avatarPorDefecto = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
-
-                let usuarioActual = null;
-                let rolUsuarioActual = 'Miembro';
-                try {
-                    const raw = localStorage.getItem('usuarioZeoWorks');
-                    if (raw) usuarioActual = JSON.parse(raw);
-                } catch(e) {}
-
-                document.addEventListener("DOMContentLoaded", async () => {
-                    aplicarTraduccionesGlobales();
-                    inicializarEmojisModal();
-
-                    if (usuarioActual) {
-                        const nombreUser = usuarioActual.Nombre || usuarioActual.nombre;
-                        const { data: uData } = await _supabase.from('Usuarios').select('Rol').eq('Nombre', nombreUser).single();
-                        if (uData) rolUsuarioActual = uData.Rol;
-                    }
-
-                    cargarMiembrosEnLinea();
-                    cargarTemasForo();
-                });
 
                 function aplicarEstiloEditor(comando, valor = null) {
                     document.execCommand(comando, false, valor);
@@ -817,6 +904,43 @@
                     if (picker && !picker.contains(e.target)) picker.style.display = 'none';
                 };
 
+                // CARGAR NOVEDADES DEL DÍA CON COLOR DE ROL
+                async function cargarNovedadesDelDia() {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    const { data: ultimoTema } = await _supabase
+                        .from('temas_foro')
+                        .select('id, titulo')
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .single();
+
+                    const contenedorPost = document.getElementById('novedad-ultimo-post');
+                    if (ultimoTema) {
+                        contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <a href="tema.html?id=${ultimoTema.id}" title="${escaparHtml(ultimoTema.titulo)}">${escaparHtml(ultimoTema.titulo)}</a>`;
+                    } else {
+                        contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <span style="color: #777;">${t.no_recent_posts}</span>`;
+                    }
+
+                    const { data: ultimoUser } = await _supabase
+                        .from('Usuarios')
+                        .select('Nombre, Rol')
+                        .order('id', { ascending: false })
+                        .limit(1)
+                        .single();
+
+                    const contenedorMiembro = document.getElementById('novedad-ultimo-miembro');
+                    if (ultimoUser) {
+                        const infoRol = obtenerEstiloRol(ultimoUser.Rol);
+                        const attrRolEstilo = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="${infoRol.valor}; font-weight: bold;"`;
+
+                        contenedorMiembro.innerHTML = `<strong>${t.latest_member}</strong> <a href="perfil.html?nombre=${encodeURIComponent(ultimoUser.Nombre)}" ${attrRolEstilo}>${ultimoUser.Nombre}</a>`;
+                    } else {
+                        contenedorMiembro.innerHTML = `<strong>${t.latest_member}</strong> <span style="color: #777;">${t.no_recent_posts}</span>`;
+                    }
+                }
+
                 async function cargarMiembrosEnLinea() {
                     const contenedorMiembros = document.getElementById('lista-miembros-index');
                     if (!contenedorMiembros) return;
@@ -824,38 +948,66 @@
                     const lang = obtenerIdiomaActual();
                     const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
                     const cincoMinutosAtras = new Date(new Date().getTime() - 5 * 60 * 1000).toISOString();
+                    const dosMinutosAtrasGuest = new Date(new Date().getTime() - 2 * 60 * 1000).toISOString();
+
+                    let guestSessionId = sessionStorage.getItem('zeoTabSessionId');
+                    if (!guestSessionId) {
+                        guestSessionId = 'guest_' + Math.random().toString(36).substring(2) + Date.now();
+                        sessionStorage.setItem('zeoTabSessionId', guestSessionId);
+                    }
 
                     try {
+                        await _supabase.from('visitantes_activos').upsert([
+                            { session_id: guestSessionId, ultima_conexion: new Date().toISOString() }
+                        ], { onConflict: 'session_id' });
+
                         const { data: miembrosOnline } = await _supabase
                             .from('Usuarios')
                             .select('*')
                             .gte('ultima_conexion', cincoMinutosAtras)
                             .order('ultima_conexion', { ascending: false });
 
-                        if (!miembrosOnline || miembrosOnline.length === 0) {
-                            contenedorMiembros.innerHTML = `<p style="color: #777; font-size: 0.85rem; text-align: center; padding: 10px;">${t.no_online}</p>`;
-                            return;
-                        }
+                        const { data: guestsOnline } = await _supabase
+                            .from('visitantes_activos')
+                            .select('session_id')
+                            .gte('ultima_conexion', dosMinutosAtrasGuest);
+
+                        let totalGuests = (guestsOnline && guestsOnline.length > 0) ? guestsOnline.length : 1;
 
                         let html = '';
-                        miembrosOnline.forEach(u => {
-                            const foto = u.Avatar ? u.Avatar : avatarPorDefecto;
+                        if (miembrosOnline && miembrosOnline.length > 0) {
+                            miembrosOnline.forEach(u => {
+                                const foto = u.Avatar ? u.Avatar : avatarPorDefecto;
+                                const infoRol = obtenerEstiloRol(u.Rol);
+                                const attrRolNombre = infoRol.tipo === 'class' ? `class="miembro-nombre-index rol-holografico"` : `class="miembro-nombre-index" style="${infoRol.valor}"`;
 
-                            const infoRol = obtenerEstiloRol(u.Rol);
-                            const attrRolNombre = infoRol.tipo === 'class' ? `class="miembro-nombre-index rol-holografico"` : `class="miembro-nombre-index" style="${infoRol.valor}"`;
+                                html += `
+                                    <a href="perfil.html?nombre=${encodeURIComponent(u.Nombre)}" class="miembro-card-index">
+                                        <img src="${foto}" class="miembro-avatar-index" alt="Avatar">
+                                        <div>
+                                            <div ${attrRolNombre}>${u.Nombre}</div>
+                                            <div class="miembro-estado-index">${t.status_online}</div>
+                                        </div>
+                                    </a>
+                                `;
+                            });
+                        }
 
-                            html += `
-                                <a href="perfil.html?nombre=${encodeURIComponent(u.Nombre)}" class="miembro-card-index">
-                                    <img src="${foto}" class="miembro-avatar-index" alt="Avatar">
-                                    <div>
-                                        <div ${attrRolNombre}>${u.Nombre}</div>
-                                        <div class="miembro-estado-index">${t.status_online}</div>
-                                    </div>
-                                </a>
-                            `;
-                        });
+                        let etiquetaGuest = totalGuests === 1 ? `1 ${t.guest_label}` : `${totalGuests} Visitantes (Guests)`;
+                        html += `
+                            <div class="guest-item-index">
+                                👁️ <span>${etiquetaGuest}</span>
+                            </div>
+                        `;
+
                         contenedorMiembros.innerHTML = html;
-                    } catch (err) {}
+                    } catch (err) {
+                        contenedorMiembros.innerHTML = `
+                            <div class="guest-item-index">
+                                👁️ <span>1 ${t.guest_label}</span>
+                            </div>
+                        `;
+                    }
                 }
 
                 async function cargarTemasForo() {
@@ -867,10 +1019,7 @@
 
                     let misCalificaciones = {};
                     if (usuarioActual) {
-                        const { data: cals } = await _supabase
-                            .from('calificaciones_foro')
-                            .select('tema_id, puntuacion')
-                            .eq('usuario_id', usuarioActual.id);
+                        const { data: cals } = await _supabase.from('calificaciones_foro').select('tema_id, puntuacion').eq('usuario_id', usuarioActual.id);
                         if (cals) cals.forEach(c => misCalificaciones[c.tema_id] = c.puntuacion);
                     }
 
@@ -900,13 +1049,11 @@
                     for (const tema of temas) {
                         const autor = usuarios ? usuarios.find(u => u.id === tema.usuario_id) : null;
                         const nombreAutor = autor ? autor.Nombre : 'Usuario';
-
                         const infoRol = obtenerEstiloRol(autor ? autor.Rol : 'Miembro');
                         const attrRolAutor = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="${infoRol.valor}"`;
 
                         const fecha = new Date(tema.created_at).toLocaleDateString();
                         const tagCerrado = tema.cerrado ? `<span class="tag-cerrado">${t.tag_closed}</span>` : '';
-
                         const miVoto = misCalificaciones[tema.id] || 0;
                         const prom = tema.estrellas_promedio ? Number(tema.estrellas_promedio).toFixed(1) : '0.0';
 
@@ -962,9 +1109,7 @@
 
                 async function calificarTema(idTema, puntuacion) {
                     if (!usuarioActual) { alert("Debes iniciar sesión para calificar."); window.location.href = 'Login.html'; return; }
-
                     await _supabase.from('calificaciones_foro').upsert({ tema_id: idTema, usuario_id: usuarioActual.id, puntuacion: puntuacion });
-
                     const { data: todasCals } = await _supabase.from('calificaciones_foro').select('puntuacion').eq('tema_id', idTema);
                     if (todasCals && todasCals.length > 0) {
                         const suma = todasCals.reduce((acc, curr) => acc + curr.puntuacion, 0);
@@ -980,16 +1125,10 @@
 
                 async function eliminarTema(idTema) {
                     if (!confirm("¿Estás seguro de que deseas eliminar este tema y todos sus comentarios?")) return;
-
                     await _supabase.from('calificaciones_foro').delete().eq('tema_id', idTema);
                     await _supabase.from('comentarios_foro').delete().eq('tema_id', idTema);
-
                     const { error } = await _supabase.from('temas_foro').delete().eq('id', idTema);
-
-                    if (error) {
-                        alert("Error al eliminar el tema: " + error.message);
-                        return;
-                    }
+                    if (error) { alert("Error al eliminar el tema: " + error.message); return; }
                     cargarTemasForo();
                 }
 
@@ -1013,30 +1152,19 @@
                     const btnPub = document.getElementById('btn-publicar-modal');
                     const txtProgreso = document.getElementById('progreso-subida');
 
-                    if (!titulo || !contenidoHTML) {
-                        alert("Por favor completa el título y el contenido.");
-                        return;
-                    }
-
-                    if (textoLimpio.length > 1000) {
-                        alert("El contenido excede el límite máximo de 1000 caracteres.");
-                        return;
-                    }
+                    if (!titulo || !contenidoHTML) { alert("Por favor completa el título y el contenido."); return; }
+                    if (textoLimpio.length > 1000) { alert("El contenido excede el límite máximo de 1000 caracteres."); return; }
 
                     btnPub.disabled = true;
                     let arregloMultimedia = [];
 
                     if (inputMedia.files && inputMedia.files.length > 0) {
                         txtProgreso.style.display = 'inline';
-
                         for (let i = 0; i < inputMedia.files.length; i++) {
                             const file = inputMedia.files[i];
                             const base64Data = await convertirBase64Directa(file);
                             const esVideo = file.type.startsWith('video/');
-                            arregloMultimedia.push({
-                                tipo: esVideo ? 'video' : 'imagen',
-                                url: base64Data
-                            });
+                            arregloMultimedia.push({ tipo: esVideo ? 'video' : 'imagen', url: base64Data });
                         }
                     }
 
@@ -1056,7 +1184,6 @@
 
                     txtProgreso.style.display = 'none';
                     btnPub.disabled = false;
-
                     if (error) { alert("Error al crear el tema: " + error.message); return; }
 
                     cerrarModalTema();
@@ -1067,9 +1194,7 @@
                     return new Promise((resolve) => {
                         const reader = new FileReader();
                         reader.readAsDataURL(file);
-                        reader.onload = (event) => {
-                            resolve(event.target.result);
-                        };
+                        reader.onload = (event) => { resolve(event.target.result); };
                     });
                 }
 
@@ -1082,6 +1207,8 @@
                     localStorage.removeItem('usuarioZeoWorks');
                     window.location.href = 'Login.html';
                 }
+
+                setInterval(cargarMiembrosEnLinea, 15000);
     </script>
 </body>
 </html>
