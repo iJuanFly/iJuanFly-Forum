@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="login_page_title">Iniciar Sesión - iJuanFly Community Post</title>
+    <title data-i18n="login_page_title">Iniciar Sesion - iJuanFly Community Post</title>
     <link rel="stylesheet" href="Estilos.css">
     <style>
         .registro-container {
@@ -106,10 +106,10 @@
                 <a href="#" data-i18n="nav_members">Miembros</a>
                 <div class="dropdown-content">
                     <a href="Registro.html" id="menu-registro" data-i18n="btn_register">Registrarse</a>
-                    <a href="Login.html" id="menu-login" data-i18n="btn_login">Iniciar Sesión</a>
+                    <a href="Login.html" id="menu-login" data-i18n="btn_login">Iniciar Sesion</a>
                     <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
                     <a href="cp.html" id="menu-cp" style="display: none; color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
-                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
                 </div>
             </li>
         </ul>
@@ -117,9 +117,9 @@
         <!-- SELECTOR DE IDIOMA FLOTANTE A LA DERECHA -->
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
-                <option value="es">ES - Español</option>
+                <option value="es">ES - Espanol</option>
                 <option value="en">EN - English</option>
-                <option value="pt">PT - Português</option>
+                <option value="pt">PT - Portugues</option>
                 <option value="ru">RU - Русский</option>
                 <option value="ja">JA - 日本語</option>
                 <option value="zh">ZH - 繁體中文</option>
@@ -129,7 +129,7 @@
 
     <main class="contenido">
         <div class="registro-container">
-            <h2 style="font-size: 2rem; margin-bottom: 8px;" data-i18n="login_heading">Iniciar Sesión</h2>
+            <h2 style="font-size: 2rem; margin-bottom: 8px;" data-i18n="login_heading">Iniciar Sesion</h2>
             <p class="subtitulo-registro" style="font-size: 1.05rem; margin-bottom: 25px;" data-i18n="login_subheading">Accede a tu cuenta de iJuanFly Community Post</p>
 
             <form id="form-login">
@@ -139,7 +139,7 @@
                 </div>
 
                 <div class="campo">
-                    <label for="password" data-i18n="password_label">Contraseña</label>
+                    <label for="password" data-i18n="password_label">Contrasena</label>
                     <input type="password" id="password" name="password" placeholder="••••••••" required>
                 </div>
 
@@ -154,13 +154,13 @@
                 const ZEO_TRADUCCIONES = {
                     es: {
                         nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
-                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
-                        btn_register: "Registrarse", btn_login: "Iniciar Sesión", sub_banner: "Portal Oficial de la Comunidad",
-                        login_page_title: "Iniciar Sesión - iJuanFly Community Post", login_heading: "Iniciar Sesión",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesion",
+                        btn_register: "Registrarse", btn_login: "Iniciar Sesion", sub_banner: "Portal Oficial de la Comunidad",
+                        login_page_title: "Iniciar Sesion - iJuanFly Community Post", login_heading: "Iniciar Sesion",
                         login_subheading: "Accede a tu cuenta de iJuanFly Community Post", username_label: "Nombre de usuario",
-                        password_label: "Contraseña", btn_login_submit: "Entrar",
+                        password_label: "Contrasena", btn_login_submit: "Entrar",
                         verifying: "Verificando credenciales...", success_msg: "¡Acceso concedido! Redirigiendo...",
-                        error_creds: "Usuario o contraseña incorrectos.", conn_error: "Error de conexión: "
+                        error_creds: "Usuario o contrasena incorrectos.", conn_error: "Error de conexion: "
                     },
                     en: {
                         nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
@@ -173,17 +173,17 @@
                         error_creds: "Incorrect username or password.", conn_error: "Connection error: "
                     },
                     pt: {
-                        nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
+                        nav_portal: "Portal", nav_forum: "Forum", nav_games: "Jogos", nav_members: "Membros",
                         nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
                         btn_register: "Registrar", btn_login: "Entrar", sub_banner: "Portal Oficial da Comunidade",
                         login_page_title: "Entrar - iJuanFly Community Post", login_heading: "Entrar",
-                        login_subheading: "Acesse sua conta do iJuanFly Community Post", username_label: "Nome de usuário",
+                        login_subheading: "Acesse sua conta do iJuanFly Community Post", username_label: "Nome de usuario",
                         password_label: "Senha", btn_login_submit: "Entrar",
                         verifying: "Verificando credenciais...", success_msg: "Acesso concedido! Redirecionando...",
-                        error_creds: "Usuário ou senha incorretos.", conn_error: "Erro de conexão: "
+                        error_creds: "Usuario ou senha incorretos.", conn_error: "Erro de conexao: "
                     },
                     ru: {
-                        nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
+                        nav_portal: "Portal", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
                         nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
                         btn_register: "Регистрация", btn_login: "Вход", sub_banner: "Официальный портал сообщества",
                         login_page_title: "Вход - iJuanFly Community Post", login_heading: "Вход",

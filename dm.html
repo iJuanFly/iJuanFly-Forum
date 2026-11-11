@@ -17,7 +17,7 @@
             box-sizing: border-box;
         }
 
-        /* EFECTO HOLOGRÁFICO PARA EL ROL DE CREADOR */
+        /* EFECTO HOLOGRAFICO PARA EL ROL DE CREADOR */
         .rol-holografico {
             background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
             background-size: 400% 400%;
@@ -63,7 +63,7 @@
                 margin-bottom: 0;
             }
 
-        /* BARRA DE BÚSQUEDA (LUPA) EN SIDEBAR */
+        /* BARRA DE BUSQUEDA (LUPA) EN SIDEBAR */
         .search-bar-dm {
             position: relative;
         }
@@ -128,7 +128,7 @@
             display: block;
         }
 
-        /* PUNTO VERDE DE EN LÍNEA */
+        /* PUNTO VERDE DE EN LINEA */
         .estado-punto {
             position: absolute;
             bottom: 0;
@@ -228,7 +228,7 @@
             object-fit: cover;
         }
 
-        /* Contenedor del área de input y previsualización */
+        /* Contenedor del area de input y previsualizacion */
         .dm-input-wrapper {
             display: flex;
             flex-direction: column;
@@ -406,7 +406,7 @@
         <h1>
             <span style="color: red;">iJuanFly</span> <span style="color: #ffffff;">Community Post</span>
         </h1>
-        <p data-i18n="dm_subtitle_banner">Mensajería Privada</p>
+        <p data-i18n="dm_subtitle_banner">Mensajeria Privada</p>
     </header>
 
     <nav class="navbar">
@@ -418,17 +418,17 @@
                 <a href="#" data-i18n="nav_members">Miembros</a>
                 <div class="dropdown-content">
                     <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
-                    <a href="cp.html" id="menu-cp" style="color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
-                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                    <a href="cp.html" id="menu-cp" style="display: none; color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
                 </div>
             </li>
         </ul>
 
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
-                <option value="es">ES - Español</option>
+                <option value="es">ES - Espanol</option>
                 <option value="en">EN - English</option>
-                <option value="pt">PT - Português</option>
+                <option value="pt">PT - Portugues</option>
                 <option value="ru">RU - Русский</option>
                 <option value="ja">JA - 日本語</option>
                 <option value="zh">ZH - 繁體中文</option>
@@ -439,9 +439,9 @@
     <main class="contenido">
         <div class="dm-layout">
             <div class="dm-sidebar">
-                <h3 data-i18n="sidebar_chats">💬 Conversaciones</h3>
+                <h3 data-i18n="sidebar_chats">Conversaciones</h3>
 
-                <!-- LUPA DE BÚSQUEDA RÁPIDA -->
+                <!-- LUPA DE BUSQUEDA RAPIDA -->
                 <div class="search-bar-dm">
                     <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" /></svg>
                     <input type="text" id="buscador-amigos-dm" placeholder="Buscar amigo..." data-i18n-placeholder="search_friend_placeholder" oninput="filtrarAmigosSidebar()">
@@ -468,12 +468,12 @@
                     <p style="color: #777; text-align: center; margin-top: 50px;" data-i18n="no_chat_selected">Selecciona un usuario a la izquierda para empezar a chatear.</p>
                 </div>
 
-                <!-- Input de mensajes con soporte multimedia (Imágenes, GIFs, Videos) -->
+                <!-- Input de mensajes con soporte multimedia (Imagenes, GIFs, Videos) -->
                 <div class="dm-input-wrapper" id="input-area" style="display: none;">
                     <div class="preview-imagen-container" id="preview-container">
                         <div id="preview-media-wrapper"></div>
                         <span id="nombre-img-preview" style="color: #ccc; font-size: 0.85rem; flex: 1;"></span>
-                        <button type="button" class="btn-quitar-preview" onclick="quitarMedia()">×</button>
+                        <button type="button" class="btn-quitar-preview" onclick="quitarMedia()">x</button>
                     </div>
 
                     <div class="dm-input-area">
@@ -499,45 +499,45 @@
                 const ZEO_TRADUCCIONES = {
                     es: {
                         nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
-                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
-                        dm_subtitle_banner: "Mensajería Privada", dm_page_title: "Mensajes Privados - iJuanFly Community Post",
-                        sidebar_chats: "💬 Conversaciones", loading_chats: "Cargando chats...", select_chat: "Selecciona un chat",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesion",
+                        dm_subtitle_banner: "Mensajeria Privada", dm_page_title: "Mensajes Privados - iJuanFly Community Post",
+                        sidebar_chats: "Conversaciones", loading_chats: "Cargando chats...", select_chat: "Selecciona un chat",
                         no_chat_selected: "Selecciona un usuario a la izquierda para empezar a chatear.",
-                        type_message: "Escribe un mensaje...", btn_send: "Enviar", status_online: "En línea", status_offline: "Desconectado",
-                        no_friends: "No hay amigos aún", search_friend_placeholder: "Buscar amigo..."
+                        type_message: "Escribe un mensaje...", btn_send: "Enviar", status_online: "En linea", status_offline: "Desconectado",
+                        no_friends: "No hay amigos aun", search_friend_placeholder: "Buscar amigo..."
                     },
                     en: {
                         nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
                         nav_members_list: "Members List", nav_my_panel: "My Panel", nav_logout: "Log Out",
                         dm_subtitle_banner: "Direct Messages", dm_page_title: "Direct Messages - iJuanFly Community Post",
-                        sidebar_chats: "💬 Conversations", loading_chats: "Loading chats...", select_chat: "Select a chat",
+                        sidebar_chats: "Conversations", loading_chats: "Loading chats...", select_chat: "Select a chat",
                         no_chat_selected: "Select a user on the left to start chatting.",
                         type_message: "Type a message...", btn_send: "Send", status_online: "Online", status_offline: "Offline",
                         no_friends: "No friends yet", search_friend_placeholder: "Search friend..."
                     },
                     pt: {
-                        nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
+                        nav_portal: "Portal", nav_forum: "Forum", nav_games: "Jogos", nav_members: "Membros",
                         nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
                         dm_subtitle_banner: "Mensagens Diretas", dm_page_title: "Mensagens - iJuanFly Community Post",
-                        sidebar_chats: "💬 Conversas", loading_chats: "Carregando...", select_chat: "Selecione um chat",
-                        no_chat_selected: "Selecione um usuário à esquerda para começar.",
+                        sidebar_chats: "Conversas", loading_chats: "Carregando...", select_chat: "Selecione um chat",
+                        no_chat_selected: "Selecione um usuario à esquerda para comecar.",
                         type_message: "Digite uma mensagem...", btn_send: "Enviar", status_online: "Online", status_offline: "Desconectado",
                         no_friends: "Nenhum amigo ainda", search_friend_placeholder: "Pesquisar amigo..."
                     },
                     ru: {
-                        nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
+                        nav_portal: "Portal", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
                         nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
-                        dm_subtitle_banner: "Личные сообщения", dm_page_title: "Личные сообщения - iJuanFly Community Post",
-                        sidebar_chats: "💬 Беседы", loading_chats: "Загрузка...", select_chat: "Выберите чат",
-                        no_chat_selected: "Выберите пользователя слева, чтобы начать чат.",
-                        type_message: "Введите сообщение...", btn_send: "Отправить", status_online: "В сети", status_offline: "Не в сети",
-                        no_friends: "Пока нет друзей", search_friend_placeholder: "Поиск друга..."
+                        dm_subtitle_banner: "Lichnye soobshcheniya", dm_page_title: "Lichnye soobshcheniya - iJuanFly Community Post",
+                        sidebar_chats: "Besedy", loading_chats: "Zagruzka...", select_chat: "Vyberite chat",
+                        no_chat_selected: "Vyberite polzovatelya sleva, chtoby nachat chat.",
+                        type_message: "Vведите soobshchenie...", btn_send: "Otpravit", status_online: "V seti", status_offline: "Ne v seti",
+                        no_friends: "Poka net druzei", search_friend_placeholder: "Poisk druga..."
                     },
                     ja: {
                         nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
                         nav_members_list: "メンバーリスト", nav_my_panel: "マイパネル", nav_logout: "ログアウト",
                         dm_subtitle_banner: "ダイレクトメッセージ", dm_page_title: "DM - iJuanFly Community Post",
-                        sidebar_chats: "💬 チャット", loading_chats: "読み込み中...", select_chat: "チャットを選択",
+                        sidebar_chats: "チャット", loading_chats: "読み込み中...", select_chat: "チャットを選択",
                         no_chat_selected: "左側のユーザーを選択してチャットを開始してください。",
                         type_message: "メッセージを入力...", btn_send: "送信", status_online: "オンライン", status_offline: "オフライン",
                         no_friends: "まだフレンドがいません", search_friend_placeholder: "フレンドを検索..."
@@ -546,7 +546,7 @@
                         nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
                         nav_members_list: "成员列表", nav_my_panel: "我的面板", nav_logout: "登出",
                         dm_subtitle_banner: "私信", dm_page_title: "私信 - iJuanFly Community Post",
-                        sidebar_chats: "💬 会话", loading_chats: "加载中...", select_chat: "选择聊天",
+                        sidebar_chats: "会话", loading_chats: "加载中...", select_chat: "选择聊天",
                         no_chat_selected: "请在左侧选择一个用户开始聊天。",
                         type_message: "输入消息...", btn_send: "发送", status_online: "在线", status_offline: "离线",
                         no_friends: "还没有好友", search_friend_placeholder: "搜索好友..."
@@ -569,7 +569,6 @@
                     const selectElem = document.getElementById('select-idioma');
                     if (selectElem) selectElem.value = lang;
 
-                    // Actualizar textos dinámicos si ya hay usuario destino cargado
                     if (usuarioDestino) {
                         configurarHeaderChat();
                     }
@@ -768,7 +767,7 @@
                     }
 
                     if (!msgs || msgs.length === 0) {
-                        contenedor.innerHTML = `<p style="color: #777; text-align: center; margin-top: 50px;">Inicia la conversación con ${usuarioDestino.Nombre}</p>`;
+                        contenedor.innerHTML = `<p style="color: #777; text-align: center; margin-top: 50px;">Inicia la conversacion con ${usuarioDestino.Nombre}</p>`;
                         return;
                     }
 

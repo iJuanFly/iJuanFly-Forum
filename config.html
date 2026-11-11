@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="config_page_title">Configuración de Cuenta - iJuanFly Community Post</title>
+    <title data-i18n="config_page_title">Configuracion de Cuenta - iJuanFly Community Post</title>
     <link rel="stylesheet" href="Estilos.css">
 
     <style>
@@ -168,7 +168,7 @@
                 <div class="dropdown-content">
                     <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
                     <a href="cp.html" style="color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
-                    <a href="#" onclick="cerrarSesionGlobal()" style="color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                    <a href="#" onclick="cerrarSesionGlobal()" style="color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
                 </div>
             </li>
         </ul>
@@ -176,9 +176,9 @@
         <!-- SELECTOR DE IDIOMA FLOTANTE -->
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
-                <option value="es">ES - Español</option>
+                <option value="es">ES - Espanol</option>
                 <option value="en">EN - English</option>
-                <option value="pt">PT - Português</option>
+                <option value="pt">PT - Portugues</option>
                 <option value="ru">RU - Русский</option>
                 <option value="ja">JA - 日本語</option>
                 <option value="zh">ZH - 繁體中文</option>
@@ -189,9 +189,9 @@
     <main class="contenido">
         <div class="config-container-principal">
 
-            <!-- SECCIÓN: CAMBIAR NOMBRE DE USUARIO (CADA 2 SEMANAS) -->
+            <!-- SECCION: CAMBIAR NOMBRE DE USUARIO (CADA 2 SEMANAS) -->
             <div class="config-card">
-                <h3 data-i18n="sec_username_title">👤 Modificar Nombre de Usuario</h3>
+                <h3 data-i18n="sec_username_title">Modificar Nombre de Usuario</h3>
                 <p class="mensaje-aviso" data-i18n="sec_username_desc">Por seguridad y orden, solo puedes cambiar tu nombre de usuario una vez cada 2 semanas.</p>
                 <form id="form-username">
                     <div class="campo-grupo">
@@ -203,29 +203,29 @@
                 </form>
             </div>
 
-            <!-- SECCIÓN: MODIFICAR CONTRASEÑA -->
+            <!-- SECCION: MODIFICAR CONTRASENA -->
             <div class="config-card">
-                <h3 data-i18n="sec_password_title">🔒 Modificar Contraseña</h3>
+                <h3 data-i18n="sec_password_title">Modificar Contrasena</h3>
                 <form id="form-password">
                     <div class="campo-grupo">
-                        <label for="input-pass-actual" data-i18n="current_password_label">Contraseña Actual</label>
+                        <label for="input-pass-actual" data-i18n="current_password_label">Contrasena Actual</label>
                         <input type="password" id="input-pass-actual" required>
                     </div>
                     <div class="campo-grupo">
-                        <label for="input-pass-nueva" data-i18n="new_password_label">Nueva Contraseña</label>
+                        <label for="input-pass-nueva" data-i18n="new_password_label">Nueva Contrasena</label>
                         <input type="password" id="input-pass-nueva" required>
                     </div>
-                    <button type="submit" class="btn-accion" data-i18n="btn_update_password">Cambiar Contraseña</button>
+                    <button type="submit" class="btn-accion" data-i18n="btn_update_password">Cambiar Contrasena</button>
                     <p id="msg-password" class="estado-alerta"></p>
                 </form>
             </div>
 
-            <!-- SECCIÓN: ACTUALIZAR CORREO -->
+            <!-- SECCION: ACTUALIZAR CORREO -->
             <div class="config-card">
-                <h3 data-i18n="sec_email_title">✉️ Actualizar Correo Electrónico</h3>
+                <h3 data-i18n="sec_email_title">Actualizar Correo Electronico</h3>
                 <form id="form-email">
                     <div class="campo-grupo">
-                        <label for="input-nuevo-email" data-i18n="new_email_label">Nuevo Correo Electrónico</label>
+                        <label for="input-nuevo-email" data-i18n="new_email_label">Nuevo Correo Electronico</label>
                         <input type="email" id="input-nuevo-email" required>
                     </div>
                     <button type="submit" class="btn-accion" data-i18n="btn_update_email">Actualizar Correo</button>
@@ -233,13 +233,13 @@
                 </form>
             </div>
 
-            <!-- SECCIÓN: PRIVACIDAD -->
+            <!-- SECCION: PRIVACIDAD -->
             <div class="config-card">
-                <h3 data-i18n="sec_privacy_title">🛡️ Opciones de Privacidad</h3>
+                <h3 data-i18n="sec_privacy_title">Opciones de Privacidad</h3>
                 <form id="form-privacidad">
                     <label class="checkbox-grupo">
                         <input type="checkbox" id="chk-ocultar-enlinea">
-                        <span data-i18n="privacy_hide_online">Ocultar estar en línea</span>
+                        <span data-i18n="privacy_hide_online">Ocultar estar en linea</span>
                     </label>
                     <label class="checkbox-grupo">
                         <input type="checkbox" id="chk-ocultar-registro">
@@ -247,7 +247,7 @@
                     </label>
                     <label class="checkbox-grupo">
                         <input type="checkbox" id="chk-ocultar-ultimavez">
-                        <span data-i18n="privacy_hide_lastseen">Ocultar estado de última vez</span>
+                        <span data-i18n="privacy_hide_lastseen">Ocultar estado de ultima vez</span>
                     </label>
                     <button type="submit" class="btn-accion" style="margin-top: 10px;" data-i18n="btn_save_privacy">Guardar Privacidad</button>
                     <p id="msg-privacidad" class="estado-alerta"></p>
@@ -263,74 +263,74 @@
                 const ZEO_TRADUCCIONES = {
                     es: {
                         nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
-                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
-                        config_page_title: "Configuración de Cuenta - iJuanFly Community Post", config_subtitle_banner: "Ajustes y Seguridad de la Cuenta",
-                        sec_username_title: "👤 Modificar Nombre de Usuario", sec_username_desc: "Por seguridad y orden, solo puedes cambiar tu nombre de usuario una vez cada 2 semanas.",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesion",
+                        config_page_title: "Configuracion de Cuenta - iJuanFly Community Post", config_subtitle_banner: "Ajustes y Seguridad de la Cuenta",
+                        sec_username_title: "Modificar Nombre de Usuario", sec_username_desc: "Por seguridad y orden, solo puedes cambiar tu nombre de usuario una vez cada 2 semanas.",
                         new_username_label: "Nuevo Nombre de Usuario", btn_update_username: "Actualizar Nombre",
-                        sec_password_title: "🔒 Modificar Contraseña", current_password_label: "Contraseña Actual",
-                        new_password_label: "Nueva Contraseña", btn_update_password: "Cambiar Contraseña",
-                        sec_email_title: "✉️ Actualizar Correo Electrónico", new_email_label: "Nuevo Correo Electrónico",
-                        btn_update_email: "Actualizar Correo", sec_privacy_title: "🛡️ Opciones de Privacidad",
-                        privacy_hide_online: "Ocultar estar en línea", privacy_hide_join: "Ocultar fecha de registro",
-                        privacy_hide_lastseen: "Ocultar estado de última vez", btn_save_privacy: "Guardar Privacidad",
-                        success_update: "¡Actualizado con éxito!", error_cooldown: "Debes esperar a que pasen 2 semanas desde tu último cambio de nombre.",
-                        pass_mismatch: "La contraseña actual es incorrecta."
+                        sec_password_title: "Modificar Contrasena", current_password_label: "Contrasena Actual",
+                        new_password_label: "Nueva Contrasena", btn_update_password: "Cambiar Contrasena",
+                        sec_email_title: "Actualizar Correo Electronico", new_email_label: "Nuevo Correo Electronico",
+                        btn_update_email: "Actualizar Correo", sec_privacy_title: "Opciones de Privacidad",
+                        privacy_hide_online: "Ocultar estar en linea", privacy_hide_join: "Ocultar fecha de registro",
+                        privacy_hide_lastseen: "Ocultar estado de ultima vez", btn_save_privacy: "Guardar Privacidad",
+                        success_update: "¡Actualizado con exito!", error_cooldown: "Debes esperar a que pasen 2 semanas desde tu ultimo cambio de nombre.",
+                        pass_mismatch: "La contrasena actual es incorrecta."
                     },
                     en: {
                         nav_portal: "Portal", nav_forum: "Forum", nav_games: "Games", nav_members: "Members",
                         nav_members_list: "Members List", nav_my_panel: "My Panel", nav_logout: "Log Out",
                         config_page_title: "Account Settings - iJuanFly Community Post", config_subtitle_banner: "Account Settings & Security",
-                        sec_username_title: "👤 Modify Username", sec_username_desc: "For security, you can only change your username once every 2 weeks.",
+                        sec_username_title: "Modify Username", sec_username_desc: "For security, you can only change your username once every 2 weeks.",
                         new_username_label: "New Username", btn_update_username: "Update Username",
-                        sec_password_title: "🔒 Change Password", current_password_label: "Current Password",
+                        sec_password_title: "Change Password", current_password_label: "Current Password",
                         new_password_label: "New Password", btn_update_password: "Change Password",
-                        sec_email_title: "✉️ Update Email", new_email_label: "New Email Address",
-                        btn_update_email: "Update Email", sec_privacy_title: "🛡️ Privacy Settings",
+                        sec_email_title: "Update Email", new_email_label: "New Email Address",
+                        btn_update_email: "Update Email", sec_privacy_title: "Privacy Settings",
                         privacy_hide_online: "Hide online status", privacy_hide_join: "Hide registration date",
                         privacy_hide_lastseen: "Hide last seen status", btn_save_privacy: "Save Privacy Settings",
                         success_update: "Updated successfully!", error_cooldown: "You must wait 2 weeks since your last username change.",
                         pass_mismatch: "Current password is incorrect."
                     },
                     pt: {
-                        nav_portal: "Portal", nav_forum: "Fórum", nav_games: "Jogos", nav_members: "Membros",
+                        nav_portal: "Portal", nav_forum: "Forum", nav_games: "Jogos", nav_members: "Membros",
                         nav_members_list: "Lista de Membros", nav_my_panel: "Meu Painel", nav_logout: "Sair",
-                        config_page_title: "Configurações da Conta - iJuanFly Community Post", config_subtitle_banner: "Configurações e Segurança",
-                        sec_username_title: "👤 Modificar Nome de Usuário", sec_username_desc: "Por segurança, você só pode alterar seu nome de usuário a cada 2 semanas.",
-                        new_username_label: "Novo Nome de Usuário", btn_update_username: "Atualizar Nome",
-                        sec_password_title: "🔒 Alterar Senha", current_password_label: "Senha Atual",
+                        config_page_title: "Configuracoes da Conta - iJuanFly Community Post", config_subtitle_banner: "Configuracoes e Seguranca",
+                        sec_username_title: "Modificar Nome de Usuario", sec_username_desc: "Por seguranca, voce solo pode alterar seu nome de usuario a cada 2 semanas.",
+                        new_username_label: "Novo Nome de Usuario", btn_update_username: "Atualizar Nome",
+                        sec_password_title: "Alterar Senha", current_password_label: "Senha Atual",
                         new_password_label: "Nova Senha", btn_update_password: "Alterar Senha",
-                        sec_email_title: "✉️ Atualizar E-mail", new_email_label: "Novo Endereço de E-mail",
-                        btn_update_email: "Atualizar E-mail", sec_privacy_title: "🛡️ Opções de Privacidade",
+                        sec_email_title: "Atualizar E-mail", new_email_label: "Novo Endereco de E-mail",
+                        btn_update_email: "Atualizar E-mail", sec_privacy_title: "Opecoes de Privacidade",
                         privacy_hide_online: "Ocultar status online", privacy_hide_join: "Ocultar data de registro",
-                        privacy_hide_lastseen: "Ocultar status visto por último", btn_save_privacy: "Salvar Privacidade",
-                        success_update: "Atualizado com sucesso!", error_cooldown: "Você deve esperar 2 semanas desde a última alteração.",
-                        pass_mismatch: "A senha atual está incorreta."
+                        privacy_hide_lastseen: "Ocultar status visto por ultimo", btn_save_privacy: "Salvar Privacidade",
+                        success_update: "Atualizado com sucesso!", error_cooldown: "Voce deve esperar 2 semanas desde a ultima alteracao.",
+                        pass_mismatch: "A senha atual esta incorreta."
                     },
                     ru: {
-                        nav_portal: "Портал", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
+                        nav_portal: "Portal", nav_forum: "Форум", nav_games: "Игры", nav_members: "Участники",
                         nav_members_list: "Список участников", nav_my_panel: "Мой профиль", nav_logout: "Выйти",
-                        config_page_title: "Настройки аккаунта - iJuanFly Community Post", config_subtitle_banner: "Настройки и безопасность",
-                        sec_username_title: "👤 Изменить имя пользователя", sec_username_desc: "Изменять имя можно только раз в 2 недели.",
-                        new_username_label: "Новое имя пользователя", btn_update_username: "Обновить имя",
-                        sec_password_title: "🔒 Изменить пароль", current_password_label: "Текущий пароль",
-                        new_password_label: "Новый пароль", btn_update_password: "Сменить пароль",
-                        sec_email_title: "✉️ Обновить email", new_email_label: "Новый email",
-                        btn_update_email: "Обновить email", sec_privacy_title: "🛡️ Конфиденциальность",
-                        privacy_hide_online: "Скрыть статус в сети", privacy_hide_join: "Скрыть дату регистрации",
-                        privacy_hide_lastseen: "Скрыть последнее посещение", btn_save_privacy: "Сохранить",
-                        success_update: "Успешно обновлено!", error_cooldown: "Нужно подождать 2 недели с последней смены.",
-                        pass_mismatch: "Текущий пароль неверный."
+                        config_page_title: "Nastroiki akkunta - iJuanFly Community Post", config_subtitle_banner: "Nastroiki i bezopasnost",
+                        sec_username_title: "Izmenit imia polzovatelya", sec_username_desc: "Izmenyat imia mozhno tolko raz v 2 nedeli.",
+                        new_username_label: "Novoe imia polzovatelya", btn_update_username: "Obnovit imia",
+                        sec_password_title: "Izmenit parol", current_password_label: "Tekushchii parol",
+                        new_password_label: "Novyi parol", btn_update_password: "Smenit parol",
+                        sec_email_title: "Obnovit email", new_email_label: "Novyi email",
+                        btn_update_email: "Obnovit email", sec_privacy_title: "Konfidentsialnost",
+                        privacy_hide_online: "Skryt status v seti", privacy_hide_join: "Skryt datu registratsii",
+                        privacy_hide_lastseen: "Skryt poslednee poseshchenie", btn_save_privacy: "Sokhranit",
+                        success_update: "Uspeshno obnovleno!", error_cooldown: "Nuzhno podozdat 2 nedeli s poslednei smeny.",
+                        pass_mismatch: "Tekushchii parol nevernyi."
                     },
                     ja: {
                         nav_portal: "ポータル", nav_forum: "フォーラム", nav_games: "ゲーム", nav_members: "メンバー",
                         nav_members_list: "メンバーリスト", nav_my_panel: "マイパネル", nav_logout: "ログアウト",
                         config_page_title: "アカウント設定 - iJuanFly Community Post", config_subtitle_banner: "アカウント設定とセキュリティ",
-                        sec_username_title: "👤 ユーザー名の変更", sec_username_desc: "セキュリティ上の理由から、ユーザー名の変更は2週間に1回のみ可能です。",
+                        sec_username_title: "ユーザー名の変更", sec_username_desc: "セキュリティ上の理由から、ユーザー名の変更は2週間に1回のみ可能です。",
                         new_username_label: "新しいユーザー名", btn_update_username: "ユーザー名を更新",
-                        sec_password_title: "🔒 パスワードの変更", current_password_label: "現在のパスワード",
+                        sec_password_title: "パスワードの変更", current_password_label: "現在のパスワード",
                         new_password_label: "新しいパスワード", btn_update_password: "パスワードを変更",
-                        sec_email_title: "✉️ メールアドレスの更新", new_email_label: "新しいメールアドレス",
-                        btn_update_email: "メールを更新", sec_privacy_title: "🛡️ プライバシー設定",
+                        sec_email_title: "メールアドレスの更新", new_email_label: "新しいメールアドレス",
+                        btn_update_email: "メールを更新", sec_privacy_title: "プライバシー設定",
                         privacy_hide_online: "オンラインステータスを隠す", privacy_hide_join: "登録日を隠す",
                         privacy_hide_lastseen: "最終ログインを隠す", btn_save_privacy: "プライバシーを保存",
                         success_update: "正常に更新されました！", error_cooldown: "前回の変更から2週間経過する必要があります。",
@@ -340,12 +340,12 @@
                         nav_portal: "门户", nav_forum: "论坛", nav_games: "游戏", nav_members: "成员",
                         nav_members_list: "成员列表", nav_my_panel: "我的面板", nav_logout: "登出",
                         config_page_title: "账户设置 - iJuanFly Community Post", config_subtitle_banner: "账户设置与安全",
-                        sec_username_title: "👤 修改用户名", sec_username_desc: "出于安全考虑，每2周只能修改一次用户名。",
+                        sec_username_title: "修改用户名", sec_username_desc: "出于安全考虑，每2周只能修改一次用户名。",
                         new_username_label: "新用户名", btn_update_username: "更新用户名",
-                        sec_password_title: "🔒 修改密码", current_password_label: "当前密码",
+                        sec_password_title: "修改密码", current_password_label: "当前密码",
                         new_password_label: "新密码", btn_update_password: "更改密码",
-                        sec_email_title: "✉️ 更新电子邮箱", new_email_label: "新邮箱地址",
-                        btn_update_email: "更新邮箱", sec_privacy_title: "🛡️ 隐私设置",
+                        sec_email_title: "更新电子邮箱", new_email_label: "新邮箱地址",
+                        btn_update_email: "更新邮箱", sec_privacy_title: "隐私设置",
                         privacy_hide_online: "隐藏在线状态", privacy_hide_join: "隐藏注册日期",
                         privacy_hide_lastseen: "隐藏最后在线时间", btn_save_privacy: "保存隐私设置",
                         success_update: "更新成功！", error_cooldown: "距离上次修改用户名必须满2周。",
@@ -457,7 +457,7 @@
                     }
                 });
 
-                // 2. MODIFICAR CONTRASEÑA
+                // 2. MODIFICAR CONTRASENA
                 document.getElementById('form-password').addEventListener('submit', async (e) => {
                     e.preventDefault();
                     const lang = obtenerIdiomaActual();

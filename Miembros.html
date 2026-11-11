@@ -13,7 +13,7 @@
             box-sizing: border-box;
         }
 
-        /* BARRA DE BÚSQUEDA (LUPA) */
+        /* BARRA DE BUSQUEDA (LUPA) */
         .search-bar-container {
             position: relative;
             margin-top: 20px;
@@ -99,7 +99,7 @@
             font-family: inherit !important;
         }
 
-        /* EFECTO HOLOGRÁFICO PARA EL ROL DE CREADOR */
+        /* EFECTO HOLOGRAFICO PARA EL ROL DE CREADOR */
         .rol-holografico {
             background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
             background-size: 400% 400%;
@@ -132,7 +132,7 @@
             align-items: center;
         }
 
-        /* CONTROLES DE PAGINACIÓN */
+        /* CONTROLES DE PAGINACION */
         .paginacion-container {
             display: flex;
             justify-content: center;
@@ -238,9 +238,9 @@
         <!-- SELECTOR DE IDIOMA FLOTANTE A LA DERECHA -->
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
-                <option value="es">ES - Español</option>
+                <option value="es">ES - Espanol</option>
                 <option value="en">EN - English</option>
-                <option value="pt">PT - Português</option>
+                <option value="pt">PT - Portugues</option>
                 <option value="ru">RU - Русский</option>
                 <option value="ja">JA - 日本語</option>
                 <option value="zh">ZH - 繁體中文</option>
@@ -253,7 +253,7 @@
             <h2 style="font-size: 2rem; margin-bottom: 8px;" data-i18n="members_title">Miembros de la Comunidad</h2>
             <p class="subtitulo-registro" style="font-size: 1.1rem; color: #aaa;" data-i18n="members_subtitle">Lista de usuarios registrados en iJuanFly Community Post</p>
 
-            <!-- LUPA / BARRA DE BÚSQUEDA -->
+            <!-- LUPA / BARRA DE BUSQUEDA -->
             <div class="search-bar-container">
                 <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" /></svg>
                 <input type="text" id="buscador-miembros" placeholder="Buscar miembro por nombre..." data-i18n-placeholder="search_members_placeholder" oninput="filtrarYCambiarPagina(1)">
@@ -263,28 +263,28 @@
                 <p style="text-align: center; color: #aaa; font-size: 1.1rem;" data-i18n="loading">Cargando miembros...</p>
             </div>
 
-            <!-- CONTROLES DE PAGINACIÓN -->
+            <!-- CONTROLES DE PAGINACION -->
             <div id="paginacion-controles" class="paginacion-container" style="display: none;">
                 <button class="btn-pag" id="btn-anterior" onclick="cambiarPagina(-1)" data-i18n="btn_prev">Anterior</button>
-                <span id="info-paginacion">Página 1 de 1</span>
+                <span id="info-paginacion">Pagina 1 de 1</span>
                 <button class="btn-pag" id="btn-siguiente" onclick="cambiarPagina(1)" data-i18n="btn_next">Siguiente</button>
             </div>
         </div>
     </main>
 
-    <!-- SUPABASE Y LÓGICA MULTIDIOMA -->
+    <!-- SUPABASE Y LOGICA MULTIDIOMA -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
                 const ZEO_TRADUCCIONES = {
                     es: {
                         nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
-                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesion",
                         loading: "Cargando miembros...", sub_banner: "iJuanFly Community Post",
                         members_title: "Miembros de la Comunidad", members_subtitle: "Lista de usuarios registrados en iJuanFly Community Post",
-                        btn_register: "Registrarse", btn_login: "Iniciar Sesion", status_online: "● En línea",
+                        btn_register: "Registrarse", btn_login: "Iniciar Sesion", status_online: "● En linea",
                         reg_label: "Registro:", conn_label: "Conexion:", offline: "Desconectado",
                         hidden_text: "(Oculto)", search_members_placeholder: "Buscar miembro por nombre...",
-                        btn_prev: "Anterior", btn_next: "Siguiente", page_info: (actual, total) => `Página ${actual} de ${total}`,
+                        btn_prev: "Anterior", btn_next: "Siguiente", page_info: (actual, total) => `Pagina ${actual} de ${total}`,
                         min_ago: (m) => `Hace ${m} min`, h_ago: (h) => `Hace ${h} h`, d_ago: (d) => `Hace ${d} d`
                     },
                     en: {
@@ -399,7 +399,7 @@
 
                 let listaMiembrosCache = [];
                 let paginaActual = 1;
-                const elementosPorPagina = 5;
+                const elementosPorPagina = 10; // <--- MODIFICADO A 10 USUARIOS POR PAGINA
 
                 function obtenerEstiloRol(rol) {
                     if (!rol) return { tipo: 'style', valor: 'color: #00B028;' };
@@ -470,14 +470,14 @@
                         }
 
                         if (!usuarios || usuarios.length === 0) {
-                            contenedor.innerHTML = `<p style="text-align: center; color: #aaa;">No hay miembros registrados todavía.</p>`;
+                            contenedor.innerHTML = `<p style="text-align: center; color: #aaa;">No hay miembros registrados todavia.</p>`;
                             return;
                         }
 
                         listaMiembrosCache = usuarios;
                         renderizarMiembrosPaginados();
                     } catch (err) {
-                        contenedor.innerHTML = `<p style="text-align: center; color: #ff4d4d;">Error de conexión.</p>`;
+                        contenedor.innerHTML = `<p style="text-align: center; color: #ff4d4d;">Error de conexion.</p>`;
                     }
                 }
 
@@ -554,7 +554,6 @@
 
                     contenedor.innerHTML = html;
 
-                    // Mostrar u ocultar controles de paginación según la cantidad de resultados
                     if (totalPaginas > 1) {
                         controlesPaginacion.style.display = 'flex';
                         document.getElementById('info-paginacion').textContent = t.page_info(paginaActual, totalPaginas);

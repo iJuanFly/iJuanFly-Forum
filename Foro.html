@@ -394,6 +394,7 @@
             border-radius: 6px 6px 0 0;
             border-bottom: none;
             flex-wrap: wrap;
+            position: relative;
         }
 
         .toolbar-btn-item {
@@ -463,11 +464,13 @@
         .emoji-picker-modal {
             display: none;
             position: absolute;
+            top: 45px;
+            left: 10px;
             background: #181818;
             border: 1px solid #444;
             border-radius: 8px;
             padding: 8px;
-            z-index: 1001;
+            z-index: 1100;
             width: 250px;
             max-height: 160px;
             overflow-y: auto;
@@ -622,7 +625,7 @@
                 <option value="" data-i18n="loading_cats">Cargando categorias...</option>
             </select>
 
-            <div>
+            <div style="position: relative;">
                 <div class="toolbar-editor">
                     <select id="editor-font-size" onchange="aplicarEstiloEditor('fontSize', this.value)" title="Tamano de letra">
                         <option value="3" data-i18n="font_normal">Normal</option>
@@ -632,7 +635,8 @@
                         <option value="6" data-i18n="font_title">Titulo</option>
                     </select>
 
-                    <input type="color" id="editor-font-color" onchange="aplicarEstiloEditor('foreColor', this.value)" title="Color de la fuente" value="#ffffff">
+                    <input type="color" id="editor-font-color" title="Color de la fuente" value="#ffffff">
+                    <button type="button" class="toolbar-btn-item" onclick="aplicarColorTexto()" title="Aplicar color al texto seleccionado" style="background:#444;">Aplicar Color</button>
                     <button type="button" class="toolbar-btn-item" onclick="toggleEmojiPickerModal(event)">😀 Emojis</button>
                     <button type="button" class="toolbar-btn-item" onclick="aplicarEstiloEditor('bold')" title="Negrita"><b>B</b></button>
                     <button type="button" class="toolbar-btn-item" onclick="aplicarEstiloEditor('italic')" title="Cursiva"><i>I</i></button>
@@ -641,14 +645,14 @@
 
                 <div class="editor-content-area" contenteditable="true" id="editor-contenido" placeholder="¿Que quieres compartir?" data-i18n-placeholder="placeholder_content" oninput="actualizarContadorCaracteres()"></div>
 
-                <div class="editor-footer-info">
-                    <span data-i18n="file_limit_info">Max 50 MB por archivo</span>
-                    <span id="contador-caracteres">0 / 1000 <span data-i18n="chars_label">caracteres</span></span>
+                <div class="emoji-picker-modal" id="picker-emojis-modal">
+                    <div class="grid-emojis-modal" id="grid-emojis-modal"></div>
                 </div>
             </div>
 
-            <div class="emoji-picker-modal" id="picker-emojis-modal">
-                <div class="grid-emojis-modal" id="grid-emojis-modal"></div>
+            <div class="editor-footer-info">
+                <span data-i18n="file_limit_info">Max 50 MB por archivo</span>
+                <span id="contador-caracteres">0 / 1000 <span data-i18n="chars_label">caracteres</span></span>
             </div>
 
             <div class="preview-box-container" id="preview-box-container">
@@ -844,6 +848,13 @@
                     actualizarContadorCaracteres();
                 }
 
+                function aplicarColorTexto() {
+                    const color = document.getElementById('editor-font-color').value;
+                    document.execCommand('foreColor', false, color);
+                    document.getElementById('editor-contenido').focus();
+                    actualizarContadorCaracteres();
+                }
+
                 function actualizarContadorCaracteres() {
                     const editor = document.getElementById('editor-contenido');
                     const lang = obtenerIdiomaActual();
@@ -872,6 +883,7 @@
                         span.className = 'emoji-item-modal';
                         span.textContent = emoji;
                         span.onclick = () => {
+                            document.getElementById('editor-contenido').focus();
                             document.execCommand('insertText', false, emoji);
                             document.getElementById('picker-emojis-modal').style.display = 'none';
                             actualizarContadorCaracteres();
@@ -955,6 +967,8 @@
                         guestSessionId = 'guest_' + Math.random().toString(36).substring(2) + Date.now();
                         sessionStorage.setItem('zeoTabSessionId', guestSessionId);
                     }
+
+                    const avatarPorDefecto = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
 
                     try {
                         await _supabase.from('visitantes_activos').upsert([
@@ -1124,7 +1138,7 @@
                 }
 
                 async function eliminarTema(idTema) {
-                    if (!confirm("¿Estás seguro de que deseas eliminar este tema y todos sus comentarios?")) return;
+                    if (!confirm("¿Estas seguro de que deseas eliminar este tema y todos sus comentarios?")) return;
                     await _supabase.from('calificaciones_foro').delete().eq('tema_id', idTema);
                     await _supabase.from('comentarios_foro').delete().eq('tema_id', idTema);
                     const { error } = await _supabase.from('temas_foro').delete().eq('id', idTema);
@@ -1212,4 +1226,3 @@
     </script>
 </body>
 </html>
-```[cite: 9]

@@ -6,7 +6,7 @@
     <title data-i18n="cp_page_title">Panel de Control - iJuanFly Community Post</title>
     <link rel="stylesheet" href="Estilos.css">
 
-    <!-- Librería Cropper.js para recorte circular y zoom -->
+    <!-- Libreria Cropper.js para recorte circular y zoom -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
 
     <style>
@@ -49,8 +49,8 @@
             box-sizing: border-box;
         }
 
-        /* --- SECCIÓN INFERIOR ANCHA: MIS POSTS --- */
-        .seccion-mis-posts-inferior {
+        /* --- SECCION INFERIOR ANCHA: MIS POSTS Y REPUTACION --- */
+        .seccion-mis-posts-inferior, .seccion-reputacion-cp {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid #333;
             border-radius: 12px;
@@ -59,7 +59,7 @@
             width: 100%;
         }
 
-            .seccion-mis-posts-inferior h3 {
+            .seccion-mis-posts-inferior h3, .seccion-reputacion-cp h3 {
                 color: #ff4d4d;
                 font-size: 1.2rem;
                 margin-bottom: 20px;
@@ -116,7 +116,67 @@
             gap: 4px;
         }
 
-        /* --- DISTRIBUCIÓN INTERNA DEL PERFIL --- */
+        /* ESTILOS PARA LA SECCION DE REPUTACION EN EL CP */
+        .reputacion-cp-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .opinion-cp-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .opinion-cp-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .opinion-cp-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .opinion-cp-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #ff4d4d;
+        }
+
+        .btn-eliminar-op-cp {
+            background: rgba(255, 77, 77, 0.15);
+            border: 1px solid rgba(255, 77, 77, 0.4);
+            color: #ff4d4d;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+            .btn-eliminar-op-cp:hover {
+                background: #ff4d4d;
+                color: #fff;
+            }
+
+        /* --- DISTRIBUCION INTERNA DEL PERFIL --- */
         .perfil-grid-sketch {
             display: flex;
             gap: 30px;
@@ -147,7 +207,7 @@
             box-shadow: 0 0 20px rgba(255, 77, 77, 0.3);
         }
 
-        /* EFECTO HOLOGRÁFICO PARA EL NOMBRE (CREADOR) */
+        /* EFECTO HOLOGRAFICO PARA EL NOMBRE (CREADOR) */
         .rol-holografico {
             background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
             background-size: 400% 400%;
@@ -172,7 +232,7 @@
             }
         }
 
-        /* --- BOTONES DE CONFIGURACIÓN Y SALIR --- */
+        /* --- BOTONES DE CONFIGURACION Y SALIR --- */
         .btn-configuracion {
             background-color: #4f4f4f;
             margin-top: 5px;
@@ -327,7 +387,7 @@
             color: #888;
         }
 
-        /* --- SECCIÓN SOCIAL / AMIGOS --- */
+        /* --- SECCION SOCIAL / AMIGOS --- */
         .seccion-social-cp h3 {
             color: #ff4d4d;
             font-size: 0.95rem;
@@ -480,7 +540,6 @@
             cursor: pointer;
         }
 
-        /* --- NAVBAR FLEX --- */
         .navbar {
             position: relative;
             display: flex;
@@ -533,17 +592,16 @@
                 <div class="dropdown-content">
                     <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
                     <a href="cp.html" id="menu-cp" style="display: none; color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
-                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesión</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
                 </div>
             </li>
         </ul>
 
-        <!-- SELECTOR DE IDIOMA FLOTANTE -->
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
-                <option value="es">ES - Español</option>
+                <option value="es">ES - Espanol</option>
                 <option value="en">EN - English</option>
-                <option value="pt">PT - Português</option>
+                <option value="pt">PT - Portugues</option>
                 <option value="ru">RU - Русский</option>
                 <option value="ja">JA - 日本語</option>
                 <option value="zh">ZH - 繁體中文</option>
@@ -556,7 +614,6 @@
 
             <!-- ZONA SUPERIOR: 2 COLUMNAS (AMIGOS + PERFIL) -->
             <div class="cp-layout-grid">
-                <!-- COLUMNA IZQUIERDA: AMIGOS Y DMs -->
                 <div class="cp-columna-izq">
                     <div class="seccion-social-cp">
                         <h3 data-i18n="pending_requests_title">📥 Solicitudes Pendientes</h3>
@@ -570,38 +627,33 @@
                         </div>
                     </div>
 
-                    <!-- BOTÓN DE STAFF -->
                     <a id="btn-panel-admin" href="admin.html" style="display: none; background-color: #7700FF; color: white; padding: 12px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; text-align: center; box-sizing: border-box; transition: background 0.2s;" data-i18n="admin_panel_btn">
                         ⚡ Acceder al Panel de Staff
                     </a>
 
-                    <!-- BOTÓN DE CONFIGURACIÓN Y CERRAR SESIÓN -->
-                    <a href="config.html" class="btn-configuracion" data-i18n="nav_settings">Configuración</a>
-                    <button class="btn-salir" onclick="cerrarSesionGlobal()" data-i18n="nav_logout">Cerrar Sesión</button>
+                    <a href="config.html" class="btn-configuracion" data-i18n="nav_settings">Configuracion</a>
+                    <button class="btn-salir" onclick="cerrarSesionGlobal()" data-i18n="nav_logout">Cerrar Sesion</button>
                 </div>
 
-                <!-- COLUMNA DERECHA: PERFIL Y EDICIÓN -->
                 <div class="cp-columna-der">
                     <form id="form-perfil">
                         <div class="perfil-grid-sketch">
-                            <!-- Foto y botón de cambio -->
                             <div class="perfil-col-avatar">
                                 <img id="img-avatar" class="avatar-preview-grande" src="" alt="Avatar">
                                 <label for="input-foto" class="btn-subir-foto" data-i18n="btn_change_avatar">📁 Cambiar foto</label>
                                 <input type="file" id="input-foto" class="input-archivo" accept="image/*">
-                                <p id="nombre-archivo" style="font-size: 0.75rem; color: #aaa; margin-top: 5px; text-align: center; word-break: break-all;" data-i18n="no_file_selected">Ningún archivo seleccionado</p>
+                                <p id="nombre-archivo" style="font-size: 0.75rem; color: #aaa; margin-top: 5px; text-align: center; word-break: break-all;" data-i18n="no_file_selected">Ningun archivo seleccionado</p>
                             </div>
 
-                            <!-- Datos del usuario: Bio y Red Social -->
                             <div class="perfil-col-datos">
                                 <h1 id="nombre-usuario" style="font-family: inherit; font-size: 2.2rem; margin-top: 0; margin-bottom: 15px;" data-i18n="loading">Cargando...</h1>
 
                                 <div class="campo-grupo">
                                     <label for="input-bio">
-                                        <span data-i18n="bio_label">Biografía / Descripción</span>
+                                        <span data-i18n="bio_label">Biografia / Descripcion</span>
                                         <span class="contador-caracteres" id="contador-bio">0 / 200</span>
                                     </label>
-                                    <textarea id="input-bio" maxlength="200" data-i18n-placeholder="bio_placeholder" placeholder="Cuéntanos algo sobre ti..."></textarea>
+                                    <textarea id="input-bio" maxlength="200" data-i18n-placeholder="bio_placeholder" placeholder="Cuentanos algo sobre ti..."></textarea>
                                     <button type="button" class="btn-emoji-trigger" id="btn-toggle-emojis">😀</button>
                                     <div class="emoji-picker-container" id="picker-emojis">
                                         <div class="emoji-grid" id="grid-emojis"></div>
@@ -622,11 +674,19 @@
                 </div>
             </div>
 
-            <!-- ZONA INFERIOR: MIS TEMAS PUBLICADOS A ANCHO COMPLETO -->
+            <!-- ZONA INFERIOR: MIS TEMAS PUBLICADOS -->
             <div class="seccion-mis-posts-inferior">
                 <h3 data-i18n="my_posts_title">📝 Mis Temas Publicados</h3>
                 <div class="lista-mis-posts-grid" id="contenedor-mis-posts">
                     <p style="color: #777; font-size: 0.9rem; text-align: center; padding: 15px;" data-i18n="loading">Cargando tus posts...</p>
+                </div>
+            </div>
+
+            <!-- ZONA INFERIOR NUEVA: GESTION DE MI REPUTACION Y OPINIONES RECIBIDAS -->
+            <div class="seccion-reputacion-cp">
+                <h3 data-i18n="my_reputation_title">⭐ Mi Reputacion y Opiniones Recibidas</h3>
+                <div class="reputacion-cp-lista" id="contenedor-mi-reputacion">
+                    <p style="color: #777; font-size: 0.9rem; text-align: center; padding: 15px;" data-i18n="loading">Cargando opiniones...</p>
                 </div>
             </div>
 
@@ -637,7 +697,7 @@
     <div class="modal-recorte" id="modal-recorte">
         <div class="box-recorte">
             <h3 style="color: #fff; margin-bottom: 10px;" data-i18n="crop_modal_title">Ajusta tu foto</h3>
-            <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 10px;" data-i18n="crop_modal_desc">Usa la rueda del ratón o arrastra para hacer zoom y reubicar.</p>
+            <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 10px;" data-i18n="crop_modal_desc">Usa la rueda del raton o arrastra para hacer zoom y reubicar.</p>
             <div class="contenedor-imagen-crop">
                 <img id="img-para-recortar" src="" alt="Recorte" style="max-width: 100%;">
             </div>
@@ -656,21 +716,22 @@
                 const ZEO_TRADUCCIONES = {
                     es: {
                         nav_portal: "Portal", nav_forum: "Foro", nav_games: "Juegos", nav_members: "Miembros",
-                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesión",
-                        nav_settings: "Configuración", cp_subtitle_banner: "Panel de Miembro", cp_page_title: "Panel de Control - iJuanFly Community Post",
+                        nav_members_list: "Lista de Miembros", nav_my_panel: "Mi Panel", nav_logout: "Cerrar Sesion",
+                        nav_settings: "Configuracion", cp_subtitle_banner: "Panel de Miembro", cp_page_title: "Panel de Control - iJuanFly Community Post",
                         loading: "Cargando...", btn_change_avatar: "📁 Cambiar foto",
-                        no_file_selected: "Ningún archivo seleccionado", bio_label: "Biografía / Descripción",
-                        bio_placeholder: "Cuéntanos algo sobre ti...", web_label: "Sitio Web / Red Social",
+                        no_file_selected: "Ningun archivo seleccionado", bio_label: "Biografia / Descripcion",
+                        bio_placeholder: "Cuentanos algo sobre ti...", web_label: "Sitio Web / Red Social",
                         btn_save_changes: "Guardar Cambios", admin_panel_btn: "⚡ Acceder al Panel de Staff",
                         pending_requests_title: "📥 Solicitudes Pendientes", my_friends_title: "👥 Mis Amigos & DMs",
-                        my_posts_title: "📝 Mis Temas Publicados", loading_requests: "Cargando solicitudes...",
-                        loading_friends: "Cargando amigos...", no_requests: "No tienes solicitudes pendientes.",
-                        no_friends: "Aún no tienes amigos agregados.", no_posts: "No has publicado ningún tema todavía.",
-                        btn_accept: "✔ Aceptar", btn_reject: "✖ Rechazar", btn_dm: "💬 Mensajes",
-                        crop_modal_title: "Ajusta tu foto", crop_modal_desc: "Usa la rueda del ratón o arrastra para hacer zoom.",
-                        btn_apply_crop: "Aplicar Recorte", btn_cancel_crop: "Cancelar", status_online: "En línea",
+                        my_posts_title: "📝 Mis Temas Publicados", my_reputation_title: "⭐ Mi Reputacion y Opiniones Recibidas",
+                        loading_requests: "Cargando solicitudes...", loading_friends: "Cargando amigos...",
+                        no_requests: "No tienes solicitudes pendientes.", no_friends: "Aun no tienes amigos agregados.",
+                        no_posts: "No has publicado ningun tema todavia.", no_opinions_cp: "Aun no has recibido opiniones en tu perfil.",
+                        btn_accept: "✔ Aceptar", btn_reject: "✖ Rechazar", btn_dm: "💬 Mensajes", btn_delete_op: "🗑 Eliminar",
+                        crop_modal_title: "Ajusta tu foto", crop_modal_desc: "Usa la rueda del raton o arrastra para hacer zoom.",
+                        btn_apply_crop: "Aplicar Recorte", btn_cancel_crop: "Cancelar", status_online: "En linea",
                         status_offline: "Desconectado", photo_ready: "Foto lista para guardar.",
-                        saving: "Guardando cambios...", save_success: "¡Perfil actualizado con éxito!",
+                        saving: "Guardando cambios...", save_success: "¡Perfil actualizado con exito!",
                         banned_alert: "Tu perfil ha sido cerrado y no puedes acceder a este panel."
                     },
                     en: {
@@ -682,10 +743,11 @@
                         bio_placeholder: "Tell us something about yourself...", web_label: "Website / Social Media",
                         btn_save_changes: "Save Changes", admin_panel_btn: "⚡ Access Staff Panel",
                         pending_requests_title: "📥 Pending Requests", my_friends_title: "👥 My Friends & DMs",
-                        my_posts_title: "📝 My Published Topics", loading_requests: "Loading requests...",
-                        loading_friends: "Loading friends...", no_requests: "You have no pending requests.",
-                        no_friends: "You haven't added any friends yet.", no_posts: "You haven't published any topics yet.",
-                        btn_accept: "✔ Accept", btn_reject: "✖ Reject", btn_dm: "💬 Messages",
+                        my_posts_title: "📝 My Published Topics", my_reputation_title: "⭐ My Reputation and Received Reviews",
+                        loading_requests: "Loading requests...", loading_friends: "Loading friends...",
+                        no_requests: "You have no pending requests.", no_friends: "You haven't added any friends yet.",
+                        no_posts: "You haven't published any topics yet.", no_opinions_cp: "You haven't received any reviews yet.",
+                        btn_accept: "✔ Accept", btn_reject: "✖ Reject", btn_dm: "💬 Messages", btn_delete_op: "🗑 Delete",
                         crop_modal_title: "Adjust your photo", crop_modal_desc: "Use mouse wheel or drag to zoom and reposition.",
                         btn_apply_crop: "Apply Crop", btn_cancel_crop: "Cancel", status_online: "Online",
                         status_offline: "Offline", photo_ready: "Photo ready to save.",
@@ -701,10 +763,11 @@
                         bio_placeholder: "Conte-nos algo sobre você...", web_label: "Site / Redes Sociais",
                         btn_save_changes: "Salvar Alterações", admin_panel_btn: "⚡ Acessar Painel da Staff",
                         pending_requests_title: "📥 Solicitações Pendentes", my_friends_title: "👥 Meus Amigos & DMs",
-                        my_posts_title: "📝 Meus Tópicos Publicados", loading_requests: "Carregando solicitações...",
-                        loading_friends: "Carregando amigos...", no_requests: "Você não tem solicitações pendentes.",
-                        no_friends: "Você ainda não adicionou amigos.", no_posts: "Você ainda não publicou nenhum tópico.",
-                        btn_accept: "✔ Aceitar", btn_reject: "✖ Rejeitar", btn_dm: "💬 Mensagens",
+                        my_posts_title: "📝 Meus Tópicos Publicados", my_reputation_title: "⭐ Minha Reputação e Avaliações Recebidas",
+                        loading_requests: "Carregando solicitações...", loading_friends: "Carregando amigos...",
+                        no_requests: "Você não tem solicitações pendentes.", no_friends: "Você ainda não adicionou amigos.",
+                        no_posts: "Você ainda não publicou nenhum tópico.", no_opinions_cp: "Você ainda não recebeu avaliações.",
+                        btn_accept: "✔ Aceitar", btn_reject: "✖ Rejeitar", btn_dm: "💬 Mensagens", btn_delete_op: "🗑 Excluir",
                         crop_modal_title: "Ajuste sua foto", crop_modal_desc: "Use a roda do mouse ou arraste.",
                         btn_apply_crop: "Aplicar Corte", btn_cancel_crop: "Cancelar", status_online: "Online",
                         status_offline: "Desconectado", photo_ready: "Foto pronta para salvar.",
@@ -720,10 +783,11 @@
                         bio_placeholder: "Расскажите о себе...", web_label: "Веб-сайт",
                         btn_save_changes: "Сохранить изменения", admin_panel_btn: "⚡ Панель персонала",
                         pending_requests_title: "📥 Запросы", my_friends_title: "👥 Друзья",
-                        my_posts_title: "📝 Мои темы", loading_requests: "Загрузка запросов...",
-                        loading_friends: "Загрузка друзей...", no_requests: "Нет запросов.",
-                        no_friends: "Нет друзей.", no_posts: "Вы еще не создали тем.",
-                        btn_accept: "✔ Принять", btn_reject: "✖ Отклонить", btn_dm: "💬 Чаты",
+                        my_posts_title: "📝 Мои темы", my_reputation_title: "⭐ Репутация и полученные отзывы",
+                        loading_requests: "Загрузка запросов...", loading_friends: "Загрузка друзей...",
+                        no_requests: "Нет запросов.", no_friends: "Нет друзей.",
+                        no_posts: "Вы еще не создали тем.", no_opinions_cp: "Вы еще не получили отзывов.",
+                        btn_accept: "✔ Принять", btn_reject: "✖ Отклонить", btn_dm: "💬 Чаты", btn_delete_op: "🗑 Удалить",
                         crop_modal_title: "Настройте фото", crop_modal_desc: "Используйте колесико мыши.",
                         btn_apply_crop: "Применить", btn_cancel_crop: "Отмена", status_online: "В сети",
                         status_offline: "Не в сети", photo_ready: "Фото готово.",
@@ -739,10 +803,11 @@
                         bio_placeholder: "自己紹介...", web_label: "ウェブサイト",
                         btn_save_changes: "変更を保存", admin_panel_btn: "⚡ スタッフパネル",
                         pending_requests_title: "📥 リクエスト", my_friends_title: "👥 フレンド",
-                        my_posts_title: "📝 自分の投稿トピック", loading_requests: "読み込み中...",
-                        loading_friends: "読み込み中...", no_requests: "リクエストはありません。",
-                        no_friends: "フレンドはいません。", no_posts: "投稿されたトピックはありません。",
-                        btn_accept: "✔ 承認", btn_reject: "✖ 拒否", btn_dm: "💬 メッセージ",
+                        my_posts_title: "📝 自分の投稿トピック", my_reputation_title: "⭐ 自分の評判と受け取ったレビュー",
+                        loading_requests: "読み込み中...", loading_friends: "読み込み中...",
+                        no_requests: "リクエストはありません。", no_friends: "フレンドはいません。",
+                        no_posts: "投稿されたトピックはありません。", no_opinions_cp: "まだレビューを受け取っていません。",
+                        btn_accept: "✔ 承認", btn_reject: "✖ 拒否", btn_dm: "💬 メッセージ", btn_delete_op: "🗑 削除",
                         crop_modal_title: "写真を調整", crop_modal_desc: "ズームと位置調整を行います。",
                         btn_apply_crop: "適用", btn_cancel_crop: "キャンセル", status_online: "オンライン",
                         status_offline: "オフライン", photo_ready: "写真の保存準備完了。",
@@ -758,10 +823,11 @@
                         bio_placeholder: "介绍一下自己...", web_label: "网站",
                         btn_save_changes: "保存更改", admin_panel_btn: "⚡ 访问管理面板",
                         pending_requests_title: "📥 待处理请求", my_friends_title: "👥 好友",
-                        my_posts_title: "📝 我的主题", loading_requests: "正在加载...",
-                        loading_friends: "正在加载...", no_requests: "没有请求。",
-                        no_friends: "还没有好友。", no_posts: "您还没有发布过主题。",
-                        btn_accept: "✔ 接受", btn_reject: "✖ 拒绝", btn_dm: "💬 私信",
+                        my_posts_title: "📝 我的主题", my_reputation_title: "⭐ 我的声誉与收到的评价",
+                        loading_requests: "正在加载...", loading_friends: "正在加载...",
+                        no_requests: "没有请求。", no_friends: "还没有好友。",
+                        no_posts: "您还没有发布过主题。", no_opinions_cp: "您还没有收到任何评价。",
+                        btn_accept: "✔ 接受", btn_reject: "✖ 拒绝", btn_dm: "💬 私信", btn_delete_op: "🗑 删除",
                         crop_modal_title: "调整照片", crop_modal_desc: "缩放和调整位置。",
                         btn_apply_crop: "应用", btn_cancel_crop: "取消", status_online: "在线",
                         status_offline: "离线", photo_ready: "照片已准备好。",
@@ -770,31 +836,24 @@
                     }
                 };
 
-                function obtenerIdiomaActual() {
-                    return localStorage.getItem('zeoWorksIdioma') || 'es';
-                }
+                function obtenerIdiomaActual() { return localStorage.getItem('zeoWorksIdioma') || 'es'; }
 
                 function aplicarTraduccionesGlobales() {
                     const lang = obtenerIdiomaActual();
                     const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
-
                     document.querySelectorAll('[data-i18n]').forEach(el => {
                         const key = el.getAttribute('data-i18n');
                         if (t[key]) el.textContent = t[key];
                     });
-
                     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                         const key = el.getAttribute('data-i18n-placeholder');
                         if (t[key]) el.placeholder = t[key];
                     });
-
                     const selectElem = document.getElementById('select-idioma');
                     if (selectElem) selectElem.value = lang;
                 }
 
-                document.addEventListener("DOMContentLoaded", () => {
-                    aplicarTraduccionesGlobales();
-                });
+                document.addEventListener("DOMContentLoaded", () => { aplicarTraduccionesGlobales(); });
 
                 function cambiarIdiomaGlobal(lang) {
                     localStorage.setItem('zeoWorksIdioma', lang);
@@ -805,13 +864,7 @@
                 const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
                 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-                const listaEmojis = [
-                    "😀","😃","😄","😁","😆","😅","😂","🤣","🥲","☺️","😊","😇","🙂","🙃","😉","🪽","😈","👿",
-                    "😍","🥰","😘","😗","😙","😚","😋","😛","😜","🤪","😝","🤑","🤗","🤭","🤫","🤔","🤐","🤨",
-                    "😐","😑","😶","😏","😒","🙄","😬","🤥","😌","😔","😪","🤤","😴","😷","🤒","🤕","🤢","🤮",
-                    "🥶","🥵","😵","🤯","🤠","🥳","🥸","😎","🤓","🧐","😕","😟","🙁","😮","😯","😲","😳","🥺",
-                    "😦","😧","📁","👑","⭐","🔥","💀","👻","🤖","🎮","👾","⚡","💎","🎯","🚀","❤️","🖤","💜"
-                ];
+                const listaEmojis = ["😀","😃","😄","😁","😆","😅","😂","🤣","🥲","☺️","😊","😇","🙂","🙃","😉","🪽","😈","👿","😍","🥰","😘","😗","😙","😚","😋","😛","😜","🤪","😝","🤑","🤗","🤭","🤫","🤔","🤐","🤨","😐","😑","😶","😏","😒","🙄","😬","🤥","😌","😔","😪","🤤","😴","😷","🤒","🤕","🤢","🤮","🥶","🥵","😵","🤯","🤠","🥳","🥸","😎","🤓","🧐","😕","😟","🙁","😮","😯","😲","😳","🥺","😦","😧","📁","👑","⭐","🔥","💀","👻","🤖","🎮","👾","⚡","💎","🎯","🚀","❤️","🖤","💜"];
 
                 const gridEmojis = document.getElementById('grid-emojis');
                 const pickerEmojis = document.getElementById('picker-emojis');
@@ -873,9 +926,7 @@
                         const parsed = JSON.parse(rawSesion);
                         nombreUsuarioSesion = (typeof parsed === 'object' && parsed !== null) ? (parsed.Nombre || parsed.nombre) : rawSesion;
                     }
-                } catch (e) {
-                    nombreUsuarioSesion = '';
-                }
+                } catch (e) { nombreUsuarioSesion = ''; }
 
                 const avatarPorDefecto = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
 
@@ -937,6 +988,7 @@
 
                             cargarSeccionSocial(usuarioGuardado.id);
                             cargarMisPosts(usuarioGuardado.id);
+                            cargarMiReputacionCP(usuarioGuardado.id);
                         });
                 }
 
@@ -1048,66 +1100,97 @@
                     const lang = obtenerIdiomaActual();
                     const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
                     const contenedorMisPosts = document.getElementById('contenedor-mis-posts');
-
                     if (!contenedorMisPosts) return;
 
-                    try {
-                        const { data: temas, error } = await _supabase
-                            .from('temas_foro')
-                            .select('id, titulo, created_at')
-                            .eq('usuario_id', miId)
-                            .order('created_at', { ascending: false });
+                    const { data: temas } = await _supabase
+                        .from('temas_foro')
+                        .select('id, titulo, created_at')
+                        .eq('usuario_id', miId)
+                        .order('created_at', { ascending: false });
 
-                        if (error || !temas || temas.length === 0) {
-                            contenedorMisPosts.innerHTML = `<p style="color: #777; font-size: 0.9rem; text-align: center; padding: 15px;">${t.no_posts}</p>`;
-                            return;
-                        }
+                    if (!temas || temas.length === 0) {
+                        contenedorMisPosts.innerHTML = `<p style="color: #777; font-size: 0.9rem; text-align: center; padding: 15px;">${t.no_posts}</p>`;
+                        return;
+                    }
 
-                        let calificacionesMap = {};
-                        const idsTemas = temas.map(t => t.id);
-                        const { data: calificaciones } = await _supabase
-                            .from('calificaciones_temas')
-                            .select('tema_id, puntuacion')
-                            .in('tema_id', idsTemas);
+                    let htmlPosts = '';
+                    temas.forEach(tema => {
+                        htmlPosts += `
+                            <a href="tema.html?id=${tema.id}" class="item-post-cp-card" title="${tema.titulo}">
+                                <div class="post-titulo-cp">📌 <span>${tema.titulo}</span></div>
+                            </a>
+                        `;
+                    });
+                    contenedorMisPosts.innerHTML = htmlPosts;
+                }
 
-                        if (calificaciones) {
-                            let sumas = {};
-                            let conteos = {};
-                            calificaciones.forEach(c => {
-                                sumas[c.tema_id] = (sumas[c.tema_id] || 0) + c.puntuacion;
-                                conteos[c.tema_id] = (conteos[c.tema_id] || 0) + 1;
-                            });
-                            idsTemas.forEach(id => {
-                                if (conteos[id]) {
-                                    calificacionesMap[id] = (sumas[id] / conteos[id]).toFixed(1);
-                                } else {
-                                    calificacionesMap[id] = '0.0';
-                                }
-                            });
-                        }
+                async function cargarMiReputacionCP(miId) {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                    const contenedorRep = document.getElementById('contenedor-mi-reputacion');
+                    if (!contenedorRep) return;
 
-                        let htmlPosts = '';
-                        temas.forEach(tema => {
-                            const promedio = calificacionesMap[tema.id] || '0.0';
-                            htmlPosts += `
-                                <a href="tema.html?id=${tema.id}" class="item-post-cp-card" title="${tema.titulo}">
-                                    <div class="post-titulo-cp">📌 <span>${tema.titulo}</span></div>
-                                    <div class="post-estrellas-cp">⭐ ${promedio} / 5 ESTRELLAS</div>
-                                </a>
-                            `;
-                        });
-                        contenedorMisPosts.innerHTML = htmlPosts;
-                    } catch (err) {
-                        let htmlPosts = '';
-                        temas.forEach(tema => {
-                            htmlPosts += `
-                                <a href="tema.html?id=${tema.id}" class="item-post-cp-card" title="${tema.titulo}">
-                                    <div class="post-titulo-cp">📌 <span>${tema.titulo}</span></div>
-                                    <div class="post-estrellas-cp">⭐ 0.0 / 5 ESTRELLAS</div>
-                                </a>
-                            `;
-                        });
-                        contenedorMisPosts.innerHTML = htmlPosts;
+                    const { data: opiniones, error } = await _supabase
+                        .from('Reputacion_Usuarios')
+                        .select('*')
+                        .eq('usuario_perfil_id', miId)
+                        .order('created_at', { ascending: false });
+
+                    if (error || !opiniones || opiniones.length === 0) {
+                        contenedorRep.innerHTML = `<p style="color: #777; font-size: 0.9rem; text-align: center; padding: 15px;">${t.no_opinions_cp}</p>`;
+                        return;
+                    }
+
+                    const idsAutores = [...new Set(opiniones.map(o => o.usuario_autor_id))];
+                    const { data: autores } = await _supabase
+                        .from('Usuarios')
+                        .select('id, Nombre, Avatar, Rol')
+                        .in('id', idsAutores);
+
+                    let htmlRep = '';
+                    opiniones.forEach(op => {
+                        const autor = autores ? autores.find(a => a.id === op.usuario_autor_id) : null;
+                        const nombreAutor = autor ? autor.Nombre : 'Usuario';
+                        const avatarAutor = autor && autor.Avatar ? autor.Avatar : avatarPorDefecto;
+                        const infoRol = obtenerEstiloRol(autor ? autor.Rol : 'Miembro');
+                        const attrRolAutor = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="${infoRol.valor}"`;
+                        const fecha = new Date(op.created_at).toLocaleDateString();
+
+                        const badgeTipo = op.tipo === 'positivo'
+                            ? `<span style="color: #2ecc71; font-weight: bold;">👍 Positivo</span>`
+                            : `<span style="color: #ff4d4d; font-weight: bold;">👎 Negativo</span>`;
+
+                        htmlRep += `
+                            <div class="opinion-cp-card">
+                                <div class="opinion-cp-info">
+                                    <div class="opinion-cp-header">
+                                        <img src="${avatarAutor}" class="opinion-cp-avatar" alt="Avatar">
+                                        <a href="perfil.html?nombre=${encodeURIComponent(nombreAutor)}" ${attrRolAutor} style="text-decoration: none;">${nombreAutor}</a>
+                                        <span>${badgeTipo}</span>
+                                        <small style="color: #777;">${fecha}</small>
+                                    </div>
+                                    ${op.comentario ? `<div style="color: #ddd; font-size: 0.9rem; word-break: break-word;">${escaparHtml(op.comentario)}</div>` : ''}
+                                </div>
+                                <button class="btn-eliminar-op-cp" onclick="eliminarMiOpinionCP('${op.id}')">${t.btn_delete_op}</button>
+                            </div>
+                        `;
+                    });
+
+                    contenedorRep.innerHTML = htmlRep;
+                }
+
+                async function eliminarMiOpinionCP(idOpinion) {
+                    if (!confirm("¿Estás seguro de que deseas eliminar esta opinión de tu perfil?")) return;
+
+                    const { error } = await _supabase
+                        .from('Reputacion_Usuarios')
+                        .delete()
+                        .eq('id', idOpinion);
+
+                    if (!error) {
+                        cargarMiReputacionCP(usuarioGuardado.id);
+                    } else {
+                        alert("Error al eliminar la opinión: " + error.message);
                     }
                 }
 
@@ -1201,14 +1284,8 @@
                     mensajeEstado.style.color = '#ccc';
                     mensajeEstado.textContent = t.saving;
 
-                    let datosActualizar = {
-                        bio: nuevaBio,
-                        sitio_web: nuevoWeb
-                    };
-
-                    if (imagenBase64Circular) {
-                        datosActualizar.Avatar = imagenBase64Circular;
-                    }
+                    let datosActualizar = { bio: nuevaBio, sitio_web: nuevoWeb };
+                    if (imagenBase64Circular) datosActualizar.Avatar = imagenBase64Circular;
 
                     const { error } = await _supabase
                         .from('Usuarios')
@@ -1216,11 +1293,9 @@
                         .eq('id', usuarioGuardado.id);
 
                     if (error) {
-                        mensajeState = document.getElementById('mensaje-estado');
                         mensajeEstado.style.color = '#ff4d4d';
                         mensajeEstado.textContent = 'Error: ' + error.message;
                     } else {
-                        mensajeEstado = document.getElementById('mensaje-estado');
                         mensajeEstado.style.color = '#2ecc71';
                         mensajeEstado.textContent = t.save_success;
 
@@ -1230,6 +1305,11 @@
                         localStorage.setItem('usuarioZeoWorks', JSON.stringify(usuarioGuardado));
                     }
                 });
+
+                function escaparHtml(str) {
+                    if (!str) return '';
+                    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                }
 
                 function cerrarSesionGlobal() {
                     localStorage.removeItem('usuarioZeoWorks');

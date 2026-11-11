@@ -6,14 +6,22 @@
     <title data-i18n="profile_page_title">Perfil de Usuario - iJuanFly Community Post</title>
     <link rel="stylesheet" href="Estilos.css">
     <style>
-        /* LAYOUT DE DOS COLUMNAS PARA EL PERFIL Y LOS POSTS */
+        /* LAYOUT GENERAL DEL PERFIL */
         .perfil-layout-grid {
             display: flex;
+            flex-direction: column;
             gap: 25px;
             max-width: 1050px;
             margin: 30px auto;
             padding: 0 15px;
             box-sizing: border-box;
+            align-items: center;
+        }
+
+        .perfil-superior-grid {
+            display: flex;
+            gap: 25px;
+            width: 100%;
             align-items: flex-start;
             justify-content: center;
         }
@@ -86,6 +94,133 @@
             align-items: center;
             gap: 4px;
         }
+
+        /* SECCION DE REPUTACION ABAJO */
+        .reputacion-seccion-contenedor {
+            width: 100%;
+            max-width: 895px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+            .reputacion-seccion-contenedor h3 {
+                color: #ff4d4d;
+                font-size: 1.2rem;
+                margin-top: 0;
+                border-bottom: 1px solid #333;
+                padding-bottom: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+        .reputacion-resumen-bar {
+            display: flex;
+            gap: 20px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .rep-badge-pos {
+            color: #2ecc71;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .rep-badge-neg {
+            color: #ff4d4d;
+            background: rgba(255, 77, 77, 0.1);
+            border: 1px solid rgba(255, 77, 77, 0.3);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .form-dejar-reputacion {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+            .form-dejar-reputacion select, .form-dejar-reputacion textarea {
+                background: #181818;
+                border: 1px solid #444;
+                color: #fff;
+                padding: 10px;
+                border-radius: 6px;
+                font-family: inherit;
+                box-sizing: border-box;
+            }
+
+            .form-dejar-reputacion textarea {
+                resize: vertical;
+                min-height: 70px;
+            }
+
+        .btn-enviar-rep {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            align-self: flex-end;
+            transition: background 0.2s;
+        }
+
+            .btn-enviar-rep:hover {
+                background-color: #cc0000;
+            }
+
+        .lista-opiniones-rep {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opinion-card-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 12px 15px;
+            position: relative;
+        }
+
+        .opinion-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .btn-eliminar-opinion {
+            background: rgba(255, 77, 77, 0.1);
+            border: 1px solid rgba(255, 77, 77, 0.3);
+            color: #ff4d4d;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: 10px;
+        }
+
+            .btn-eliminar-opinion:hover {
+                background: #ff4d4d;
+                color: #fff;
+            }
 
         .btn-amigo-flotante {
             position: absolute;
@@ -172,7 +307,6 @@
             font-family: inherit !important;
         }
 
-        /* EFECTO HOLOGRAFICO PARA EL NOMBRE (CREADOR) */
         .rol-holografico {
             background: linear-gradient(90deg, #ff0000, #ff7300, #ffeb00, #1eff00, #00ffff, #002bff, #7a00ff, #ff00aa, #ff0000);
             background-size: 400% 400%;
@@ -197,7 +331,6 @@
             }
         }
 
-        /* EFECTO BLANCO CON GLOW PARA LA ETIQUETA DE CREADOR */
         .rol-creador-glow {
             color: #ffffff !important;
             border-color: rgba(255, 255, 255, 0.6) !important;
@@ -275,7 +408,6 @@
                 background-color: #444;
             }
 
-        /* --- SELECTOR DE IDIOMA MINIMALISTA EN NAVBAR --- */
         .navbar {
             position: relative;
             display: flex;
@@ -309,17 +441,12 @@
             }
 
         @media(max-width: 950px) {
-            .perfil-layout-grid {
+            .perfil-superior-grid {
                 flex-direction: column;
                 align-items: center;
             }
 
-            .perfil-card {
-                width: 100%;
-                max-width: 550px;
-            }
-
-            .perfil-sidebar-posts {
+            .perfil-card, .perfil-sidebar-posts {
                 width: 100%;
                 max-width: 550px;
             }
@@ -350,7 +477,6 @@
             </li>
         </ul>
 
-        <!-- SELECTOR DE IDIOMA FLOTANTE A LA DERECHA -->
         <div class="selector-idioma-container">
             <select id="select-idioma" class="selector-idioma" onchange="cambiarIdiomaGlobal(this.value)">
                 <option value="es">ES - Espanol</option>
@@ -365,22 +491,47 @@
 
     <main class="contenido">
         <div class="perfil-layout-grid">
-            <!-- TARJETA PRINCIPAL DEL PERFIL -->
-            <div id="contenedor-perfil">
-                <p style="text-align: center; color: #aaa; margin-top: 50px;" data-i18n="loading_profile">Cargando perfil...</p>
+            <div class="perfil-superior-grid">
+                <!-- TARJETA PRINCIPAL DEL PERFIL -->
+                <div id="contenedor-perfil">
+                    <p style="text-align: center; color: #aaa; margin-top: 50px;" data-i18n="loading_profile">Cargando perfil...</p>
+                </div>
+
+                <!-- SIDEBAR LATERAL CON LOS ULTIMOS 3 POSTS -->
+                <div class="perfil-sidebar-posts">
+                    <h3 data-i18n="sidebar_recent_posts">📝 Ultimos Posts</h3>
+                    <div id="contenedor-ultimos-posts">
+                        <p style="color: #777; font-size: 0.85rem;" data-i18n="loading_posts">Cargando posts...</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- SIDEBAR LATERAL CON LOS ULTIMOS 3 POSTS Y ESTRELLAS -->
-            <div class="perfil-sidebar-posts">
-                <h3 data-i18n="sidebar_recent_posts">📝 Ultimos Posts</h3>
-                <div id="contenedor-ultimos-posts">
-                    <p style="color: #777; font-size: 0.85rem;" data-i18n="loading_posts">Cargando posts...</p>
+            <!-- SECCION DE REPUTACION Y OPINIONES (SE OCULTARA SI ESTA BANEADO) -->
+            <div class="reputacion-seccion-contenedor" id="seccion-reputacion-general">
+                <h3 data-i18n="reputation_title">⭐ Reputacion y Opiniones</h3>
+                <div class="reputacion-resumen-bar" id="resumen-reputacion">
+                    <span class="rep-badge-pos">Positivas: <span id="count-pos">0</span></span>
+                    <span class="rep-badge-neg">Negativas: <span id="count-neg">0</span></span>
+                </div>
+
+                <!-- Formulario para dejar opinion -->
+                <div class="form-dejar-reputacion" id="form-reputacion-box" style="display: none;">
+                    <label style="color: #ccc; font-size: 0.9rem;" data-i18n="leave_opinion_label">Dejar una opinion sobre este usuario:</label>
+                    <select id="select-tipo-rep">
+                        <option value="positivo" data-i18n="opt_positive">👍 Valoracion Positiva</option>
+                        <option value="negativo" data-i18n="opt_negative">👎 Valoracion Negativa</option>
+                    </select>
+                    <textarea id="input-comentario-rep" placeholder="Escribe un comentario opcional..." data-i18n-placeholder="placeholder_rep" maxlength="250"></textarea>
+                    <button class="btn-enviar-rep" onclick="enviarReputacion()" data-i18n="btn_submit_rep">Enviar Opinion</button>
+                </div>
+
+                <div class="lista-opiniones-rep" id="contenedor-opiniones">
+                    <p style="color: #777; font-size: 0.9rem;" data-i18n="loading_opinions">Cargando opiniones...</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- SUPABASE Y LOGICA MULTIDIOMA -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
                 const ZEO_TRADUCCIONES = {
@@ -392,11 +543,16 @@
                         user_not_exist: "El usuario no existe", back_to_members: "← Volver a la Lista de Miembros",
                         member_since: "Miembro desde", status_label: "Estado", no_bio: "Este usuario aun no ha escrito una biografia.",
                         status_online: "● En linea", offline: "Desconectado", unknown_date: "Desconocida",
-                        hidden_text: "Oculto",
-                        tooltip_add_friend: "Agregar a amigos", tooltip_friends: "Amigos",
+                        hidden_text: "Oculto", tooltip_add_friend: "Agregar a amigos", tooltip_friends: "Amigos",
                         tooltip_sent: "Solicitud enviada", tooltip_accept: "Aceptar solicitud",
                         profile_closed: "⛔ Este perfil ha sido cerrado.",
                         sidebar_recent_posts: "📝 Ultimos Posts", loading_posts: "Cargando posts...", no_posts_yet: "Este usuario aun no ha publicado ningun tema en el foro.",
+                        reputation_title: "⭐ Reputacion y Opiniones", leave_opinion_label: "Dejar una opinion sobre este usuario:",
+                        opt_positive: "👍 Valoracion Positiva", opt_negative: "👎 Valoracion Negativa",
+                        placeholder_rep: "Escribe un comentario opcional...", btn_submit_rep: "Enviar Opinion",
+                        loading_opinions: "Cargando opiniones...", no_opinions: "Aun no hay opiniones sobre este usuario.",
+                        cooldown_msg: "Solo puedes dejar una opinion por usuario cada hora. Intentalo mas tarde.",
+                        btn_delete_opinion: "🗑 Eliminar",
                         min_ago: (m) => `Hace ${m} min`, h_ago: (h) => `Hace ${h} h`, d_ago: (d) => `Hace ${d} d`
                     },
                     en: {
@@ -407,11 +563,16 @@
                         user_not_exist: "User does not exist", back_to_members: "← Back to Members List",
                         member_since: "Member since", status_label: "Status", no_bio: "This user has not written a bio yet.",
                         status_online: "● Online", offline: "Offline", unknown_date: "Unknown",
-                        hidden_text: "Hidden",
-                        tooltip_add_friend: "Add friend", tooltip_friends: "Friends",
+                        hidden_text: "Hidden", tooltip_add_friend: "Add friend", tooltip_friends: "Friends",
                         tooltip_sent: "Request sent", tooltip_accept: "Accept request",
                         profile_closed: "⛔ This profile has been closed.",
                         sidebar_recent_posts: "📝 Recent Posts", loading_posts: "Loading posts...", no_posts_yet: "This user hasn't posted any threads yet.",
+                        reputation_title: "⭐ Reputation and Reviews", leave_opinion_label: "Leave an opinion about this user:",
+                        opt_positive: "👍 Positive Review", opt_negative: "👎 Negative Review",
+                        placeholder_rep: "Write an optional comment...", btn_submit_rep: "Submit Opinion",
+                        loading_opinions: "Loading reviews...", no_opinions: "No reviews for this user yet.",
+                        cooldown_msg: "You can only leave one review per user every hour. Try again later.",
+                        btn_delete_opinion: "🗑 Delete",
                         min_ago: (m) => `${m} min ago`, h_ago: (h) => `${h} h ago`, d_ago: (d) => `${d} d ago`
                     },
                     pt: {
@@ -422,11 +583,16 @@
                         user_not_exist: "O usuário não existe", back_to_members: "← Voltar para a Lista de Membros",
                         member_since: "Membro desde", status_label: "Estado", no_bio: "Este usuário ainda não escreveu uma biografia.",
                         status_online: "● Online", offline: "Desconectado", unknown_date: "Desconhecida",
-                        hidden_text: "Oculto",
-                        tooltip_add_friend: "Adicionar amigo", tooltip_friends: "Amigos",
+                        hidden_text: "Oculto", tooltip_add_friend: "Adicionar amigo", tooltip_friends: "Amigos",
                         tooltip_sent: "Pedido enviado", tooltip_accept: "Aceitar pedido",
                         profile_closed: "⛔ Este perfil foi encerrado.",
                         sidebar_recent_posts: "📝 Últimas Postagens", loading_posts: "Carregando posts...", no_posts_yet: "Este usuário ainda não publicou nenhum tópico.",
+                        reputation_title: "⭐ Reputação e Avaliações", leave_opinion_label: "Deixar uma opinião sobre este usuário:",
+                        opt_positive: "👍 Avaliação Positiva", opt_negative: "👎 Avaliação Negativa",
+                        placeholder_rep: "Escreva um comentário opcional...", btn_submit_rep: "Enviar Opinião",
+                        loading_opinions: "Carregando avaliações...", no_opinions: "Ainda não há avaliações para este usuário.",
+                        cooldown_msg: "Você só pode deixar uma avaliação por usuário a cada hora. Tente novamente mais tarde.",
+                        btn_delete_opinion: "🗑 Excluir",
                         min_ago: (m) => `Há ${m} min`, h_ago: (h) => `Há ${h} h`, d_ago: (d) => `Há ${d} d`
                     },
                     ru: {
@@ -437,11 +603,16 @@
                         user_not_exist: "Пользователь не существует", back_to_members: "← Вернуться к списку участников",
                         member_since: "Участник с", status_label: "Статус", no_bio: "Этот пользователь еще не написал биографию.",
                         status_online: "● В сети", offline: "Не в сети", unknown_date: "Неизвестно",
-                        hidden_text: "Скрыто",
-                        tooltip_add_friend: "Добавить в друзья", tooltip_friends: "Друзья",
+                        hidden_text: "Скрыто", tooltip_add_friend: "Добавить в друзья", tooltip_friends: "Друзья",
                         tooltip_sent: "Запрос отправлен", tooltip_accept: "Принять запрос",
                         profile_closed: "⛔ Этот профиль был закрыт.",
                         sidebar_recent_posts: "📝 Последние темы", loading_posts: "Загрузка постов...", no_posts_yet: "Этот пользователь еще ничего не публиковал.",
+                        reputation_title: "⭐ Репутация и отзывы", leave_opinion_label: "Оставить отзыв о пользователе:",
+                        opt_positive: "👍 Положительный отзыв", opt_negative: "👎 Отрицательный отзыв",
+                        placeholder_rep: "Напишите комментарий...", btn_submit_rep: "Отправить",
+                        loading_opinions: "Загрузка отзывов...", no_opinions: "Отзывов пока нет.",
+                        cooldown_msg: "Вы можете оставлять только один отзыв одному пользователю в час.",
+                        btn_delete_opinion: "🗑 Удалить",
                         min_ago: (m) => `${m} мин назад`, h_ago: (h) => `${h} ч назад`, d_ago: (d) => `${d} д назад`
                     },
                     ja: {
@@ -452,11 +623,16 @@
                         user_not_exist: "ユーザーが存在しません", back_to_members: "← メンバーリストに戻る",
                         member_since: "登録日", status_label: "ステータス", no_bio: "このユーザーはまだ自己紹介を書いていません。",
                         status_online: "● オンライン", offline: "オフライン", unknown_date: "不明",
-                        hidden_text: "非表示",
-                        tooltip_add_friend: "友達に追加", tooltip_friends: "友達",
+                        hidden_text: "非表示", tooltip_add_friend: "友達に追加", tooltip_friends: "友達",
                         tooltip_sent: "リクエスト送信済み", tooltip_accept: "リクエストを承認",
                         profile_closed: "⛔ このプロフィールは閉鎖されました。",
                         sidebar_recent_posts: "📝 最近の投稿", loading_posts: "投稿を読み込み中...", no_posts_yet: "このユーザーはまだスレッドを投稿していません。",
+                        reputation_title: "⭐ 評判とレビュー", leave_opinion_label: "このユーザーに意見を残す:",
+                        opt_positive: "👍 良い評価", opt_negative: "👎 悪い評価",
+                        placeholder_rep: "任意のコメントを入力...", btn_submit_rep: "意見を送信",
+                        loading_opinions: "レビューを読み込み中...", no_opinions: "まだレビューはありません。",
+                        cooldown_msg: "1時間に1回しかレビューを投稿できません。",
+                        btn_delete_opinion: "🗑 削除",
                         min_ago: (m) => `${m}分前`, h_ago: (h) => `${h}時間前`, d_ago: (d) => `${d}日前`
                     },
                     zh: {
@@ -467,28 +643,33 @@
                         user_not_exist: "用户不存在", back_to_members: "← 返回成员列表",
                         member_since: "加入时间", status_label: "状态", no_bio: "该用户尚未填写个人简介。",
                         status_online: "● 在线", offline: "离线", unknown_date: "未知",
-                        hidden_text: "已隐藏",
-                        tooltip_add_friend: "添加好友", tooltip_friends: "好友",
+                        hidden_text: "已隐藏", tooltip_add_friend: "添加好友", tooltip_friends: "好友",
                         tooltip_sent: "已发送请求", tooltip_accept: "接受请求",
                         profile_closed: "⛔ 此个人资料已被关闭。",
                         sidebar_recent_posts: "📝 最新帖子", loading_posts: "正在加载帖子...", no_posts_yet: "该用户尚未发布任何主题。",
+                        reputation_title: "⭐ 声誉与评价", leave_opinion_label: "留下对该用户的评价：",
+                        opt_positive: "👍 好评", opt_negative: "👎 差评",
+                        placeholder_rep: "写下可选的评论...", btn_submit_rep: "提交评价",
+                        loading_opinions: "正在加载评价...", no_opinions: "暂无评价。",
+                        cooldown_msg: "每个用户每小时只能留下一次评价。",
+                        btn_delete_opinion: "🗑 删除",
                         min_ago: (m) => `${m}分钟前`, h_ago: (h) => `${h}小时前`, d_ago: (d) => `${d}天前`
                     }
                 };
 
-                function obtenerIdiomaActual() {
-                    return localStorage.getItem('zeoWorksIdioma') || 'es';
-                }
+                function obtenerIdiomaActual() { return localStorage.getItem('zeoWorksIdioma') || 'es'; }
 
                 function aplicarTraduccionesGlobales() {
                     const lang = obtenerIdiomaActual();
                     const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
-
                     document.querySelectorAll('[data-i18n]').forEach(el => {
                         const key = el.getAttribute('data-i18n');
                         if (t[key]) el.textContent = t[key];
                     });
-
+                    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                        const key = el.getAttribute('data-i18n-placeholder');
+                        if (t[key]) el.placeholder = t[key];
+                    });
                     const selectElem = document.getElementById('select-idioma');
                     if (selectElem) selectElem.value = lang;
                 }
@@ -498,15 +679,17 @@
                     location.reload();
                 }
 
-                document.addEventListener("DOMContentLoaded", () => {
-                    aplicarTraduccionesGlobales();
-                });
+                document.addEventListener("DOMContentLoaded", () => { aplicarTraduccionesGlobales(); });
 
                 const SUPABASE_URL = 'https://bnwtmjqzfyjwvtzhoyhe.supabase.co';
                 const SUPABASE_ANON_KEY = 'sb_publishable_iV5d7qWl7NcecKV-aYDfAw_FkNnCOXK';
                 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
                 let usuarioActualSesion = null;
+                let miIdSesion = null;
+                let rolUsuarioActual = 'Miembro';
+                let perfilUserId = null;
+
                 try {
                     const raw = localStorage.getItem('usuarioZeoWorks');
                     if (raw) {
@@ -544,16 +727,11 @@
                 function formatearUltimaConexion(fechaIso, ocultarUltimavez, esAmigoOPropietario) {
                     const lang = obtenerIdiomaActual();
                     const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
-
-                    if (ocultarUltimavez && !esAmigoOPropietario) {
-                        return { texto: t.hidden_text, enLinea: false };
-                    }
-
+                    if (ocultarUltimavez && !esAmigoOPropietario) return { texto: t.hidden_text, enLinea: false };
                     if (!fechaIso) return { texto: t.offline, enLinea: false };
                     const ahora = new Date();
                     const ultimaConexion = new Date(fechaIso);
                     const segundosDiferencia = Math.floor((ahora - ultimaConexion) / 1000);
-
                     if (segundosDiferencia < 300) return { texto: t.status_online, enLinea: true };
                     const minutos = Math.floor(segundosDiferencia / 60);
                     if (minutos < 60) return { texto: t.min_ago(minutos), enLinea: false };
@@ -590,20 +768,22 @@
                         return;
                     }
 
-                    let miIdSesion = null;
+                    perfilUserId = perfilUser.id;
                     let esPropietario = false;
                     let esAmigo = false;
 
                     if (usuarioActualSesion) {
+                        const nombreSesion = usuarioActualSesion.Nombre || usuarioActualSesion.nombre;
                         const { data: meData } = await _supabase
                             .from('Usuarios')
                             .select('id, Rol')
-                            .eq('Nombre', usuarioActualSesion.Nombre || usuarioActualSesion.nombre)
+                            .eq('Nombre', nombreSesion)
                             .single();
 
                         if (meData) {
                             miIdSesion = meData.id;
-                            if (miIdSesion === perfilUser.id || meData.Rol === 'Creador' || meData.Rol === 'Moderador') {
+                            rolUsuarioActual = meData.Rol || 'Miembro';
+                            if (miIdSesion === perfilUser.id || rolUsuarioActual === 'Creador' || rolUsuarioActual === 'Moderador') {
                                 esPropietario = true;
                             } else {
                                 const { data: amistadData } = await _supabase
@@ -612,15 +792,12 @@
                                     .eq('estado', 'aceptado')
                                     .or(`and(usuario_id.eq.${miIdSesion},amigo_id.eq.${perfilUser.id}),and(usuario_id.eq.${perfilUser.id},amigo_id.eq.${miIdSesion})`);
 
-                                if (amistadData && amistadData.length > 0) {
-                                    esAmigo = true;
-                                }
+                                if (amistadData && amistadData.length > 0) esAmigo = true;
                             }
                         }
                     }
 
                     const esAmigoOPropietario = esPropietario || esAmigo;
-
                     const avatarPorDefecto = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
                     const fotoAvatar = perfilUser.Avatar ? perfilUser.Avatar : avatarPorDefecto;
                     const rolUsuario = perfilUser.Rol ? perfilUser.Rol : 'Miembro';
@@ -631,6 +808,15 @@
 
                     const esBanned = rolUsuario.trim().toLowerCase() === 'banned';
 
+                    // OCULTAR O MOSTRAR SECCION DE REPUTACION COMPLETA SEGUN SI ESTA BANEADO
+                    const seccionReputacion = document.getElementById('seccion-reputacion-general');
+                    if (esBanned) {
+                        if (seccionReputacion) seccionReputacion.style.display = 'none';
+                    } else {
+                        if (seccionReputacion) seccionReputacion.style.display = 'block';
+                        cargarReputacionUsuario(perfilUser.id, miIdSesion, false);
+                    }
+
                     let fechaFormateada = t.unknown_date;
                     if (perfilUser.ocultar_registro && !esAmigoOPropietario) {
                         fechaFormateada = t.hidden_text;
@@ -639,7 +825,7 @@
                     }
 
                     const estado = formatearUltimaConexion(perfilUser.ultima_conexion, perfilUser.ocultar_ultimavez, esAmigoOPropietario);
-                    const bioTexto = esBanned ? `<span style="color: #ff4d4d; font-weight: bold;" data-i18n="profile_closed">${t.profile_closed}</span>` : (perfilUser.bio ? perfilUser.bio : t.no_bio);
+                    const bioTexto = esBanned ? `<span style="color: #ff4d4d; font-weight: bold;">${t.profile_closed}</span>` : (perfilUser.bio ? perfilUser.bio : t.no_bio);
 
                     let enlaceHtml = '';
                     if (perfilUser.sitio_web && !esBanned) {
@@ -678,19 +864,12 @@
                             <img src="${fotoAvatar}" class="avatar-perfil" alt="Avatar">
                             <div ${attrRolNombre}>${perfilUser.Nombre}</div>
                             <div ${attrRolBadge}>${rolUsuario}</div>
-
                             <div class="bio-box">${bioTexto}</div>
                             ${enlaceHtml}
-
                             <div class="detalles-perfil">
-                                <div class="detalle-item">
-                                    ${t.member_since} <span>${fechaFormateada}</span>
-                                </div>
-                                <div class="detalle-item">
-                                    ${t.status_label} <span style="color: ${estado.enLinea ? '#2ecc71' : '#aaa'};">${estado.texto}</span>
-                                </div>
+                                <div class="detalle-item">${t.member_since} <span>${fechaFormateada}</span></div>
+                                <div class="detalle-item">${t.status_label} <span style="color: ${estado.enLinea ? '#2ecc71' : '#aaa'};">${estado.texto}</span></div>
                             </div>
-
                             <a href="Miembros.html" class="btn-volver">${t.back_to_members}</a>
                         </div>
                     `;
@@ -719,35 +898,166 @@
                     posts.forEach(p => {
                         const prom = p.estrellas_promedio ? Number(p.estrellas_promedio).toFixed(1) : '0.0';
                         const conteo = p.estrellas_conteo || 0;
-
                         html += `
                             <a href="Tema.html?id=${p.id}" class="post-reciente-item">
                                 <div class="post-reciente-titulo">${escaparHtml(p.titulo)}</div>
-                                <div class="post-reciente-estrellas">
-                                    ⭐ ${prom} <small style="color: #aaa;">(${conteo})</small>
-                                </div>
+                                <div class="post-reciente-estrellas">⭐ ${prom} <small style="color: #aaa;">(${conteo})</small></div>
                             </a>
                         `;
                     });
-
                     contenedorPosts.innerHTML = html;
                 }
 
-                async function enviarSolicitud(miId, amigoId) {
-                    const { error } = await _supabase
-                        .from('Amistades')
-                        .insert([{ usuario_id: miId, amigo_id: amigoId, estado: 'pendiente' }]);
+                async function cargarReputacionUsuario(perfilId, idSesionActual, esBanned) {
+                    if (esBanned) return;
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+                    const contenedorOpiniones = document.getElementById('contenedor-opiniones');
+                    const formBox = document.getElementById('form-reputacion-box');
 
+                    if (!idSesionActual || idSesionActual === perfilId) {
+                        formBox.style.display = 'none';
+                    } else {
+                        formBox.style.display = 'flex';
+                    }
+
+                    const { data: opiniones, error } = await _supabase
+                        .from('Reputacion_Usuarios')
+                        .select('*')
+                        .eq('usuario_perfil_id', perfilId)
+                        .order('created_at', { ascending: false });
+
+                    if (error || !opiniones || opiniones.length === 0) {
+                        document.getElementById('count-pos').textContent = '0';
+                        document.getElementById('count-neg').textContent = '0';
+                        contenedorOpiniones.innerHTML = `<p style="color: #777; font-size: 0.9rem; text-align: center;">${t.no_opinions}</p>`;
+                        return;
+                    }
+
+                    let pos = 0;
+                    let neg = 0;
+                    opiniones.forEach(op => {
+                        if (op.tipo === 'positivo') pos++;
+                        else if (op.tipo === 'negativo') neg++;
+                    });
+
+                    document.getElementById('count-pos').textContent = pos;
+                    document.getElementById('count-neg').textContent = neg;
+
+                    const idsAutores = [...new Set(opiniones.map(o => o.usuario_autor_id))];
+                    const { data: autores } = await _supabase
+                        .from('Usuarios')
+                        .select('id, Nombre, Avatar, Rol')
+                        .in('id', idsAutores);
+
+                    const rolLimpio = rolUsuarioActual ? rolUsuarioActual.trim().toLowerCase() : '';
+                    const esModOrCreator = (rolLimpio === 'creador' || rolLimpio === 'moderador');
+
+                    let htmlOpiniones = '';
+                    opiniones.forEach(op => {
+                        const autor = autores ? autores.find(a => a.id === op.usuario_autor_id) : null;
+                        const nombreAutor = autor ? autor.Nombre : 'Usuario';
+                        const avatarAutor = autor && autor.Avatar ? autor.Avatar : "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
+                        const infoRol = obtenerEstiloRol(autor ? autor.Rol : 'Miembro');
+                        const attrRolAutor = infoRol.tipo === 'class' ? `class="rol-holografico"` : `style="${infoRol.valor.split(';')[0]}"`;
+                        const fecha = new Date(op.created_at).toLocaleDateString();
+
+                        const badgeTipo = op.tipo === 'positivo'
+                            ? `<span style="color: #2ecc71; font-weight: bold;">👍 Positivo</span>`
+                            : `<span style="color: #ff4d4d; font-weight: bold;">👎 Negativo</span>`;
+
+                        let btnEliminarOpHtml = '';
+                        if (esModOrCreator) {
+                            btnEliminarOpHtml = `<button class="btn-eliminar-opinion" onclick="eliminarOpinion('${op.id}')">${t.btn_delete_opinion}</button>`;
+                        }
+
+                        htmlOpiniones += `
+                            <div class="opinion-card-item">
+                                <div class="opinion-header-info">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <img src="${avatarAutor}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid #ff4d4d;">
+                                        <a href="Perfil.html?nombre=${encodeURIComponent(nombreAutor)}" ${attrRolAutor} style="text-decoration: none;">${nombreAutor}</a>
+                                    </div>
+                                    <div>
+                                        ${badgeTipo}
+                                        <small style="color: #777; margin-left: 10px;">${fecha}</small>
+                                        ${btnEliminarOpHtml}
+                                    </div>
+                                </div>
+                                ${op.comentario ? `<div style="color: #ddd; font-size: 0.9rem; margin-top: 6px; word-break: break-word;">${escaparHtml(op.comentario)}</div>` : ''}
+                            </div>
+                        `;
+                    });
+
+                    contenedorOpiniones.innerHTML = htmlOpiniones;
+                }
+
+                async function enviarReputacion() {
+                    const lang = obtenerIdiomaActual();
+                    const t = ZEO_TRADUCCIONES[lang] || ZEO_TRADUCCIONES.es;
+
+                    if (!miIdSesion) {
+                        alert("Debes iniciar sesion para dejar una opinion.");
+                        window.location.href = 'Login.html';
+                        return;
+                    }
+
+                    const unaHoraAtras = new Date(new Date().getTime() - 60 * 60 * 1000).toISOString();
+                    const { data: opinionesRecientes } = await _supabase
+                        .from('Reputacion_Usuarios')
+                        .select('created_at')
+                        .eq('usuario_perfil_id', perfilUserId)
+                        .eq('usuario_autor_id', miIdSesion)
+                        .gte('created_at', unaHoraAtras);
+
+                    if (opinionesRecientes && opinionesRecientes.length > 0) {
+                        alert(t.cooldown_msg);
+                        return;
+                    }
+
+                    const tipo = document.getElementById('select-tipo-rep').value;
+                    const comentario = document.getElementById('input-comentario-rep').value.trim();
+
+                    const { error } = await _supabase
+                        .from('Reputacion_Usuarios')
+                        .insert([{
+                            usuario_perfil_id: perfilUserId,
+                            usuario_autor_id: miIdSesion,
+                            tipo: tipo,
+                            comentario: comentario
+                        }]);
+
+                    if (!error) {
+                        document.getElementById('input-comentario-rep').value = '';
+                        cargarReputacionUsuario(perfilUserId, miIdSesion, false);
+                    } else {
+                        alert('Error al enviar opinion: ' + error.message);
+                    }
+                }
+
+                async function eliminarOpinion(idOpinion) {
+                    if (!confirm("¿Estas seguro de que deseas eliminar esta opinion de reputacion?")) return;
+
+                    const { error } = await _supabase
+                        .from('Reputacion_Usuarios')
+                        .delete()
+                        .eq('id', idOpinion);
+
+                    if (!error) {
+                        cargarReputacionUsuario(perfilUserId, miIdSesion, false);
+                    } else {
+                        alert("Error al eliminar la opinion: " + error.message);
+                    }
+                }
+
+                async function enviarSolicitud(miId, amigoId) {
+                    const { error } = await _supabase.from('Amistades').insert([{ usuario_id: miId, amigo_id: amigoId, estado: 'pendiente' }]);
                     if (!error) location.reload();
                     else alert('Error: ' + error.message);
                 }
 
                 async function aceptarSolicitud(relacionId) {
-                    const { error } = await _supabase
-                        .from('Amistades')
-                        .update({ estado: 'aceptado' })
-                        .eq('id', relacionId);
-
+                    const { error } = await _supabase.from('Amistades').update({ estado: 'aceptado' }).eq('id', relacionId);
                     if (!error) location.reload();
                     else alert('Error: ' + error.message);
                 }
