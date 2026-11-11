@@ -905,7 +905,7 @@
 
                     const contenedorPost = document.getElementById('novedad-ultimo-post');
                     if (ultimoTema) {
-                        contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <a href="tema.html?id=${ultimoTema.id}" title="${escaparHtml(ultimoTema.titulo)}">${escaparHtml(ultimoTema.titulo)}</a>`;
+                        contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <a href="Tema.html?id=${ultimoTema.id}" title="${escaparHtml(ultimoTema.titulo)}">${escaparHtml(ultimoTema.titulo)}</a>`;
                     } else {
                         contenedorPost.innerHTML = `<strong>${t.latest_post}</strong> <span style="color: #777;">${t.no_recent_posts}</span>`;
                     }
