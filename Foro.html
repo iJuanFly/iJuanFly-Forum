@@ -557,8 +557,8 @@
                 <a href="#" data-i18n="nav_members">Miembros</a>
                 <div class="dropdown-content">
                     <a href="Miembros.html" data-i18n="nav_members_list">Lista de Miembros</a>
-                    <a href="cp.html" id="menu-cp" style="color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
-                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
+                    <a href="cp.html" id="menu-cp" style="display: none; color: #ff4d4d; font-weight: bold;" data-i18n="nav_my_panel">Mi Panel</a>
+                    <a href="#" id="menu-salir" onclick="cerrarSesionGlobal()" style="display: none; color: #ff6b6b;" data-i18n="nav_logout">Cerrar Sesion</a>
                 </div>
             </li>
         </ul>
@@ -1156,6 +1156,29 @@
 
                 function cerrarModalTema() { document.getElementById('modal-tema').style.display = 'none'; }
 
+                async function subirArchivoBucket(file, nombreBucket = 'foro-media') {
+                    const partes = file.name.split('.');
+                    const ext = partes.length > 1 ? partes.pop().toLowerCase() : 'bin';
+                    const ruta = `temas/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+                    const { error: errorSubida } = await _supabase.storage
+                        .from(nombreBucket)
+                        .upload(ruta, file, {
+                            cacheControl: '3600',
+                            upsert: false
+                        });
+
+                    if (errorSubida) {
+                        throw new Error(errorSubida.message);
+                    }
+
+                    const { data: urlData } = _supabase.storage
+                        .from(nombreBucket)
+                        .getPublicUrl(ruta);
+
+                    return urlData.publicUrl;
+                }
+
                 async function crearTema() {
                     const titulo = document.getElementById('input-titulo-tema').value.trim();
                     const categoriaId = document.getElementById('select-categoria').value;
@@ -1169,47 +1192,54 @@
                     if (!titulo || !contenidoHTML) { alert("Por favor completa el titulo y el contenido."); return; }
                     if (textoLimpio.length > 1000) { alert("El contenido excede el limite maximo de 1000 caracteres."); return; }
 
-                    btnPub.disabled = true;
-                    let arregloMultimedia = [];
-
+                    const maxBytes = 50 * 1024 * 1024;
                     if (inputMedia.files && inputMedia.files.length > 0) {
-                        txtProgreso.style.display = 'inline';
                         for (let i = 0; i < inputMedia.files.length; i++) {
-                            const file = inputMedia.files[i];
-                            const base64Data = await convertirBase64Directa(file);
-                            const esVideo = file.type.startsWith('video/');
-                            arregloMultimedia.push({ tipo: esVideo ? 'video' : 'imagen', url: base64Data });
+                            if (inputMedia.files[i].size > maxBytes) {
+                                alert(`El archivo "${inputMedia.files[i].name}" supera el limite de 50 MB.`);
+                                return;
+                            }
                         }
                     }
 
-                    const { error } = await _supabase.from('temas_foro').insert([{
-                        categoria_id: categoriaId || null,
-                        usuario_id: usuarioActual.id,
-                        titulo: titulo,
-                        contenido: contenidoHTML,
-                        imagen: arregloMultimedia.length > 0 ? arregloMultimedia[0].url : null,
-                        video: arregloMultimedia.find(m => m.tipo === 'video')?.url || null,
-                        multimedia: arregloMultimedia,
-                        cerrado: false,
-                        fijado: false,
-                        estrellas_promedio: 0,
-                        estrellas_conteo: 0
-                    }]);
+                    btnPub.disabled = true;
+                    let arregloMultimedia = [];
 
-                    txtProgreso.style.display = 'none';
-                    btnPub.disabled = false;
-                    if (error) { alert("Error al crear el tema: " + error.message); return; }
+                    try {
+                        if (inputMedia.files && inputMedia.files.length > 0) {
+                            txtProgreso.style.display = 'inline';
+                            for (let i = 0; i < inputMedia.files.length; i++) {
+                                const file = inputMedia.files[i];
+                                const urlPublica = await subirArchivoBucket(file, 'foro-media');
+                                const esVideo = file.type.startsWith('video/');
+                                arregloMultimedia.push({ tipo: esVideo ? 'video' : 'imagen', url: urlPublica });
+                            }
+                        }
 
-                    cerrarModalTema();
-                    location.reload();
-                }
+                        const { error } = await _supabase.from('temas_foro').insert([{
+                            categoria_id: categoriaId || null,
+                            usuario_id: usuarioActual.id,
+                            titulo: titulo,
+                            contenido: contenidoHTML,
+                            imagen: arregloMultimedia.find(m => m.tipo === 'imagen')?.url || null,
+                            video: arregloMultimedia.find(m => m.tipo === 'video')?.url || null,
+                            multimedia: arregloMultimedia,
+                            cerrado: false,
+                            fijado: false,
+                            estrellas_promedio: 0,
+                            estrellas_conteo: 0
+                        }]);
 
-                function convertirBase64Directa(file) {
-                    return new Promise((resolve) => {
-                        const reader = new FileReader();
-                        reader.readAsDataURL(file);
-                        reader.onload = (event) => { resolve(event.target.result); };
-                    });
+                        if (error) { alert("Error al crear el tema: " + error.message); return; }
+
+                        cerrarModalTema();
+                        location.reload();
+                    } catch (err) {
+                        alert("Error al subir archivo al bucket: " + err.message);
+                    } finally {
+                        txtProgreso.style.display = 'none';
+                        btnPub.disabled = false;
+                    }
                 }
 
                 function escaparHtml(str) {
